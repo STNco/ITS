@@ -172,7 +172,7 @@
   /* ---------- Traffic popup card (그림2-3 형태를 교통용으로 변경) ---------- */
   .tpopup{
     position:absolute;top:16px;left:116px;z-index:950;
-    width:300px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    width:360px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
     overflow:hidden;display:none;
   }
   .tpopup.show{display:block;}
@@ -185,11 +185,16 @@
   .tpopup .pb{padding:12px 14px;}
   .kv{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-600);padding:3px 0;}
   .kv b{color:var(--ink-900);font-weight:700;}
-  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;}
-  .stat-cell{background:var(--teal-050);border-radius:8px;padding:8px 6px;text-align:center;}
-  .stat-cell .ic{font-size:16px;}
-  .stat-cell .v{font-size:13px;font-weight:800;margin-top:2px;color:var(--ink-900);}
-  .stat-cell .l{font-size:10px;color:var(--ink-400);margin-top:1px;}
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0;}
+  .stat-grid .grp-label{grid-column:1/-1;font-size:10.5px;font-weight:800;color:var(--ink-400);margin:6px 0 -1px;padding-top:4px;border-top:1px dashed var(--line);}
+  .stat-grid .grp-label:first-child{border-top:none;padding-top:0;margin-top:0;}
+  .stat-cell{background:var(--teal-050);border-radius:8px;padding:8px 4px;text-align:center;}
+  .stat-cell .ic{font-size:15px;}
+  .stat-cell .v{font-size:12.5px;font-weight:800;margin-top:2px;color:var(--ink-900);white-space:nowrap;}
+  .stat-cell .l{font-size:9.5px;color:var(--ink-400);margin-top:1px;}
+  .trend{font-size:9px;margin-left:2px;font-weight:900;}
+  .trend.up{color:var(--red);}
+  .trend.down{color:var(--color-inspection);}
   .risk-bar{
     border-radius:8px;padding:10px;text-align:center;font-weight:800;font-size:13px;
     display:flex;align-items:center;justify-content:center;gap:8px;
@@ -313,12 +318,28 @@
       <div class="kv"><span>데이터 갱신 일시</span><b id="tp-time">2026년 08월 24일 09:12</b></div>
 
       <div class="stat-grid">
+        <div class="grp-label">기상 · 교통 현황</div>
         <div class="stat-cell"><div class="ic">🌡️</div><div class="v" id="tp-temp">31.2°C</div><div class="l">온도</div></div>
         <div class="stat-cell"><div class="ic">💧</div><div class="v" id="tp-hum">54.1%</div><div class="l">습도</div></div>
         <div class="stat-cell"><div class="ic">💨</div><div class="v" id="tp-wind">2.4m/s</div><div class="l">풍속</div></div>
         <div class="stat-cell"><div class="ic">❄️</div><div class="v" id="tp-precip">없음</div><div class="l">눈&amp;비</div></div>
-        <div class="stat-cell"><div class="ic">🚗</div><div class="v" id="tp-speed">42km/h</div><div class="l">평균속도</div></div>
+        <div class="stat-cell"><div class="ic">🚙</div><div class="v" id="tp-speed">42km/h</div><div class="l">평균속도</div></div>
         <div class="stat-cell"><div class="ic">⚠️</div><div class="v" id="tp-risk">낮음</div><div class="l">현재위험도</div></div>
+
+        <div class="grp-label">교통량 · 위험도</div>
+        <div class="stat-cell"><div class="ic">🚗</div><div class="v"><span id="tp-vehcnt">128</span><span class="trend" id="tp-vehcnt-t">▲</span></div><div class="l">차량 수</div></div>
+        <div class="stat-cell"><div class="ic">🚶</div><div class="v"><span id="tp-pedcnt">14</span><span class="trend" id="tp-pedcnt-t">▼</span></div><div class="l">보행자 수</div></div>
+        <div class="stat-cell"><div class="ic">📊</div><div class="v"><span id="tp-avgrisk">보통</span><span class="trend" id="tp-avgrisk-t">▲</span></div><div class="l">평균위험도</div></div>
+
+        <div class="grp-label">차종별 통행량</div>
+        <div class="stat-cell"><div class="ic">🚘</div><div class="v"><span id="tp-car">96</span><span class="trend" id="tp-car-t">▲</span></div><div class="l">승용</div></div>
+        <div class="stat-cell"><div class="ic">🚚</div><div class="v"><span id="tp-truck">21</span><span class="trend" id="tp-truck-t">▼</span></div><div class="l">트럭</div></div>
+        <div class="stat-cell"><div class="ic">🚌</div><div class="v"><span id="tp-bus">11</span><span class="trend" id="tp-bus-t">▲</span></div><div class="l">버스</div></div>
+
+        <div class="grp-label">보행·이륜 통행량</div>
+        <div class="stat-cell"><div class="ic">🚶</div><div class="v"><span id="tp-walker">14</span><span class="trend" id="tp-walker-t">▼</span></div><div class="l">보행자</div></div>
+        <div class="stat-cell"><div class="ic">🛴</div><div class="v"><span id="tp-cycle">5</span><span class="trend" id="tp-cycle-t">▲</span></div><div class="l">킥보드&amp;자전거</div></div>
+        <div class="stat-cell"><div class="ic">🏍️</div><div class="v"><span id="tp-moto">3</span><span class="trend" id="tp-moto-t">▼</span></div><div class="l">오토바이</div></div>
       </div>
 
       <div class="risk-bar safe" id="tp-riskbar">정상 서행 안내중</div>
@@ -502,7 +523,28 @@ function openPopup(p){
   bar.className = 'risk-bar ' + r.cls;
   bar.textContent = r.bar;
   document.getElementById('tp-msg').textContent = `표시문구: "${r.msg}"`;
+
+  /* 신규 3x9 항목: 값 + 1시간 전 대비 증감(▲빨강=증가 / ▼파랑=감소) */
+  const riskLabels = ['낮음','보통','높음'];
+  setStat('tp-vehcnt', Math.round(80 + Math.random()*100));
+  setStat('tp-pedcnt', Math.round(4 + Math.random()*30));
+  setStat('tp-avgrisk', riskLabels[Math.floor(Math.random()*3)], true);
+  setStat('tp-car', Math.round(50 + Math.random()*80));
+  setStat('tp-truck', Math.round(5 + Math.random()*30));
+  setStat('tp-bus', Math.round(2 + Math.random()*15));
+  setStat('tp-walker', Math.round(4 + Math.random()*30));
+  setStat('tp-cycle', Math.round(1 + Math.random()*10));
+  setStat('tp-moto', Math.round(0 + Math.random()*8));
+
   document.getElementById('tpopup').classList.add('show');
+}
+/* 값 갱신 + 1시간 전 대비 증감 화살표(▲빨강 증가 / ▼파랑 감소) 표시 */
+function setStat(id, value, isLabel){
+  document.getElementById(id).textContent = value;
+  const up = Math.random() < 0.5;
+  const t = document.getElementById(id+'-t');
+  t.textContent = up ? '▲' : '▼';
+  t.className = 'trend ' + (up ? 'up' : 'down');
 }
 function closePopup(){ document.getElementById('tpopup').classList.remove('show'); }
 
