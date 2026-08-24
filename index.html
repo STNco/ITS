@@ -55,7 +55,7 @@
     color:var(--ink-900);
     overflow:hidden;
   }
-  .brand .name, .tbl-head .title{ font-family:'JalnanGothic','Noto Sans KR',sans-serif; }
+  .brand .name, .prod-title{ font-family:'JalnanGothic','Noto Sans KR',sans-serif; }
   /* ---------- Header (실제 캡처 기준: 흰 배경 + 오렌지 로고 + 오렌지 활성 언더라인) ---------- */
   header{
     height:56px;
@@ -208,32 +208,41 @@
   .btn-primary{background:var(--color-dark);color:#fff;}
   .btn-ghost{background:#534e4e;color:#fff;}
 
-  /* ---------- 센서현황 (그림2-4 traffic table) ---------- */
-  .tbl-panel{
-    position:fixed;inset:0;background:rgba(12,30,32,.42);z-index:1300;
-    display:none;align-items:center;justify-content:center;
+  /* ========== 제품현황 페이지 (모달 아님, 실제 시스템처럼 화면 전환) ========== */
+  #screenProduct{
+    display:none;height:calc(100vh - 56px);overflow:auto;background:#f7f8f9;
+    padding:24px 28px 60px;
   }
-  .tbl-panel.show{display:flex;}
-  .tbl-card{
-    width:min(1040px,94vw);max-height:88vh;background:#fff;border-radius:14px;
-    box-shadow:0 20px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden;
+  #screenProduct.show{display:block;}
+  .prod-title{font-size:22px;font-weight:800;color:var(--ink-900);margin:0 0 16px;}
+  .prod-sub{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+  .prod-sub .left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .prod-chip{
+    display:flex;align-items:center;gap:6px;border:1.5px solid var(--color-main);color:var(--color-dark);
+    background:#fff;padding:6px 14px;border-radius:8px;font-weight:800;font-size:13px;
   }
-  .tbl-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
-  .tbl-head .title{font-weight:800;font-size:15px;display:flex;align-items:center;gap:10px;}
-  .tbl-head .title .addr{font-size:12px;font-weight:600;color:var(--ink-400);}
-  .tbl-head .close{border:none;background:none;font-size:18px;color:var(--ink-400);cursor:pointer;}
-  .tbl-toolbar{padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);}
+  .prod-addr{color:var(--ink-600);font-size:13px;display:flex;align-items:center;gap:5px;}
+  .prod-actions{display:flex;gap:8px;}
+  .prod-actions button{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink-600);}
+  .prod-actions .search{background:#f4711f;border-color:#f4711f;color:#fff;}
+  .prod-actions .xls{background:#108b4b;border-color:#108b4b;color:#fff;}
+
+  .prod-toolbar{
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:10px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;
+  }
   .tabs{display:flex;gap:4px;background:#f1f3f4;padding:3px;border-radius:8px;}
-  .tabs button{border:none;background:none;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;color:var(--ink-600);cursor:pointer;}
-  .tabs button.active{background:#fff;color:var(--teal-700);box-shadow:0 1px 3px rgba(0,0,0,.12);}
-  .range-pick{font-size:12px;color:var(--ink-600);background:#f6f8f8;padding:7px 12px;border-radius:8px;display:flex;align-items:center;gap:6px;}
-  .period-btns{display:flex;gap:4px;}
-  .period-btns button{border:1px solid var(--line);background:#fff;padding:6px 10px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-600);cursor:pointer;}
-  .period-btns button.active{background:var(--teal-600);border-color:var(--teal-600);color:#fff;}
-  .tbl-actions{display:flex;gap:6px;}
-  .tbl-actions button{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:6px;font-size:11.5px;font-weight:700;cursor:pointer;color:var(--ink-600);}
-  .tbl-actions .xls{background:#108b4b;color:#fff;border-color:#108b4b;}
-  .tbl-scroll{overflow:auto;padding:0 20px 8px;}
+  .tabs button{border:none;background:none;padding:8px 16px;border-radius:6px;font-size:12.5px;font-weight:700;color:var(--ink-600);cursor:pointer;}
+  .tabs button.active{background:#fff;color:var(--color-dark);box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .datebox-label{font-size:12px;color:var(--ink-600);font-weight:700;}
+  .datebox{font-size:12.5px;color:var(--ink-900);background:#f6f8f8;padding:8px 12px;border-radius:8px;display:flex;align-items:center;gap:6px;font-weight:600;}
+  .period-btns{display:flex;gap:6px;margin-left:auto;}
+  .period-btns button{border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;color:var(--ink-600);cursor:pointer;}
+  .period-btns button.active{background:#fff5ef;border-color:#f4711f;color:#f4711f;}
+
+  .prod-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .prod-card .card-title{padding:14px 18px;font-weight:800;font-size:14px;color:var(--ink-900);border-bottom:1px solid var(--line);}
+  .tbl-scroll{overflow:auto;padding:0 18px 8px;}
   table.data{width:100%;border-collapse:collapse;font-size:12px;}
   table.data thead th{
     position:sticky;top:0;background:#f6f8f8;color:var(--ink-600);font-weight:800;
@@ -245,9 +254,33 @@
   .badge.safe{background:var(--green);}
   .badge.caution{background:var(--orange);}
   .badge.danger{background:var(--red);}
-  .tbl-foot{padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:4px;border-top:1px solid var(--line);}
+  .tbl-foot{padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:4px;border-top:1px solid var(--line);}
   .tbl-foot button{border:1px solid var(--line);background:#fff;width:28px;height:28px;border-radius:6px;font-size:11.5px;cursor:pointer;color:var(--ink-600);}
   .tbl-foot button.active{background:#111113;border-color:#111113;color:#fff;font-weight:800;}
+
+  /* ---------- 그래프 대시보드 (교통관제 전용 시각화) ---------- */
+  #graphView{display:none;}
+  #graphView.show{display:block;}
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;}
+  .kpi-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;}
+  .kpi-card .k-lbl{font-size:12px;color:var(--ink-600);font-weight:700;margin-bottom:8px;}
+  .kpi-card .k-val{font-size:22px;font-weight:800;color:var(--ink-900);}
+  .kpi-card .k-val span{font-size:12px;font-weight:700;margin-left:4px;}
+  .chart-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:16px;margin-bottom:16px;}
+  .chart-panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;}
+  .chart-panel .card-title{font-weight:800;font-size:14px;color:var(--ink-900);margin-bottom:14px;}
+  .donut-wrap{display:flex;align-items:center;gap:18px;}
+  .donut-canvas-wrap{position:relative;width:150px;height:150px;flex:none;}
+  .donut-canvas-wrap canvas{width:100%!important;height:100%!important;}
+  .donut-legend{flex:1;display:flex;flex-direction:column;gap:9px;}
+  .donut-legend li{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--ink-600);font-weight:600;list-style:none;}
+  .donut-legend li .sw{width:9px;height:9px;border-radius:2px;margin-right:8px;flex:none;}
+  .donut-legend li .name{display:flex;align-items:center;flex:1;}
+  .donut-legend li .pct{font-weight:800;color:var(--ink-900);}
+  .bar-panel .chart-canvas-wrap{height:230px;}
+  .split-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .chart-canvas-wrap{position:relative;height:200px;}
+  .chart-canvas-wrap canvas{width:100%!important;height:100%!important;}
 
   /* leaflet popup strip (기상 마커용 - 기존 화면 재사용 톤) */
   .leaflet-popup-content-wrapper{border-radius:8px;}
@@ -285,7 +318,7 @@
   </div>
 </header>
 
-<div class="stage">
+<div class="stage" id="screenMap">
   <div id="map"></div>
 
   <!-- 좌측 요약 컬럼 (실제 화면: 세로 개별 카드) -->
@@ -364,34 +397,40 @@
   <div class="attrib-note">© OpenStreetMap contributors</div>
 </div>
 
-<!-- 센서현황 상세 테이블 (그림2-4 → 교통 버전) -->
-<div class="tbl-panel" id="tblPanel">
-  <div class="tbl-card">
-    <div class="tbl-head">
-      <div class="title">제품현황 · <span id="tbl-id">TI-25-0001</span> <span class="addr" id="tbl-addr">경기 안양시 동안구 평촌대로</span></div>
-      <button class="close" onclick="closeTable()">✕</button>
+<!-- 제품현황 페이지 (그림1 실제 화면 기준: 팝업이 아니라 화면 전환) -->
+<div id="screenProduct">
+  <h1 class="prod-title">제품현황</h1>
+  <div class="prod-sub">
+    <div class="left">
+      <div class="prod-chip">◆ <span id="tbl-id">TI-25-0001</span></div>
+      <div class="prod-addr">📍 <span id="tbl-addr">경기 안양시 동안구 평촌대로</span></div>
     </div>
-    <div class="tbl-toolbar">
-      <div class="tabs">
-        <button class="active">Raw Data</button>
-        <button>Graph</button>
-        <button>지도</button>
-      </div>
-      <div class="range-pick">📅 2026-08-24 오전 09:12 <span style="color:var(--ink-400)">·</span>
-        <div class="period-btns">
-          <button class="active">12시간</button>
-          <button>24시간</button>
-          <button>1주</button>
-          <button>1개월</button>
-          <button>3개월</button>
-        </div>
-      </div>
-      <div class="tbl-actions">
-        <button onclick="closeTable()">◀ 이전화면</button>
-        <button>🔍 검색</button>
-        <button class="xls">⬇ Excel 다운로드</button>
-      </div>
+    <div class="prod-actions">
+      <button onclick="closeTable()">‹ 뒤로가기</button>
+      <button class="search">🔍 검색</button>
+      <button class="xls">⬇ Excel 다운로드</button>
     </div>
+  </div>
+
+  <div class="prod-toolbar">
+    <div class="tabs">
+      <button class="active" id="tabGraph" onclick="switchTab('graph')">Graph</button>
+      <button id="tabRaw" onclick="switchTab('raw')">Raw Data</button>
+    </div>
+    <span class="datebox-label">기준일</span>
+    <div class="datebox">📅 2026-08-24 오후 04:21</div>
+    <div class="period-btns">
+      <button class="active">12시간</button>
+      <button>24시간</button>
+      <button>1주일</button>
+      <button>1개월</button>
+      <button>3개월</button>
+    </div>
+  </div>
+
+  <!-- Raw Data 뷰 -->
+  <div class="prod-card" id="rawView" style="display:none;">
+    <div class="card-title">제품데이터 목록</div>
     <div class="tbl-scroll">
       <table class="data">
         <thead>
@@ -413,9 +452,43 @@
       <button>‹‹</button><button class="active">1</button><button>2</button><button>3</button><button>4</button><button>›</button><button>››</button>
     </div>
   </div>
+
+  <!-- Graph 뷰 (교통관제 시각화 대시보드) -->
+  <div id="graphView" class="show">
+    <div class="kpi-row">
+      <div class="kpi-card"><div class="k-lbl">총 차량 통행량</div><div class="k-val" id="kpi-veh">128<span>대</span></div></div>
+      <div class="kpi-card"><div class="k-lbl">총 보행·이륜 통행량</div><div class="k-val" id="kpi-ped">22<span>명/대</span></div></div>
+      <div class="kpi-card"><div class="k-lbl">평균 통행 속도</div><div class="k-val" id="kpi-speed">42<span>km/h</span></div></div>
+      <div class="kpi-card"><div class="k-lbl">최고 위험 시간대</div><div class="k-val" id="kpi-peak">18시<span>대</span></div></div>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-panel">
+        <div class="card-title">차종 · 보행자 구성비 (6종류)</div>
+        <div class="donut-wrap">
+          <div class="donut-canvas-wrap"><canvas id="donutChart"></canvas></div>
+          <ul class="donut-legend" id="donutLegend"></ul>
+        </div>
+      </div>
+      <div class="chart-panel bar-panel">
+        <div class="card-title">시간별 평균 위험도 추이</div>
+        <div class="chart-canvas-wrap"><canvas id="riskBarChart"></canvas></div>
+      </div>
+    </div>
+    <div class="split-row">
+      <div class="chart-panel">
+        <div class="card-title">시간별 차량 통행량 추이</div>
+        <div class="chart-canvas-wrap"><canvas id="vehLineChart"></canvas></div>
+      </div>
+      <div class="chart-panel">
+        <div class="card-title">시간별 보행·이륜 통행량 추이</div>
+        <div class="chart-canvas-wrap"><canvas id="pedLineChart"></canvas></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
 /* ================= 지도 초기화 ================= */
 const map = L.map('map', { zoomControl:false, attributionControl:false }).setView([36.3, 127.8], 7);
@@ -548,15 +621,29 @@ function setStat(id, value, isLabel){
 }
 function closePopup(){ document.getElementById('tpopup').classList.remove('show'); }
 
-/* ================= 센서현황 테이블 ================= */
+/* ================= 제품현황 페이지 (화면 전환) ================= */
 function openTable(){
   if(!activePoint) return;
   document.getElementById('tbl-id').textContent = activePoint.id;
   document.getElementById('tbl-addr').textContent = activePoint.addr;
   buildTableRows(activePoint.risk);
-  document.getElementById('tblPanel').classList.add('show');
+  closePopup();
+  document.getElementById('screenMap').style.display = 'none';
+  document.getElementById('screenProduct').classList.add('show');
+  switchTab('graph');
 }
-function closeTable(){ document.getElementById('tblPanel').classList.remove('show'); }
+function closeTable(){
+  document.getElementById('screenProduct').classList.remove('show');
+  document.getElementById('screenMap').style.display = '';
+}
+function switchTab(tab){
+  const raw = tab==='raw';
+  document.getElementById('tabRaw').classList.toggle('active', raw);
+  document.getElementById('tabGraph').classList.toggle('active', !raw);
+  document.getElementById('rawView').style.display = raw ? '' : 'none';
+  document.getElementById('graphView').classList.toggle('show', !raw);
+  if(!raw) renderGraphDashboard();
+}
 
 function buildTableRows(baseRisk){
   const body = document.getElementById('tbl-body');
@@ -585,6 +672,78 @@ function buildTableRows(baseRisk){
     </tr>`;
     t = new Date(t.getTime() - 10*60000);
   }
+}
+
+/* ================= Graph 대시보드 (교통관제 시각화) ================= */
+let chartDonut=null, chartRiskBar=null, chartVehLine=null, chartPedLine=null;
+const CAT_LABELS = ['승용','트럭','버스','보행자','킥보드&자전거','오토바이'];
+const CAT_COLORS = ['#5161ec','#838ff7','#1053fc','#1a6b13','#ca9011','#e71818'];
+
+function renderGraphDashboard(){
+  if(!activePoint) return;
+  if(typeof Chart === 'undefined'){
+    document.getElementById('graphView').innerHTML =
+      '<div class="chart-panel" style="text-align:center;color:var(--ink-400);padding:40px;">Chart.js 로드에 실패했습니다. 인터넷 연결을 확인하고 새로고침해 주세요.</div>';
+    return;
+  }
+  const riskBase = activePoint.risk==='danger'?70:activePoint.risk==='caution'?45:22;
+
+  /* 6종류 구성비 데이터 */
+  const car = Math.round(60+Math.random()*60), truck = Math.round(10+Math.random()*25),
+        bus = Math.round(4+Math.random()*12), walker = Math.round(8+Math.random()*25),
+        cycle = Math.round(2+Math.random()*10), moto = Math.round(1+Math.random()*8);
+  const catData = [car,truck,bus,walker,cycle,moto];
+  const total = catData.reduce((a,b)=>a+b,0);
+
+  document.getElementById('kpi-veh').innerHTML = (car+truck+bus)+'<span>대</span>';
+  document.getElementById('kpi-ped').innerHTML = (walker+cycle+moto)+'<span>명/대</span>';
+  document.getElementById('kpi-speed').innerHTML = (activePoint.risk==='danger'?18:activePoint.risk==='caution'?34:48)+'<span>km/h</span>';
+  document.getElementById('kpi-peak').innerHTML = (17+Math.floor(Math.random()*3))+'시<span>대</span>';
+
+  /* 도넛차트 + 범례 */
+  const donutCtx = document.getElementById('donutChart');
+  if(chartDonut) chartDonut.destroy();
+  chartDonut = new Chart(donutCtx, {
+    type:'doughnut',
+    data:{ labels:CAT_LABELS, datasets:[{ data:catData, backgroundColor:CAT_COLORS, borderWidth:2, borderColor:'#fff' }] },
+    options:{ plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:(c)=>`${c.label}: ${c.parsed}건` } } }, cutout:'62%' }
+  });
+  const legend = document.getElementById('donutLegend');
+  legend.innerHTML = CAT_LABELS.map((l,i)=>`
+    <li><span class="name"><span class="sw" style="background:${CAT_COLORS[i]}"></span>${l}</span>
+    <span class="pct">${((catData[i]/total)*100).toFixed(1)}%</span></li>`).join('');
+
+  /* 시간별 평균 위험도 막대차트 */
+  const hours = Array.from({length:12}, (_,i)=>`${(9+i)%24}시`);
+  const riskVals = hours.map(()=> Math.max(5, Math.min(95, Math.round(riskBase + (Math.random()*30-15)))));
+  const barColors = riskVals.map(v=> v>=65?'#e71818': v>=40?'#ca9011':'#1a6b13');
+  const riskCtx = document.getElementById('riskBarChart');
+  if(chartRiskBar) chartRiskBar.destroy();
+  chartRiskBar = new Chart(riskCtx, {
+    type:'bar',
+    data:{ labels:hours, datasets:[{ label:'평균 위험도', data:riskVals, backgroundColor:barColors, borderRadius:5, maxBarThickness:28 }] },
+    options:{ plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max:100, ticks:{ stepSize:20 } } } }
+  });
+
+  /* 시간별 차량 통행량 라인차트 */
+  const vehVals = hours.map(()=> Math.round(60 + Math.random()*90));
+  const vehCtx = document.getElementById('vehLineChart');
+  if(chartVehLine) chartVehLine.destroy();
+  chartVehLine = new Chart(vehCtx, {
+    type:'line',
+    data:{ labels:hours, datasets:[{ label:'차량 수', data:vehVals, borderColor:'#5161ec', backgroundColor:'rgba(81,97,236,.12)', fill:true, tension:.35, pointRadius:3 }] },
+    options:{ plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true } } }
+  });
+
+  /* 시간별 보행/이륜 통행량 라인차트 */
+  const pedVals = hours.map(()=> Math.round(5 + Math.random()*35));
+  const pedCtx = document.getElementById('pedLineChart');
+  if(chartPedLine) chartPedLine.destroy();
+  chartPedLine = new Chart(pedCtx, {
+    type:'line',
+    data:{ labels:hours, datasets:[{ label:'보행·이륜', data:pedVals, borderColor:'#ca9011', backgroundColor:'rgba(202,144,17,.14)', fill:true, tension:.35, pointRadius:3 }] },
+    options:{ plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true } } }
+  });
 }
 
 /* 초기 진입: 전체 모드 */
