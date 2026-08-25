@@ -70,10 +70,8 @@
   }
   .brand{display:flex;align-items:center;gap:10px;}
   .brand .mark{
-    width:34px;height:34px;border-radius:9px;
-    background:linear-gradient(135deg,#ffb347,#f4711f);
+    width:34px;height:34px;
     display:flex;align-items:center;justify-content:center;
-    color:#fff;font-weight:800;font-size:15px;
   }
   .brand .name{font-weight:800;font-size:15px;letter-spacing:.2px;color:#1a1a1a;line-height:1.15;}
   .brand .sub{font-size:9.5px;color:var(--ink-400);margin-top:1px;font-weight:500;letter-spacing:.2px;}
@@ -95,21 +93,27 @@
   .stage{position:relative;height:calc(100vh - 56px);}
   #map{position:absolute;inset:0;background:#dce6e6;}
 
-  /* left summary column (실제: 세로로 쌓인 개별 카드) */
+  /* left summary column (실제: 흰 카드 하나 + 구분선, 전체보기는 별도 연보라 카드) */
   .summary-col{
     position:absolute;top:16px;left:16px;z-index:900;
-    display:flex;flex-direction:column;gap:8px;width:88px;
+    display:flex;flex-direction:column;gap:10px;width:88px;
   }
   .summary-col .maplabel{
-    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
-    padding:9px 0;text-align:center;font-size:12px;font-weight:800;color:var(--ink-900);
-    display:flex;align-items:center;justify-content:center;gap:5px;
+    text-align:center;font-size:13px;font-weight:800;color:var(--ink-900);
+    display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;
+  }
+  .summary-col .maplabel svg{color:var(--color-inspection);flex:none;}
+  .stat-list{
+    background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);
   }
   .stat-box{
-    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
-    padding:12px 4px;text-align:center;
+    padding:10px 4px;text-align:center;
   }
-  .stat-box .num{font-size:22px;font-weight:800;line-height:1;}
+  .stat-box.total{
+    margin:5px;border-radius:8px;border:1.5px solid var(--color-main);
+    padding:8px 4px;border-bottom:1.5px solid var(--color-main);
+  }
+  .stat-box .num{font-size:20px;font-weight:800;line-height:1;}
   .stat-box .lbl{font-size:11px;color:var(--ink-600);margin-top:5px;font-weight:600;}
   .stat-box.total .num{color:var(--color-inspection);}
   .stat-box.safe .num{color:var(--green);}
@@ -117,11 +121,12 @@
   .stat-box.alert .num{color:var(--red);}
   .stat-box.inspect .num{color:#3b3b3b;}
   .fulllist-btn{
-    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
-    border:none;padding:12px 0 10px;color:var(--ink-600);font-size:11.5px;font-weight:700;
+    position:absolute;bottom:16px;left:16px;z-index:900;width:88px;
+    background:var(--teal-050);box-shadow:none;border-radius:10px;
+    border:none;padding:14px 0;color:var(--color-dark);font-size:11.5px;font-weight:700;
     cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
   }
-  .fulllist-btn .ic{font-size:16px;}
+  .fulllist-btn .ic{color:var(--color-dark);display:flex;}
 
   /* mode switch pill, 지도 좌측 상단 (좌측 통계 컬럼 옆) */
   .mode-switch{
@@ -137,22 +142,31 @@
   .mode-switch button .ic{font-size:14px;}
   .mode-switch button.active{background:var(--color-dark);color:#fff;transform:scale(1.05);transition:all .3s;}
 
-  /* legend bottom-right (실제: "제품현황" 제목 + 수치 포함) */
-  .legend{
+  /* 우측 하단: 제품현황 카드 + OSM 저작권 표기를 한 컬럼으로 */
+  .bottom-right-col{
     position:absolute;bottom:16px;right:16px;z-index:900;
-    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
-    padding:10px 14px;font-size:11.5px;width:150px;
+    display:flex;flex-direction:column;align-items:flex-end;gap:8px;
   }
-  .legend .lg-title{font-weight:800;font-size:12px;margin-bottom:6px;color:var(--ink-900);}
-  .legend .lg-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 0;}
-  .legend .lg-row .lbl{display:flex;align-items:center;gap:6px;color:var(--ink-600);font-weight:600;}
+  .legend{
+    background:var(--card);border-radius:12px;box-shadow:var(--shadow);
+    padding:16px 18px;font-size:14px;width:190px;
+  }
+  .legend .lg-title{font-weight:800;font-size:15px;margin-bottom:10px;color:var(--ink-900);}
+  .legend .lg-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:6px 0;}
+  .legend .lg-row .lbl{display:flex;align-items:center;gap:9px;color:var(--ink-900);font-weight:600;}
+  .legend .lg-row .lbl .dot{width:12px;height:12px;border-radius:50%;flex:none;}
   .legend .lg-row .val{font-weight:800;color:var(--ink-900);}
 
   .attrib-note{
-    position:absolute;bottom:16px;left:16px;z-index:400;
-    font-size:10.5px;color:var(--ink-400);background:rgba(255,255,255,.7);
-    padding:2px 6px;border-radius:5px;
+    font-size:10.5px;color:rgba(70,70,70,.75);background:rgba(255,255,255,.55);
+    padding:1px 5px;border-radius:3px;
   }
+  .locate-btn{
+    position:absolute;top:16px;right:16px;z-index:900;
+    width:30px;height:30px;background:#fff;border:2px solid rgba(0,0,0,.2);border-radius:4px;
+    display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:#333;
+  }
+  .leaflet-top.leaflet-right{ top:56px!important; }
 
   /* custom markers */
   .pin{
@@ -164,9 +178,15 @@
   .pin.red{background:var(--red);} .pin.gray{background:var(--gray);} .pin.blue{background:var(--blue);}
   .cluster-badge{
     display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;
-    border-radius:50%;box-shadow:0 4px 18px rgba(81,97,236,.45);
-    background:radial-gradient(circle at 35% 30%, #8b9bf9, var(--color-dark) 70%);
-    border:3px solid rgba(255,255,255,.85);
+    border-radius:50%;box-shadow:0 4px 14px rgba(81,97,236,.35);
+    background:rgba(101,118,235,.62);
+    border:1px solid rgba(0,0,0,.55);
+  }
+  .cluster-dot{
+    position:absolute;width:14px;height:14px;border-radius:50%;
+    background:var(--color-inspection);border:3px solid #fff;
+    box-shadow:0 1px 4px rgba(0,0,0,.35);
+    left:50%;top:50%;transform:translate(-50%,-50%);
   }
 
   /* ---------- Traffic popup card (그림2-3 형태를 교통용으로 변경) ---------- */
@@ -196,13 +216,16 @@
   .trend.up{color:var(--red);}
   .trend.down{color:var(--color-inspection);}
   .risk-bar{
-    border-radius:8px;padding:10px;text-align:center;font-weight:800;font-size:13px;
-    display:flex;align-items:center;justify-content:center;gap:8px;
+    border-radius:8px;padding:11px;text-align:center;font-weight:800;font-size:13.5px;
+    display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;
   }
-  .risk-bar.safe{background:#eef5ed;color:var(--green);}
-  .risk-bar.caution{background:#fdf3e0;color:var(--orange);}
-  .risk-bar.danger{background:#fceaea;color:var(--red);}
-  .msg-line{font-size:11px;color:var(--ink-600);text-align:center;margin-top:6px;}
+  .risk-bar.lv1{ background:var(--green); }
+  .risk-bar.lv2{ background:#eab308; color:#3b2f00; }
+  .risk-bar.lv3{ background:var(--red); }
+  .risk-bar.lv4{ background:var(--red); }
+  .risk-bar.lv5{ background:var(--red); animation:riskBlink .9s steps(1) infinite; }
+  .risk-bar.lv6{ background:var(--red); animation:riskBlink .6s steps(1) infinite; }
+  @keyframes riskBlink{ 50%{ opacity:.4; } }
   .btnrow{display:flex;gap:8px;margin-top:12px;}
   .btnrow button{flex:1;padding:10px 0;border-radius:8px;border:none;font-weight:800;font-size:12.5px;cursor:pointer;}
   .btn-primary{background:var(--color-dark);color:#fff;}
@@ -266,7 +289,7 @@
   .kpi-card .k-lbl{font-size:12px;color:var(--ink-600);font-weight:700;margin-bottom:8px;}
   .kpi-card .k-val{font-size:22px;font-weight:800;color:var(--ink-900);}
   .kpi-card .k-val span{font-size:12px;font-weight:700;margin-left:4px;}
-  .chart-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:16px;margin-bottom:16px;}
+  .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
   .chart-panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px;}
   .chart-panel .card-title{font-weight:800;font-size:14px;color:var(--ink-900);margin-bottom:14px;}
   .donut-wrap{display:flex;align-items:center;gap:18px;}
@@ -278,8 +301,33 @@
   .donut-legend li .name{display:flex;align-items:center;flex:1;}
   .donut-legend li .pct{font-weight:800;color:var(--ink-900);}
   .bar-panel .chart-canvas-wrap{height:230px;}
-  .split-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .split-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+  .split-row:last-of-type{margin-bottom:0;}
+  .chart-panel .card-sub{font-size:11px;color:var(--ink-400);margin:-8px 0 12px;font-weight:600;}
+
+  /* 시간대 매트릭스 (히트맵 / 통행량 바) 공통 - 24시간 기준 좁은 셀 */
+  .matrix-scroll{overflow-x:auto;}
+  .matrix-table{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed;}
+  .matrix-table th{color:var(--ink-400);font-weight:700;padding:3px 1px;text-align:center;white-space:nowrap;}
+  .matrix-table th.dayhead{width:30px;text-align:left;padding:3px 2px;color:var(--ink-600);}
+  .matrix-table td.daylbl{width:30px;font-weight:800;color:var(--ink-900);text-align:left;padding:3px 2px;white-space:nowrap;font-size:11px;}
+  .matrix-table td.hm-cell{
+    width:26px;height:24px;text-align:center;font-weight:800;font-size:8.5px;
+    color:#fff;border-radius:3px;
+  }
+  .heatmap-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink-600);margin-top:10px;font-weight:600;}
+  .heatmap-legend .bar{flex:1;height:8px;border-radius:4px;background:linear-gradient(90deg,#4f7fe8,#eab308,#e71818);}
+
+  .matrix-table td.vol-cell{width:26px;height:30px;padding:2px 2px;vertical-align:middle;}
+  .barcell-wrap{position:relative;height:18px;background:#f1f3f4;border-radius:3px;overflow:hidden;}
+  .barcell-wrap .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;}
+  .barcell-wrap.veh .fill{background:#5161ec;}
+  .barcell-wrap.ped .fill{background:#ca9011;}
   .chart-canvas-wrap{position:relative;height:200px;}
+  .vol-legend{display:flex;gap:16px;font-size:11.5px;color:var(--ink-600);font-weight:700;margin:-6px 0 10px;}
+  .vol-legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+  .vol-legend .sw.veh{background:#5161ec;}
+  .vol-legend .sw.ped{background:#ca9011;}
   .chart-canvas-wrap canvas{width:100%!important;height:100%!important;}
 
   /* leaflet popup strip (기상 마커용 - 기존 화면 재사용 톤) */
@@ -288,7 +336,8 @@
   .weather-mini b{display:block;font-size:12.5px;margin-bottom:3px;}
 
   @media (max-width:720px){
-    nav{display:none;}
+    nav{gap:2px;}
+    nav button{padding:0 8px;font-size:12px;}
     .mode-switch{left:16px;top:78px;}
     .summary-col{width:70px;}
     .tpopup{left:16px;right:16px;width:auto;top:132px;}
@@ -299,16 +348,28 @@
 
 <header>
   <div class="brand">
-    <div class="mark">S</div>
+    <div class="mark">
+      <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
+        <defs>
+          <linearGradient id="stnGrad" x1="2" y1="4" x2="30" y2="28" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffc35a"/>
+            <stop offset="1" stop-color="#f4711f"/>
+          </linearGradient>
+        </defs>
+        <circle cx="17" cy="26" r="2.6" fill="url(#stnGrad)"/>
+        <path d="M10.5 20 A9.5 9.5 0 0 1 23.5 20" stroke="url(#stnGrad)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M5 13.5 A17 17 0 0 1 29 13.5" stroke="url(#stnGrad)" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+      </svg>
+    </div>
     <div>
       <div class="sub">Second to none</div>
       <div class="name">STNCOMPANY</div>
     </div>
   </div>
   <nav>
-    <button class="active">메인</button>
+    <button class="active" id="navMain">메인</button>
     <button>시스템관리 ▾</button>
-    <button>제품현황</button>
+    <button id="navProduct">제품현황</button>
     <button>문의접수</button>
     <button>공효일관리</button>
   </nav>
@@ -321,16 +382,35 @@
 <div class="stage" id="screenMap">
   <div id="map"></div>
 
-  <!-- 좌측 요약 컬럼 (실제 화면: 세로 개별 카드) -->
+  <!-- 좌측 요약 컬럼 (실제 화면: 흰 카드 하나 + 구분선) -->
   <div class="summary-col" id="summaryCard">
-    <div class="maplabel">📍 Map</div>
-    <div class="stat-box total"><div class="num" id="sumTotal">97</div><div class="lbl">지도합계</div></div>
-    <div class="stat-box safe"><div class="num" id="sumNormal">95</div><div class="lbl">안전</div></div>
-    <div class="stat-box caution"><div class="num" id="sumCaution">0</div><div class="lbl">주의</div></div>
-    <div class="stat-box alert"><div class="num" id="sumDanger">0</div><div class="lbl">경보</div></div>
-    <div class="stat-box inspect"><div class="num" id="sumInspect">2</div><div class="lbl">점검</div></div>
-    <button class="fulllist-btn"><span class="ic">🗂️</span>전체보기</button>
+    <div class="stat-list">
+      <div class="maplabel">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z"/>
+          <circle cx="12" cy="10" r="2.5"/>
+        </svg>
+        Map
+      </div>
+      <div class="stat-box total"><div class="num" id="sumTotal">97</div><div class="lbl">지도합계</div></div>
+      <div class="stat-box safe"><div class="num" id="sumNormal">95</div><div class="lbl">안전</div></div>
+      <div class="stat-box caution"><div class="num" id="sumCaution">0</div><div class="lbl">주의</div></div>
+      <div class="stat-box alert"><div class="num" id="sumDanger">0</div><div class="lbl">경보</div></div>
+      <div class="stat-box inspect"><div class="num" id="sumInspect">2</div><div class="lbl">점검</div></div>
+    </div>
   </div>
+
+  <!-- 전체보기 버튼: 좌측 하단 고정 -->
+  <button class="fulllist-btn">
+    <span class="ic">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/>
+        <line x1="9" y1="4" x2="9" y2="18"/>
+        <line x1="15" y1="6" x2="15" y2="20"/>
+      </svg>
+    </span>
+    전체보기
+  </button>
 
   <!-- 모드 전환 버튼 (좌측 상단, 지도 위) -->
   <div class="mode-switch">
@@ -355,7 +435,7 @@
         <div class="stat-cell"><div class="ic">🌡️</div><div class="v" id="tp-temp">31.2°C</div><div class="l">온도</div></div>
         <div class="stat-cell"><div class="ic">💧</div><div class="v" id="tp-hum">54.1%</div><div class="l">습도</div></div>
         <div class="stat-cell"><div class="ic">💨</div><div class="v" id="tp-wind">2.4m/s</div><div class="l">풍속</div></div>
-        <div class="stat-cell"><div class="ic">❄️</div><div class="v" id="tp-precip">없음</div><div class="l">눈&amp;비</div></div>
+        <div class="stat-cell"><div class="ic" id="tp-precip-ic">－</div><div class="v" id="tp-precip">없음</div><div class="l">비&amp;눈</div></div>
         <div class="stat-cell"><div class="ic">🚙</div><div class="v" id="tp-speed">42km/h</div><div class="l">평균속도</div></div>
         <div class="stat-cell"><div class="ic">⚠️</div><div class="v" id="tp-risk">낮음</div><div class="l">현재위험도</div></div>
 
@@ -375,8 +455,7 @@
         <div class="stat-cell"><div class="ic">🏍️</div><div class="v"><span id="tp-moto">3</span><span class="trend" id="tp-moto-t">▼</span></div><div class="l">오토바이</div></div>
       </div>
 
-      <div class="risk-bar safe" id="tp-riskbar">정상 서행 안내중</div>
-      <div class="msg-line" id="tp-msg">표시문구: "전방 서행 구간입니다"</div>
+      <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
 
       <div class="btnrow">
         <button class="btn-primary" onclick="openTable()">센서현황</button>
@@ -385,16 +464,27 @@
     </div>
   </div>
 
-  <div class="legend">
-    <div class="lg-title">제품현황</div>
-    <div class="lg-row"><span class="lbl"><span class="dot blue"></span>전체</span><span class="val" id="lgTotal">97</span></div>
-    <div class="lg-row"><span class="lbl"><span class="dot green"></span>안전</span><span class="val" id="lgSafe">95</span></div>
-    <div class="lg-row"><span class="lbl"><span class="dot orange"></span>주의</span><span class="val" id="lgCaution">0</span></div>
-    <div class="lg-row"><span class="lbl"><span class="dot red"></span>경보</span><span class="val" id="lgAlert">0</span></div>
-    <div class="lg-row"><span class="lbl"><span class="dot gray"></span>점검</span><span class="val" id="lgInspect">2</span></div>
+  <div class="bottom-right-col">
+    <div class="legend">
+      <div class="lg-title">제품현황</div>
+      <div class="lg-row"><span class="lbl"><span class="dot" style="background:var(--color-inspection)"></span>전체</span><span class="val" id="lgTotal">97</span></div>
+      <div class="lg-row"><span class="lbl"><span class="dot" style="background:var(--green)"></span>안전</span><span class="val" id="lgSafe">95</span></div>
+      <div class="lg-row"><span class="lbl"><span class="dot" style="background:var(--orange)"></span>주의</span><span class="val" id="lgCaution">0</span></div>
+      <div class="lg-row"><span class="lbl"><span class="dot" style="background:var(--red)"></span>경보</span><span class="val" id="lgAlert">0</span></div>
+      <div class="lg-row"><span class="lbl"><span class="dot" style="background:#3b3b3b"></span>점검</span><span class="val" id="lgInspect">2</span></div>
+    </div>
+    <div class="attrib-note">© OpenStreetMap contributors</div>
   </div>
 
-  <div class="attrib-note">© OpenStreetMap contributors</div>
+  <div class="locate-btn" title="내 위치">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="3"></circle>
+      <line x1="12" y1="2" x2="12" y2="5"></line>
+      <line x1="12" y1="19" x2="12" y2="22"></line>
+      <line x1="2" y1="12" x2="5" y2="12"></line>
+      <line x1="19" y1="12" x2="22" y2="12"></line>
+    </svg>
+  </div>
 </div>
 
 <!-- 제품현황 페이지 (그림1 실제 화면 기준: 팝업이 아니라 화면 전환) -->
@@ -476,12 +566,21 @@
     </div>
     <div class="split-row">
       <div class="chart-panel">
-        <div class="card-title">시간별 차량 통행량 추이</div>
-        <div class="chart-canvas-wrap"><canvas id="vehLineChart"></canvas></div>
+        <div class="card-title">시간대 × 요일 위험도 히트맵</div>
+        <div class="card-sub">1시간 단위 위험단계 가중치 누적값</div>
+        <div class="matrix-scroll">
+          <table class="matrix-table" id="riskHeatmap"></table>
+        </div>
+        <div class="heatmap-legend"><span>적음</span><div class="bar"></div><span>많음</span></div>
       </div>
       <div class="chart-panel">
-        <div class="card-title">시간별 보행·이륜 통행량 추이</div>
-        <div class="chart-canvas-wrap"><canvas id="pedLineChart"></canvas></div>
+        <div class="card-title">시간대별 차량 · 보행자 통행량</div>
+        <div class="card-sub">1시간 단위</div>
+        <div class="vol-legend">
+          <span><i class="sw veh"></i>차량</span>
+          <span><i class="sw ped"></i>보행·이륜</span>
+        </div>
+        <div class="chart-canvas-wrap"><canvas id="volBarChart"></canvas></div>
       </div>
     </div>
   </div>
@@ -574,11 +673,16 @@ btnWeather.onclick = ()=>setMode('weather');
 btnTraffic.onclick = ()=>setMode('traffic');
 
 /* ================= 교통 팝업 ================= */
-const riskMsg = {
-  safe:    {bar:'정상 서행 안내중', cls:'safe',    riskLabel:'낮음', msg:'전방 서행 구간입니다'},
-  caution: {bar:'서행 주의 안내중', cls:'caution', riskLabel:'보통', msg:'전방 정체 구간, 서행하세요'},
-  danger:  {bar:'위험 감속 안내중', cls:'danger',  riskLabel:'높음', msg:'전방 사고 위험, 즉시 감속하세요'}
+/* 6단계 위험도 체계: 1안전(녹색) 2주의(노랑) 3경계/4위험(빨강) 5심각/6극한위험(빨강 점멸) */
+const RISK_LEVELS = {
+  1:{label:'안전', cls:'lv1'}, 2:{label:'주의', cls:'lv2'}, 3:{label:'경계', cls:'lv3'},
+  4:{label:'위험', cls:'lv4'}, 5:{label:'심각', cls:'lv5'}, 6:{label:'극한위험', cls:'lv6'}
 };
+function pickRiskLevel(baseRisk){
+  if(baseRisk==='safe')    return Math.random()<0.8 ? 1 : 2;
+  if(baseRisk==='caution') return Math.random()<0.6 ? 2 : 3;
+  return 4 + Math.floor(Math.random()*3); /* danger => 4,5,6 */
+}
 let activePoint = null;
 function openPopup(p){
   activePoint = p;
@@ -588,14 +692,25 @@ function openPopup(p){
   document.getElementById('tp-temp').textContent = (28+Math.random()*6).toFixed(1)+'°C';
   document.getElementById('tp-hum').textContent = (40+Math.random()*20).toFixed(1)+'%';
   document.getElementById('tp-wind').textContent = (1+Math.random()*4).toFixed(1)+'m/s';
-  document.getElementById('tp-precip').textContent = p.risk==='danger' ? '비(약)' : '없음';
+
+  /* 비&눈: 강수 없으면 － 아이콘, 비면 빗방울, 눈이면 눈송이 아이콘 */
+  const precipRoll = Math.random();
+  let precipIcon, precipText;
+  if(p.risk==='danger' ? precipRoll<0.55 : precipRoll<0.18){
+    if(Math.random()<0.5){ precipIcon='🌧️'; precipText='비'; }
+    else { precipIcon='❄️'; precipText='눈'; }
+  } else { precipIcon='－'; precipText='없음'; }
+  document.getElementById('tp-precip-ic').textContent = precipIcon;
+  document.getElementById('tp-precip').textContent = precipText;
+
   document.getElementById('tp-speed').textContent = (p.risk==='danger'?18:p.risk==='caution'?34:48)+'km/h';
-  const r = riskMsg[p.risk];
-  document.getElementById('tp-risk').textContent = r.riskLabel;
+
+  const lvl = pickRiskLevel(p.risk);
+  const rl = RISK_LEVELS[lvl];
+  document.getElementById('tp-risk').textContent = rl.label;
   const bar = document.getElementById('tp-riskbar');
-  bar.className = 'risk-bar ' + r.cls;
-  bar.textContent = r.bar;
-  document.getElementById('tp-msg').textContent = `표시문구: "${r.msg}"`;
+  bar.className = 'risk-bar ' + rl.cls;
+  bar.textContent = `${lvl}단계 · ${rl.label}`;
 
   /* 신규 3x9 항목: 값 + 1시간 전 대비 증감(▲빨강=증가 / ▼파랑=감소) */
   const riskLabels = ['낮음','보통','높음'];
@@ -630,11 +745,15 @@ function openTable(){
   closePopup();
   document.getElementById('screenMap').style.display = 'none';
   document.getElementById('screenProduct').classList.add('show');
+  document.getElementById('navMain').classList.remove('active');
+  document.getElementById('navProduct').classList.add('active');
   switchTab('graph');
 }
 function closeTable(){
   document.getElementById('screenProduct').classList.remove('show');
   document.getElementById('screenMap').style.display = '';
+  document.getElementById('navProduct').classList.remove('active');
+  document.getElementById('navMain').classList.add('active');
 }
 function switchTab(tab){
   const raw = tab==='raw';
@@ -675,7 +794,7 @@ function buildTableRows(baseRisk){
 }
 
 /* ================= Graph 대시보드 (교통관제 시각화) ================= */
-let chartDonut=null, chartRiskBar=null, chartVehLine=null, chartPedLine=null;
+let chartDonut=null, chartRiskBar=null;
 const CAT_LABELS = ['승용','트럭','버스','보행자','킥보드&자전거','오토바이'];
 const CAT_COLORS = ['#5161ec','#838ff7','#1053fc','#1a6b13','#ca9011','#e71818'];
 
@@ -713,36 +832,71 @@ function renderGraphDashboard(){
     <li><span class="name"><span class="sw" style="background:${CAT_COLORS[i]}"></span>${l}</span>
     <span class="pct">${((catData[i]/total)*100).toFixed(1)}%</span></li>`).join('');
 
-  /* 시간별 평균 위험도 막대차트 */
-  const hours = Array.from({length:12}, (_,i)=>`${(9+i)%24}시`);
-  const riskVals = hours.map(()=> Math.max(5, Math.min(95, Math.round(riskBase + (Math.random()*30-15)))));
-  const barColors = riskVals.map(v=> v>=65?'#e71818': v>=40?'#ca9011':'#1a6b13');
+  /* 시간별 평균 위험도 막대차트: X축 1시간 단위 24구간, Y축 1~6단계 */
+  const TIME_BINS = Array.from({length:24}, (_,i)=> `${i}시`);
+  const baseLevel = activePoint.risk==='danger'?4.5:activePoint.risk==='caution'?3:1.6;
+  const riskLevels24 = TIME_BINS.map(()=> Math.max(1, Math.min(6, Math.round(baseLevel + (Math.random()*3-1.5)))));
+  const levelColor = (lv)=> ({1:'#1a6b13',2:'#8bc34a',3:'#eab308',4:'#f4711f',5:'#e2541f',6:'#e71818'}[lv]);
+  const barColors = riskLevels24.map(levelColor);
   const riskCtx = document.getElementById('riskBarChart');
   if(chartRiskBar) chartRiskBar.destroy();
   chartRiskBar = new Chart(riskCtx, {
     type:'bar',
-    data:{ labels:hours, datasets:[{ label:'평균 위험도', data:riskVals, backgroundColor:barColors, borderRadius:5, maxBarThickness:28 }] },
-    options:{ plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, max:100, ticks:{ stepSize:20 } } } }
+    data:{ labels:TIME_BINS, datasets:[{ label:'위험단계', data:riskLevels24, backgroundColor:barColors, borderRadius:4, maxBarThickness:16 }] },
+    options:{ plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:(c)=>`${c.parsed.y}단계` } } },
+      scales:{ y:{ beginAtZero:true, min:0, max:6, ticks:{ stepSize:1, callback:(v)=> v===0 ? '' : v+'단계' } },
+               x:{ ticks:{ maxRotation:0, autoSkip:true, maxTicksLimit:12 } } } }
   });
 
-  /* 시간별 차량 통행량 라인차트 */
-  const vehVals = hours.map(()=> Math.round(60 + Math.random()*90));
-  const vehCtx = document.getElementById('vehLineChart');
-  if(chartVehLine) chartVehLine.destroy();
-  chartVehLine = new Chart(vehCtx, {
-    type:'line',
-    data:{ labels:hours, datasets:[{ label:'차량 수', data:vehVals, borderColor:'#5161ec', backgroundColor:'rgba(81,97,236,.12)', fill:true, tension:.35, pointRadius:3 }] },
-    options:{ plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true } } }
-  });
+  renderRiskHeatmap(TIME_BINS, baseLevel);
+  renderVolMatrix(TIME_BINS);
+}
 
-  /* 시간별 보행/이륜 통행량 라인차트 */
-  const pedVals = hours.map(()=> Math.round(5 + Math.random()*35));
-  const pedCtx = document.getElementById('pedLineChart');
-  if(chartPedLine) chartPedLine.destroy();
-  chartPedLine = new Chart(pedCtx, {
-    type:'line',
-    data:{ labels:hours, datasets:[{ label:'보행·이륜', data:pedVals, borderColor:'#ca9011', backgroundColor:'rgba(202,144,17,.14)', fill:true, tension:.35, pointRadius:3 }] },
-    options:{ plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true } } }
+/* 색상 보간: 파랑(적음) → 노랑 → 빨강(많음) */
+function heatColor(t){
+  t = Math.max(0, Math.min(1, t));
+  const stops = [[79,127,232],[234,179,8],[231,24,24]];
+  const seg = t < .5 ? 0 : 1;
+  const localT = t < .5 ? t/.5 : (t-.5)/.5;
+  const a = stops[seg], b = stops[seg+1];
+  const r = Math.round(a[0]+(b[0]-a[0])*localT);
+  const g = Math.round(a[1]+(b[1]-a[1])*localT);
+  const bl = Math.round(a[2]+(b[2]-a[2])*localT);
+  return `rgb(${r},${g},${bl})`;
+}
+
+/* 요일 × 1시간 위험도 히트맵 (위험단계 가중치 누적값) */
+function renderRiskHeatmap(timeBins, baseLevel){
+  const days = ['일','월','화','수','목','금','토'];
+  const data = days.map(()=> timeBins.map(()=> Math.round((baseLevel*40) + Math.random()*160)));
+  const flat = data.flat();
+  const min = Math.min(...flat), max = Math.max(...flat);
+  let html = '<thead><tr><th class="dayhead">요일</th>' + timeBins.map(b=>`<th>${b.replace('시','')}</th>`).join('') + '</tr></thead><tbody>';
+  days.forEach((d,ri)=>{
+    html += `<tr><td class="daylbl">${d}</td>` + data[ri].map(v=>{
+      const t = max>min ? (v-min)/(max-min) : 0.5;
+      return `<td class="hm-cell" style="background:${heatColor(t)}">${v}</td>`;
+    }).join('') + '</tr>';
+  });
+  html += '</tbody>';
+  document.getElementById('riskHeatmap').innerHTML = html;
+}
+
+/* 시간대별 차량 · 보행자 통행량: 위험도 그래프와 같은 형태의 얇은 막대 2종류 */
+let chartVolBar=null;
+function renderVolMatrix(timeBins){
+  const vehData = timeBins.map(()=> Math.round(20+Math.random()*140));
+  const pedData = timeBins.map(()=> Math.round(2+Math.random()*40));
+  const volCtx = document.getElementById('volBarChart');
+  if(chartVolBar) chartVolBar.destroy();
+  chartVolBar = new Chart(volCtx, {
+    type:'bar',
+    data:{ labels:timeBins, datasets:[
+      { label:'차량', data:vehData, backgroundColor:'#5161ec', borderRadius:3, maxBarThickness:8 },
+      { label:'보행·이륜', data:pedData, backgroundColor:'#ca9011', borderRadius:3, maxBarThickness:8 }
+    ]},
+    options:{ plugins:{ legend:{ display:false } },
+      scales:{ y:{ beginAtZero:true }, x:{ ticks:{ maxRotation:0, autoSkip:true, maxTicksLimit:12 } } } }
   });
 }
 
