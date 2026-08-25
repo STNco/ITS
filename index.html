@@ -55,7 +55,7 @@
     color:var(--ink-900);
     overflow:hidden;
   }
-  .brand .name, .prod-title{ font-family:'JalnanGothic','Noto Sans KR',sans-serif; }
+  .prod-title{ font-family:'JalnanGothic','Noto Sans KR',sans-serif; }
   /* ---------- Header (실제 캡처 기준: 흰 배경 + 오렌지 로고 + 오렌지 활성 언더라인) ---------- */
   header{
     height:56px;
@@ -69,19 +69,14 @@
     z-index:1200;
   }
   .brand{display:flex;align-items:center;gap:10px;}
-  .brand .mark{
-    width:34px;height:34px;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .brand .name{font-weight:800;font-size:15px;letter-spacing:.2px;color:#1a1a1a;line-height:1.15;}
-  .brand .sub{font-size:9.5px;color:var(--ink-400);margin-top:1px;font-weight:500;letter-spacing:.2px;}
+  .brand-logo{height:40px;width:auto;aspect-ratio:120/50;display:block;}
   nav{display:flex;gap:4px;height:100%;}
   nav button{
     border:none;background:none;font-size:14px;height:100%;
     padding:0 16px;color:#3b3b3b;
     cursor:pointer;font-weight:700;position:relative;
   }
-  nav button.active{color:#1a1a1a;}
+  nav button.active{color:#f4711f;}
   nav button.active::after{
     content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;
     background:#f4711f;border-radius:3px 3px 0 0;
@@ -348,23 +343,7 @@
 
 <header>
   <div class="brand">
-    <div class="mark">
-      <svg width="30" height="30" viewBox="0 0 34 34" fill="none">
-        <defs>
-          <linearGradient id="stnGrad" x1="2" y1="4" x2="30" y2="28" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#ffc35a"/>
-            <stop offset="1" stop-color="#f4711f"/>
-          </linearGradient>
-        </defs>
-        <circle cx="17" cy="26" r="2.6" fill="url(#stnGrad)"/>
-        <path d="M10.5 20 A9.5 9.5 0 0 1 23.5 20" stroke="url(#stnGrad)" stroke-width="3" stroke-linecap="round"/>
-        <path d="M5 13.5 A17 17 0 0 1 29 13.5" stroke="url(#stnGrad)" stroke-width="3" stroke-linecap="round" opacity=".55"/>
-      </svg>
-    </div>
-    <div>
-      <div class="sub">Second to none</div>
-      <div class="name">STNCOMPANY</div>
-    </div>
+    <img class="brand-logo" src="data:image/png;base64,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" alt="STNCOMPANY">
   </div>
   <nav>
     <button class="active" id="navMain">메인</button>
