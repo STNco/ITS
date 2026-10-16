@@ -26,7 +26,7 @@
     --color-caution:#ca9011;
     --color-safety:#1a6b13;
     --color-inspection:#1053fc;
-
+ 
     /* 데모 화면용 별칭 매핑 (기존 스타일 재사용) */
     --teal-900:#31306b;
     --teal-700:var(--color-dark);
@@ -83,11 +83,11 @@
   }
   .userbox{display:flex;align-items:center;gap:14px;font-size:13px;color:#3b3b3b;font-weight:600;}
   .userbox .logout{color:#3b3b3b;cursor:pointer;font-weight:700;}
-
+ 
   /* ---------- Layout ---------- */
   .stage{position:relative;height:calc(100vh - 56px);}
   #map{position:absolute;inset:0;background:#dce6e6;}
-
+ 
   /* left summary column (실제: 흰 카드 하나 + 구분선, 전체보기는 별도 연보라 카드) */
   .summary-col{
     position:absolute;top:16px;left:16px;z-index:900;
@@ -122,7 +122,7 @@
     cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
   }
   .fulllist-btn .ic{color:var(--color-dark);display:flex;}
-
+ 
   /* mode switch pill, 지도 좌측 상단 (좌측 통계 컬럼 옆) */
   .mode-switch{
     position:absolute;top:16px;left:116px;z-index:900;
@@ -136,7 +136,7 @@
   }
   .mode-switch button .ic{font-size:14px;}
   .mode-switch button.active{background:var(--color-dark);color:#fff;transform:scale(1.05);transition:all .3s;}
-
+ 
   /* 우측 하단: 제품현황 카드 + OSM 저작권 표기를 한 컬럼으로 */
   .bottom-right-col{
     position:absolute;bottom:16px;right:16px;z-index:900;
@@ -151,7 +151,7 @@
   .legend .lg-row .lbl{display:flex;align-items:center;gap:9px;color:var(--ink-900);font-weight:600;}
   .legend .lg-row .lbl .dot{width:12px;height:12px;border-radius:50%;flex:none;}
   .legend .lg-row .val{font-weight:800;color:var(--ink-900);}
-
+ 
   .attrib-note{
     font-size:10.5px;color:rgba(70,70,70,.75);background:rgba(255,255,255,.55);
     padding:1px 5px;border-radius:3px;
@@ -162,7 +162,7 @@
     display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:#333;
   }
   .leaflet-top.leaflet-right{ top:56px!important; }
-
+ 
   /* custom markers */
   .pin{
     width:18px;height:18px;border-radius:50% 50% 50% 0;
@@ -183,7 +183,7 @@
     box-shadow:0 1px 4px rgba(0,0,0,.35);
     left:50%;top:50%;transform:translate(-50%,-50%);
   }
-
+ 
   /* ---------- Traffic popup card (그림2-3 형태를 교통용으로 변경) ---------- */
   .tpopup{
     position:absolute;top:16px;left:116px;z-index:950;
@@ -198,6 +198,21 @@
   .tpopup .ph .id{font-weight:800;font-size:14px;}
   .tpopup .ph .close{cursor:pointer;color:var(--ink-400);font-size:16px;background:none;border:none;}
   .tpopup .pb{padding:12px 14px;}
+  /* 팝업 3단 구성: 상단(기본정보+등급) 고정 / 카드 영역만 스크롤 / 하단 버튼 고정 */
+  .tpopup .pb-top{padding:12px 14px 10px;border-bottom:1px solid var(--line);}
+  .tpopup .pb-top .risk-bar{margin-top:10px;}
+  .tpopup .pb-scroll{
+    max-height:209px;            /* 카드 약 2줄 + 20% 보이는 높이 */
+    overflow-y:auto;padding:0 14px;overscroll-behavior:contain;
+    scrollbar-width:thin;scrollbar-color:#b9bcc8 transparent;
+  }
+  .tpopup .pb-scroll::-webkit-scrollbar{width:6px;}
+  .tpopup .pb-scroll::-webkit-scrollbar-thumb{background:#b9bcc8;border-radius:3px;}
+  .tpopup .pb-scroll .stat-grid{margin:0;padding:10px 0 12px;}
+  .tpopup .pb-scroll .grp-label{position:sticky;top:0;z-index:1;background:var(--card);padding-top:6px;padding-bottom:4px;margin:0;}
+  .tpopup .pb-scroll .grp-label:first-child{padding-top:0;}
+  .tpopup .pb-foot{padding:10px 14px 12px;border-top:1px solid var(--line);}
+  .tpopup .pb-foot .btnrow{margin-top:0;}
   .kv{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-600);padding:3px 0;}
   .kv b{color:var(--ink-900);font-weight:700;}
   .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0;}
@@ -225,7 +240,7 @@
   .btnrow button{flex:1;padding:10px 0;border-radius:8px;border:none;font-weight:800;font-size:12.5px;cursor:pointer;}
   .btn-primary{background:var(--color-dark);color:#fff;}
   .btn-ghost{background:#534e4e;color:#fff;}
-
+ 
   /* ========== 제품현황 페이지 (모달 아님, 실제 시스템처럼 화면 전환) ========== */
   #screenProduct{
     display:none;height:calc(100vh - 56px);overflow:auto;background:#f7f8f9;
@@ -244,7 +259,7 @@
   .prod-actions button{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink-600);}
   .prod-actions .search{background:#f4711f;border-color:#f4711f;color:#fff;}
   .prod-actions .xls{background:#108b4b;border-color:#108b4b;color:#fff;}
-
+ 
   .prod-toolbar{
     background:#fff;border:1px solid var(--line);border-radius:10px;
     padding:10px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;
@@ -257,7 +272,7 @@
   .period-btns{display:flex;gap:6px;margin-left:auto;}
   .period-btns button{border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;color:var(--ink-600);cursor:pointer;}
   .period-btns button.active{background:#fff5ef;border-color:#f4711f;color:#f4711f;}
-
+ 
   .prod-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
   .prod-card .card-title{padding:14px 18px;font-weight:800;font-size:14px;color:var(--ink-900);border-bottom:1px solid var(--line);}
   .tbl-scroll{overflow:auto;padding:0 18px 8px;}
@@ -275,7 +290,40 @@
   .tbl-foot{padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:4px;border-top:1px solid var(--line);}
   .tbl-foot button{border:1px solid var(--line);background:#fff;width:28px;height:28px;border-radius:6px;font-size:11.5px;cursor:pointer;color:var(--ink-600);}
   .tbl-foot button.active{background:#111113;border-color:#111113;color:#fff;font-weight:800;}
-
+ 
+  /* ---------- Weather Graph (기상전광판 그래프 공용) ---------- */
+  #weatherView{display:none;}
+  #weatherView.show{display:grid;}
+  .wx-wrap{grid-template-columns:1fr 1fr minmax(300px,380px);gap:14px;align-items:stretch;}
+  .wx-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px 14px;display:flex;flex-direction:column;min-width:0;}
+  .wx-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;min-height:34px;}
+  .wx-title{font-weight:800;font-size:14px;color:var(--ink-900);}
+  .ctype{display:flex;gap:6px;}
+  .ctype button{border:1px solid var(--line);background:#fff;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:800;color:var(--ink-900);cursor:pointer;}
+  .ctype button.on{background:#f4711f;border-color:#f4711f;color:#fff;}
+  .wx-canvas{position:relative;height:230px;border:1px solid var(--line);border-radius:8px;padding:8px;}
+  .wx-canvas canvas{width:100%!important;height:100%!important;}
+  .wx-hist{grid-column:3;grid-row:1 / span 2;}
+  .wx-hist .hist-scroll{flex:1;overflow:auto;border:1px solid var(--line);border-radius:8px;max-height:560px;}
+  .wx-hist table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .wx-hist th{position:sticky;top:0;background:#f6f8f8;color:var(--ink-600);font-weight:700;padding:11px 6px;border-bottom:1px solid var(--line);}
+  .wx-hist td{padding:9px 6px;text-align:center;border-bottom:1px solid var(--line);color:var(--ink-900);}
+  .ws-badge{display:inline-block;min-width:76px;padding:6px 10px;border-radius:3px;color:#fff;font-weight:800;font-size:11.5px;}
+  .ws-0{background:#1a8a1a;} .ws-c{background:var(--orange);} .ws-a{background:var(--red);} .ws-p{background:var(--blue);}
+  @media (max-width:1200px){ .wx-wrap{grid-template-columns:1fr;} .wx-hist{grid-column:auto;grid-row:auto;} }
+ 
+  /* ---------- Raw Data (통신 프로토콜 V20261016 기준) ---------- */
+  .raw-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .raw-head .card-title{padding:0;border:none;}
+  .raw-note{font-size:11.5px;color:var(--ink-400);font-weight:600;}
+  table.data thead th small{display:block;font-family:Consolas,monospace;font-size:10px;color:var(--color-dark);font-weight:700;margin-top:1px;}
+  table.data td.sep, table.data th.sep{border-left:2px solid #e3e6ea;}
+  table.data td.muted{color:#b3b6bd;}
+  .lv-badge{display:inline-block;padding:3px 9px;border-radius:999px;color:#fff;font-weight:800;font-size:11px;}
+  .lv1{background:var(--green);} .lv2{background:#eab308;color:#3b2f00;} .lv3,.lv4,.lv5,.lv6{background:var(--red);}
+  .tx-mode{font-size:11px;font-weight:800;padding:3px 8px;border-radius:4px;}
+  .tx-now{background:#fde8e8;color:var(--red);} .tx-batch{background:#eef0ff;color:var(--color-dark);}
+ 
   /* ---------- 그래프 대시보드 (교통관제 전용 시각화) ---------- */
   #graphView{display:none;}
   #graphView.show{display:block;}
@@ -299,7 +347,7 @@
   .split-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
   .split-row:last-of-type{margin-bottom:0;}
   .chart-panel .card-sub{font-size:11px;color:var(--ink-400);margin:-8px 0 12px;font-weight:600;}
-
+ 
   /* 시간대 매트릭스 (히트맵 / 통행량 바) 공통 - 24시간 기준 좁은 셀 */
   .matrix-scroll{overflow-x:auto;}
   .matrix-table{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed;}
@@ -312,7 +360,7 @@
   }
   .heatmap-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink-600);margin-top:10px;font-weight:600;}
   .heatmap-legend .bar{flex:1;height:8px;border-radius:4px;background:linear-gradient(90deg,#4f7fe8,#eab308,#e71818);}
-
+ 
   .matrix-table td.vol-cell{width:26px;height:30px;padding:2px 2px;vertical-align:middle;}
   .barcell-wrap{position:relative;height:18px;background:#f1f3f4;border-radius:3px;overflow:hidden;}
   .barcell-wrap .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;}
@@ -324,12 +372,12 @@
   .vol-legend .sw.veh{background:#5161ec;}
   .vol-legend .sw.ped{background:#ca9011;}
   .chart-canvas-wrap canvas{width:100%!important;height:100%!important;}
-
+ 
   /* leaflet popup strip (기상 마커용 - 기존 화면 재사용 톤) */
   .leaflet-popup-content-wrapper{border-radius:8px;}
   .weather-mini{font-size:12px;}
   .weather-mini b{display:block;font-size:12.5px;margin-bottom:3px;}
-
+ 
   @media (max-width:720px){
     nav{gap:2px;}
     nav button{padding:0 8px;font-size:12px;}
@@ -340,7 +388,7 @@
 </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="brand">
     <img class="brand-logo" src="data:image/png;base64,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" alt="STNCOMPANY">
@@ -350,17 +398,17 @@
     <button>시스템관리 ▾</button>
     <button id="navProduct">제품현황</button>
     <button>문의접수</button>
-    <button>공효일관리</button>
+    <button>공휴일관리</button>
   </nav>
   <div class="userbox">
     <span>👤 내정보</span>
     <span class="logout">⇥ 로그아웃</span>
   </div>
 </header>
-
+ 
 <div class="stage" id="screenMap">
   <div id="map"></div>
-
+ 
   <!-- 좌측 요약 컬럼 (실제 화면: 흰 카드 하나 + 구분선) -->
   <div class="summary-col" id="summaryCard">
     <div class="stat-list">
@@ -378,7 +426,7 @@
       <div class="stat-box inspect"><div class="num" id="sumInspect">2</div><div class="lbl">점검</div></div>
     </div>
   </div>
-
+ 
   <!-- 전체보기 버튼: 좌측 하단 고정 -->
   <button class="fulllist-btn">
     <span class="ic">
@@ -390,25 +438,28 @@
     </span>
     전체보기
   </button>
-
+ 
   <!-- 모드 전환 버튼 (좌측 상단, 지도 위) -->
   <div class="mode-switch">
     <button class="active" data-mode="all" id="btnAll"><span class="ic">🗺️</span>전체</button>
     <button data-mode="weather" id="btnWeather"><span class="ic">🌦️</span>기상전광판</button>
     <button data-mode="traffic" id="btnTraffic"><span class="ic">🚦</span>교통관제</button>
   </div>
-
+ 
   <!-- 교통 팝업 (그림2-3 대응) -->
   <div class="tpopup" id="tpopup">
     <div class="ph">
       <div class="id" id="tp-id">TI-25-0001</div>
       <button class="close" onclick="closePopup()">✕</button>
     </div>
-    <div class="pb">
+    <div class="pb-top">
       <div class="kv"><span>설치일자</span><b id="tp-install">2025년 03월 12일</b></div>
       <div class="kv"><span>주소</span><b id="tp-addr">경기 안양시 동안구 평촌대로</b></div>
       <div class="kv"><span>데이터 갱신 일시</span><b id="tp-time">2026년 08월 24일 09:12</b></div>
-
+      <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
+    </div>
+ 
+    <div class="pb-scroll" id="tp-scroll">
       <div class="stat-grid">
         <div class="grp-label">기상 · 교통 현황</div>
         <div class="stat-cell"><div class="ic">🌡️</div><div class="v" id="tp-temp">31.2°C</div><div class="l">온도</div></div>
@@ -417,32 +468,32 @@
         <div class="stat-cell"><div class="ic" id="tp-precip-ic">－</div><div class="v" id="tp-precip">없음</div><div class="l">비&amp;눈</div></div>
         <div class="stat-cell"><div class="ic">🚙</div><div class="v" id="tp-speed">42km/h</div><div class="l">평균속도</div></div>
         <div class="stat-cell"><div class="ic">⚠️</div><div class="v" id="tp-risk">낮음</div><div class="l">현재위험도</div></div>
-
+ 
         <div class="grp-label">교통량 · 위험도</div>
         <div class="stat-cell"><div class="ic">🚗</div><div class="v"><span id="tp-vehcnt">128</span><span class="trend" id="tp-vehcnt-t">▲</span></div><div class="l">차량 수</div></div>
         <div class="stat-cell"><div class="ic">🚶</div><div class="v"><span id="tp-pedcnt">14</span><span class="trend" id="tp-pedcnt-t">▼</span></div><div class="l">보행자 수</div></div>
         <div class="stat-cell"><div class="ic">📊</div><div class="v"><span id="tp-avgrisk">보통</span><span class="trend" id="tp-avgrisk-t">▲</span></div><div class="l">평균위험도</div></div>
-
+ 
         <div class="grp-label">차종별 통행량</div>
         <div class="stat-cell"><div class="ic">🚘</div><div class="v"><span id="tp-car">96</span><span class="trend" id="tp-car-t">▲</span></div><div class="l">승용</div></div>
         <div class="stat-cell"><div class="ic">🚚</div><div class="v"><span id="tp-truck">21</span><span class="trend" id="tp-truck-t">▼</span></div><div class="l">트럭</div></div>
         <div class="stat-cell"><div class="ic">🚌</div><div class="v"><span id="tp-bus">11</span><span class="trend" id="tp-bus-t">▲</span></div><div class="l">버스</div></div>
-
+ 
         <div class="grp-label">보행·이륜 통행량</div>
         <div class="stat-cell"><div class="ic">🚶</div><div class="v"><span id="tp-walker">14</span><span class="trend" id="tp-walker-t">▼</span></div><div class="l">보행자</div></div>
         <div class="stat-cell"><div class="ic">🛴</div><div class="v"><span id="tp-cycle">5</span><span class="trend" id="tp-cycle-t">▲</span></div><div class="l">킥보드&amp;자전거</div></div>
         <div class="stat-cell"><div class="ic">🏍️</div><div class="v"><span id="tp-moto">3</span><span class="trend" id="tp-moto-t">▼</span></div><div class="l">오토바이</div></div>
       </div>
-
-      <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
-
+    </div>
+ 
+    <div class="pb-foot">
       <div class="btnrow">
         <button class="btn-primary" onclick="openTable()">센서현황</button>
         <button class="btn-ghost" onclick="closePopup()">뒤로가기</button>
       </div>
     </div>
   </div>
-
+ 
   <div class="bottom-right-col">
     <div class="legend">
       <div class="lg-title">제품현황</div>
@@ -454,7 +505,7 @@
     </div>
     <div class="attrib-note">© OpenStreetMap contributors</div>
   </div>
-
+ 
   <div class="locate-btn" title="내 위치">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round">
       <circle cx="12" cy="12" r="3"></circle>
@@ -465,7 +516,7 @@
     </svg>
   </div>
 </div>
-
+ 
 <!-- 제품현황 페이지 (그림1 실제 화면 기준: 팝업이 아니라 화면 전환) -->
 <div id="screenProduct">
   <h1 class="prod-title">제품현황</h1>
@@ -480,10 +531,11 @@
       <button class="xls">⬇ Excel 다운로드</button>
     </div>
   </div>
-
+ 
   <div class="prod-toolbar">
     <div class="tabs">
-      <button class="active" id="tabGraph" onclick="switchTab('graph')">Graph</button>
+      <button class="active" id="tabTraffic" onclick="switchTab('traffic')">Traffic Graph</button>
+      <button id="tabWeather" onclick="switchTab('weather')">Weather Graph</button>
       <button id="tabRaw" onclick="switchTab('raw')">Raw Data</button>
     </div>
     <span class="datebox-label">기준일</span>
@@ -496,32 +548,89 @@
       <button>3개월</button>
     </div>
   </div>
-
-  <!-- Raw Data 뷰 -->
+ 
+  <!-- Raw Data 뷰 (통신 프로토콜 LTE-m V20261016 기준) -->
   <div class="prod-card" id="rawView" style="display:none;">
-    <div class="card-title">제품데이터 목록</div>
-    <div class="tbl-scroll">
+    <div class="raw-head">
+      <div class="card-title" id="rawTitle">10분 레코드 목록</div>
+      <span class="raw-note" id="rawNote">현행 8키(기상) + 교통관제 축약 키 · 10분 주기 · 시각은 서버 수신일시</span>
+      <div class="tabs" style="margin-left:auto;">
+        <button class="active" id="rawTabRec" onclick="switchRaw('rec')">10분 레코드</button>
+        <button id="rawTabEvt" onclick="switchRaw('evt')">이벤트</button>
+      </div>
+    </div>
+    <div class="tbl-scroll" id="rawRecWrap">
       <table class="data">
         <thead>
           <tr class="grp">
-            <th rowspan="2">번호</th><th rowspan="2">날짜</th><th rowspan="2">시간</th>
-            <th colspan="4">감지 데이터</th>
-            <th colspan="2">전광판 표시 데이터</th>
-            <th rowspan="2">평균속도</th><th rowspan="2">최고속도</th><th rowspan="2">조치결과</th>
+            <th rowspan="2">번호</th><th rowspan="2">수신일</th><th rowspan="2">수신시간</th>
+            <th colspan="7" class="sep">기상 · 현행 8키 (기상전광판과 동일)</th>
+            <th colspan="7" class="sep">구간 통행량 (직전 10분)</th>
+            <th colspan="2" class="sep">구간 속도</th>
+            <th colspan="6" class="sep">위험등급 진입 횟수</th>
+            <th colspan="9" class="sep">현재 상태</th>
           </tr>
           <tr>
-            <th>온도(℃)</th><th>습도(%)</th><th>풍속(m/s)</th><th>강수유형</th>
-            <th>위험도</th><th>표시문구</th>
+            <th class="sep">온도(℃)<small>TEMP_VAL</small></th><th>습도(%)<small>HUMID_VAL</small></th><th>풍속(m/s)<small>WIND_VAL</small></th>
+            <th>표출상태<small>WEATHER_STATUS</small></th><th>속도<small>SPEED_VAL</small></th><th>평균속도<small>AVG_SPEED_VAL</small></th><th>종합점수<small>TOTAL_SCORE</small></th>
+            <th class="sep">차량<small>v</small></th><th>승용<small>vs</small></th><th>화물<small>vt</small></th><th>버스<small>vb</small></th><th>이륜<small>vm</small></th><th>자전거·킥보드<small>vc</small></th><th>보행자 합<small>p</small></th>
+            <th class="sep">최고<small>sx</small></th><th>평균<small>sa</small></th>
+            <th class="sep">1<small>g1</small></th><th>2<small>g2</small></th><th>3<small>g3</small></th><th>4<small>g4</small></th><th>5<small>g5</small></th><th>6<small>g6</small></th>
+            <th class="sep">장비<small>d</small></th><th>위험등급<small>cg</small></th><th>점수<small>cs</small></th><th>차량<small>cv</small></th><th>보행자<small>cp</small></th>
+            <th>전광판 출력<small>gs</small></th><th>제어기<small>cc</small></th><th>강우<small>r</small></th><th>센서 이상<small>se</small></th>
           </tr>
         </thead>
         <tbody id="tbl-body"></tbody>
+      </table>
+    </div>
+    <div class="tbl-scroll" id="rawEvtWrap" style="display:none;">
+      <table class="data">
+        <thead>
+          <tr>
+            <th>번호</th><th>이벤트 ID<small>ev</small></th><th>발생일시<small>ev 앞 12자리</small></th><th>종료시각<small>발생 + du</small></th><th>지속(초)<small>du</small></th>
+            <th>카메라<small>cm</small></th><th>유형<small>et</small></th><th>최고등급<small>mk</small></th><th>점수<small>ms</small></th>
+            <th>판정 근거<small>cz</small></th><th>차량 종류<small>vk</small></th><th>보행자 수<small>ps</small></th><th>강우<small>rn</small></th><th>수신 방식</th>
+          </tr>
+        </thead>
+        <tbody id="evt-body"></tbody>
       </table>
     </div>
     <div class="tbl-foot">
       <button>‹‹</button><button class="active">1</button><button>2</button><button>3</button><button>4</button><button>›</button><button>››</button>
     </div>
   </div>
-
+ 
+  <!-- Weather Graph 뷰 (기상전광판 제품현황 그래프 공용) -->
+  <div id="weatherView" class="wx-wrap">
+    <div class="wx-card">
+      <div class="wx-head"><span class="wx-title">기온 (°C)</span>
+        <div class="ctype" data-key="temp"><button data-t="line" class="on">라인</button><button data-t="bar">막대</button><button data-t="area">영역</button></div></div>
+      <div class="wx-canvas"><canvas id="wxTemp"></canvas></div>
+    </div>
+    <div class="wx-card">
+      <div class="wx-head"><span class="wx-title">풍속 (m/s)</span>
+        <div class="ctype" data-key="wind"><button data-t="line" class="on">라인</button><button data-t="bar">막대</button><button data-t="area">영역</button></div></div>
+      <div class="wx-canvas"><canvas id="wxWind"></canvas></div>
+    </div>
+    <div class="wx-card wx-hist">
+      <div class="wx-head"><span class="wx-title">History</span></div>
+      <div class="hist-scroll">
+        <table><thead><tr><th>수집일</th><th>수집시간</th><th>상태</th></tr></thead><tbody id="wxHistBody"></tbody></table>
+      </div>
+    </div>
+    <div class="wx-card">
+      <div class="wx-head"><span class="wx-title">습도 (%)</span>
+        <div class="ctype" data-key="hum"><button data-t="line" class="on">라인</button><button data-t="bar">막대</button><button data-t="area">영역</button></div></div>
+      <div class="wx-canvas"><canvas id="wxHum"></canvas></div>
+    </div>
+    <div class="wx-card">
+      <div class="wx-head">
+        <div class="tabs"><button class="active" id="spdMax" onclick="setSpdMode('max')">최고속도</button><button id="spdAvg" onclick="setSpdMode('avg')">평균속도</button></div>
+        <div class="ctype" data-key="spd"><button data-t="line" class="on">라인</button><button data-t="bar">막대</button><button data-t="area">영역</button></div></div>
+      <div class="wx-canvas"><canvas id="wxSpd"></canvas></div>
+    </div>
+  </div>
+ 
   <!-- Graph 뷰 (교통관제 시각화 대시보드) -->
   <div id="graphView" class="show">
     <div class="kpi-row">
@@ -564,7 +673,7 @@
     </div>
   </div>
 </div>
-
+ 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
@@ -572,17 +681,17 @@
 const map = L.map('map', { zoomControl:false, attributionControl:false }).setView([36.3, 127.8], 7);
 L.control.zoom({ position:'topright' }).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-
+ 
 function pinIcon(color){
   return L.divIcon({className:'', html:`<div class="pin ${color}"></div>`, iconSize:[18,18], iconAnchor:[9,16]});
 }
 function clusterIcon(n,size){
   return L.divIcon({className:'', html:`<div class="cluster-badge" style="width:${size}px;height:${size}px;font-size:${size>60?15:13}px;">${n}</div>`, iconSize:[size,size], iconAnchor:[size/2,size/2]});
 }
-
+ 
 let currentLayer = null;
 function clearLayer(){ if(currentLayer){ map.removeLayer(currentLayer); currentLayer=null; } closePopup(); }
-
+ 
 /* ---- 모드 1: 전체 (그림 2-1) 전국 클러스터 ---- */
 function renderAll(){
   clearLayer();
@@ -592,7 +701,7 @@ function renderAll(){
   map.setView([36.3,127.8], 7);
   setSummary(97,95,0,0,2);
 }
-
+ 
 /* ---- 모드 2: 기상전광판 (그림 2-2) 개별 마커 ---- */
 const weatherPts = [
   [37.512,127.045,'green'],[37.520,127.010,'green'],[37.505,126.980,'orange'],
@@ -611,7 +720,7 @@ function renderWeather(){
   map.setView([37.51,127.03], 12);
   setSummary(45,34,7,2,2);
 }
-
+ 
 /* ---- 모드 3: 교통관제 (그림 2-2 사양 → 안양시 3개소만) ---- */
 const trafficPts = [
   {id:'TI-25-0001', addr:'경기 안양시 동안구 평촌대로 (평촌역 사거리)', lat:37.3928, lng:126.9645, risk:'safe'},
@@ -629,14 +738,14 @@ function renderTraffic(){
   map.setView([37.392,126.968], 14);
   setSummary(3,1,1,1,0);
 }
-
+ 
 function setSummary(t,safe,caution,alert,inspect){
   sumTotal.textContent=t; sumNormal.textContent=safe; sumCaution.textContent=caution;
   sumDanger.textContent=alert; sumInspect.textContent=inspect;
   lgTotal.textContent=t; lgSafe.textContent=safe; lgCaution.textContent=caution;
   lgAlert.textContent=alert; lgInspect.textContent=inspect;
 }
-
+ 
 /* ================= 모드 전환 버튼 ================= */
 const btns = { all: btnAll, weather: btnWeather, traffic: btnTraffic };
 function setMode(mode){
@@ -650,7 +759,7 @@ function setMode(mode){
 btnAll.onclick = ()=>setMode('all');
 btnWeather.onclick = ()=>setMode('weather');
 btnTraffic.onclick = ()=>setMode('traffic');
-
+ 
 /* ================= 교통 팝업 ================= */
 /* 6단계 위험도 체계: 1안전(녹색) 2주의(노랑) 3경계/4위험(빨강) 5심각/6극한위험(빨강 점멸) */
 const RISK_LEVELS = {
@@ -671,7 +780,7 @@ function openPopup(p){
   document.getElementById('tp-temp').textContent = (28+Math.random()*6).toFixed(1)+'°C';
   document.getElementById('tp-hum').textContent = (40+Math.random()*20).toFixed(1)+'%';
   document.getElementById('tp-wind').textContent = (1+Math.random()*4).toFixed(1)+'m/s';
-
+ 
   /* 비&눈: 강수 없으면 － 아이콘, 비면 빗방울, 눈이면 눈송이 아이콘 */
   const precipRoll = Math.random();
   let precipIcon, precipText;
@@ -681,16 +790,16 @@ function openPopup(p){
   } else { precipIcon='－'; precipText='없음'; }
   document.getElementById('tp-precip-ic').textContent = precipIcon;
   document.getElementById('tp-precip').textContent = precipText;
-
+ 
   document.getElementById('tp-speed').textContent = (p.risk==='danger'?18:p.risk==='caution'?34:48)+'km/h';
-
+ 
   const lvl = pickRiskLevel(p.risk);
   const rl = RISK_LEVELS[lvl];
   document.getElementById('tp-risk').textContent = rl.label;
   const bar = document.getElementById('tp-riskbar');
   bar.className = 'risk-bar ' + rl.cls;
   bar.textContent = `${lvl}단계 · ${rl.label}`;
-
+ 
   /* 신규 3x9 항목: 값 + 1시간 전 대비 증감(▲빨강=증가 / ▼파랑=감소) */
   const riskLabels = ['낮음','보통','높음'];
   setStat('tp-vehcnt', Math.round(80 + Math.random()*100));
@@ -702,7 +811,8 @@ function openPopup(p){
   setStat('tp-walker', Math.round(4 + Math.random()*30));
   setStat('tp-cycle', Math.round(1 + Math.random()*10));
   setStat('tp-moto', Math.round(0 + Math.random()*8));
-
+ 
+  document.getElementById('tp-scroll').scrollTop = 0;
   document.getElementById('tpopup').classList.add('show');
 }
 /* 값 갱신 + 1시간 전 대비 증감 화살표(▲빨강 증가 / ▼파랑 감소) 표시 */
@@ -714,19 +824,20 @@ function setStat(id, value, isLabel){
   t.className = 'trend ' + (up ? 'up' : 'down');
 }
 function closePopup(){ document.getElementById('tpopup').classList.remove('show'); }
-
+ 
 /* ================= 제품현황 페이지 (화면 전환) ================= */
 function openTable(){
   if(!activePoint) return;
   document.getElementById('tbl-id').textContent = activePoint.id;
   document.getElementById('tbl-addr').textContent = activePoint.addr;
-  buildTableRows(activePoint.risk);
+  genProductData(activePoint.risk);
+  buildRawTables();
   closePopup();
   document.getElementById('screenMap').style.display = 'none';
   document.getElementById('screenProduct').classList.add('show');
   document.getElementById('navMain').classList.remove('active');
   document.getElementById('navProduct').classList.add('active');
-  switchTab('graph');
+  switchTab('traffic');
 }
 function closeTable(){
   document.getElementById('screenProduct').classList.remove('show');
@@ -735,48 +846,206 @@ function closeTable(){
   document.getElementById('navMain').classList.add('active');
 }
 function switchTab(tab){
-  const raw = tab==='raw';
-  document.getElementById('tabRaw').classList.toggle('active', raw);
-  document.getElementById('tabGraph').classList.toggle('active', !raw);
-  document.getElementById('rawView').style.display = raw ? '' : 'none';
-  document.getElementById('graphView').classList.toggle('show', !raw);
-  if(!raw) renderGraphDashboard();
+  const ids = { traffic:'tabTraffic', weather:'tabWeather', raw:'tabRaw' };
+  Object.entries(ids).forEach(([k,id])=> document.getElementById(id).classList.toggle('active', k===tab));
+  document.getElementById('graphView').classList.toggle('show', tab==='traffic');
+  document.getElementById('weatherView').classList.toggle('show', tab==='weather');
+  document.getElementById('rawView').style.display = tab==='raw' ? '' : 'none';
+  if(tab==='traffic') renderGraphDashboard();
+  if(tab==='weather') renderWeatherGraph();
 }
-
-function buildTableRows(baseRisk){
-  const body = document.getElementById('tbl-body');
-  body.innerHTML = '';
-  const msgs = { safe:['안전운행','서행 구간입니다'], caution:['서행주의','정체 구간, 서행하세요'], danger:['위험감속','사고 위험, 즉시 감속하세요'] };
-  let t = new Date('2026-08-24T09:10:00');
-  for(let i=0;i<12;i++){
-    const roll = Math.random();
-    const risk = roll<0.6 ? 'safe' : roll<0.85 ? 'caution' : 'danger';
-    const [label,msg] = msgs[risk];
-    const cls = risk;
-    const temp = (27+Math.random()*7).toFixed(1);
-    const hum = (38+Math.random()*22).toFixed(1);
-    const wind = (0.5+Math.random()*4).toFixed(1);
-    const precip = risk==='danger' ? '비' : '없음';
-    const avgSpd = risk==='danger'?(15+Math.random()*10).toFixed(0):risk==='caution'?(28+Math.random()*8).toFixed(0):(40+Math.random()*15).toFixed(0);
-    const maxSpd = (Number(avgSpd)+Math.round(Math.random()*15)).toFixed(0);
-    const dstr = t.toISOString().slice(0,10);
-    const hstr = t.toTimeString().slice(0,5);
-    body.innerHTML += `<tr>
-      <td>${12-i}</td><td>${dstr}</td><td>${hstr}</td>
-      <td>${temp}</td><td>${hum}</td><td>${wind}</td><td>${precip}</td>
-      <td>${risk==='danger'?'높음':risk==='caution'?'보통':'낮음'}</td><td>${msg}</td>
-      <td>${avgSpd}</td><td>${maxSpd}</td>
-      <td><span class="badge ${cls}">${label}</span></td>
-    </tr>`;
-    t = new Date(t.getTime() - 10*60000);
+function switchRaw(which){
+  const rec = which==='rec';
+  document.getElementById('rawTabRec').classList.toggle('active', rec);
+  document.getElementById('rawTabEvt').classList.toggle('active', !rec);
+  document.getElementById('rawRecWrap').style.display = rec ? '' : 'none';
+  document.getElementById('rawEvtWrap').style.display = rec ? 'none' : '';
+  document.getElementById('rawTitle').textContent = rec ? '10분 레코드 목록' : '이벤트 목록';
+  document.getElementById('rawNote').textContent = rec
+    ? '현행 8키(기상) + 교통관제 축약 키 · 10분 주기 · 시각은 서버 수신일시'
+    : '4단계 이상만 수신 · 6단계는 종료 즉시, 4~5단계는 10분마다 상위 3건';
+}
+ 
+/* ================= 제품 데이터 (프로토콜 V20261016 형식의 가상 데이터) ================= */
+const WS_LABEL = ['안전운행','폭염주의','폭염경보','강풍주의','강풍경보','미끄럼주의','미끄럼경보','살얼음주의','살얼음경보','눈','비'];
+const wsClass = c => c===0 ? 'ws-0' : (c>=9 ? 'ws-p' : (c%2 ? 'ws-c' : 'ws-a'));
+const D_LABEL = ['정상','주의','경고','점검'];
+const GS_LABEL = ['정상출력','미출력','지연'];
+const CM_LABEL = {1:'M1',2:'M2',3:'M3',4:'S1',5:'S2'};
+const ET_LABEL = {1:'차량 접근',2:'보행자 진입',3:'충돌위험',4:'이상행동'};
+const VK_LABEL = ['없음','승용','화물','버스','이륜차','자전거·킥보드'];
+const CZ_NAMES = ['속도 상승','보행자 밀집','야간','우천','ROI 진입'];
+const SE_NAMES = ['M1','M2','M3','S1','S2','레이더','온습도','풍속','우적'];
+const RISK_NAME = ['','안전','주의','경계','위험','심각','극한위험'];
+const pad2 = n => String(n).padStart(2,'0');
+const fmtD = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+const fmtHM = d => `${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
+const fmtHMS = d => `${fmtHM(d)}:${pad2(d.getSeconds())}`;
+const rnd = (a,b) => a + Math.random()*(b-a);
+const ri = (a,b) => Math.floor(rnd(a,b+1));
+const bitsToNames = (v,names) => names.filter((_,i)=> v & (1<<i));
+ 
+let REC = [], EVT = [];
+function genProductData(baseRisk){
+  const N = 72;                                   /* 12시간 × 10분 */
+  const end = new Date('2026-08-24T16:20:00');
+  const riskBias = baseRisk==='danger' ? 2 : baseRisk==='caution' ? 1 : 0;
+  REC = []; EVT = [];
+  for(let i=0;i<N;i++){
+    const t = new Date(end.getTime() - (N-1-i)*600000);
+    const h = t.getHours() + t.getMinutes()/60;
+    const temp = 22 + 7*Math.sin((h-9)/24*2*Math.PI) + rnd(-0.4,0.4);
+    const hum  = 80 - 22*Math.sin((h-9)/24*2*Math.PI) + rnd(-2,2);
+    const wind = Math.max(0, 0.6 + Math.sin(i/5)*0.5 + rnd(-0.4,0.6));
+    const rain = Math.random() < (riskBias ? 0.12 : 0.04) ? 1 : 0;
+    const ws = rain ? 10 : (Math.random()<0.06 ? 5 : 0);
+    const day = h>=7 && h<=20;
+    const vs=ri(day?40:4,day?110:20), vt=ri(day?8:1,day?30:6), vb=ri(day?3:0,day?12:2), vm=ri(0,day?12:3), vc=ri(0,day?10:2), walker=ri(day?6:0,day?40:6);
+    const sx = ri(45,80), sa = ri(30,Math.min(sx-5,60));
+    const g = [0,0,0,0,0,0];
+    const peak = Math.min(6, 1 + ri(0,2) + riskBias + (Math.random()<0.15?1:0));
+    for(let k=1;k<=peak;k++) g[k-1] = k===1 ? ri(1,4) : ri(0, Math.max(1,6-k));
+    const cg = Math.max(1, Math.min(6, ri(1, Math.max(1,peak-1))));
+    if(cg>1 && g[cg-1]===0) g[cg-1] = 1;           /* 현재 등급은 구간 내 진입 이력과 일치 */
+    const se = Math.random()<0.06 ? (1<<ri(0,8)) : 0;
+    const rec = {
+      t, temp, hum, wind, ws, speed:ri(35,85), avgSpeed:ri(30,60), total:ri(10,40),
+      kTemp: 22 + 7*Math.sin((Math.floor(h)-9)/24*2*Math.PI) + 0.6,   /* 기상청: 1시간 단위 */
+      kHum: 80 - 22*Math.sin((Math.floor(h)-9)/24*2*Math.PI) - 3,
+      kWind: Math.max(0, 1.2 + Math.sin(Math.floor(h)/3)*0.8),
+      v:vs+vt+vb+vm, vs, vt, vb, vm, vc, p:walker+vc, sx, sa, g,
+      d: se ? 1 : 0, cg, cs: Math.min(100, cg*15 + ri(-6,8)), cv:ri(0,day?14:3), cp:ri(0,day?9:2),
+      gs: Math.random()<0.04 ? 2 : 0, cc: Math.random()<0.03 ? 0 : 1, r: rain, se
+    };
+    REC.push(rec);
+    /* 이벤트: 4~5단계는 10분 구간 상위 3건만 수신, 6단계는 즉시 */
+    const cand = [];
+    const nCand = Math.max(0, peak - 3 + ri(-1,2));
+    for(let k=0;k<nCand;k++){
+      const mk = Math.random() < 0.08 ? 6 : (Math.random()<0.45 ? 5 : 4);
+      cand.push({ mk, ms: mk===6 ? ri(90,99) : mk===5 ? ri(75,89) : ri(60,74), du: ri(4,60), seqGap: ri(0,1) });
+    }
+    const six = cand.filter(c=>c.mk===6);
+    const top = cand.filter(c=>c.mk<6).sort((a,b)=> b.mk-a.mk || b.ms-a.ms || b.du-a.du).slice(0,3);
+    [...top.map(c=>({...c,mode:'batch'})), ...six.map(c=>({...c,mode:'now'}))].forEach(c=>{
+      const st = new Date(t.getTime() - ri(60,560)*1000);
+      let cz = 0; for(let b=0;b<5;b++) if(Math.random()<0.35) cz |= (1<<b); if(!cz) cz = 16;
+      if(rain) cz |= 8; if(!day) cz |= 4;
+      EVT.push({ st, gap:c.seqGap, du:c.du, cm:[1,1,2,3,4,5][ri(0,5)], et:ri(1,4), mk:c.mk, ms:c.ms, cz, vk:ri(0,5), ps:ri(0,day?6:2), rn:rain, mode:c.mode });
+    });
   }
 }
-
+ 
+function assignEventIds(){
+  /* ev = 발생 시각(YYMMDDhhmmss) + 당일 일련번호(4자리). 발생 순서대로 번호 부여, 선별 탈락분은 번호만 소비 */
+  EVT.sort((a,b)=> a.st - b.st);
+  let seq = 0, day = '';
+  EVT.forEach(e=>{
+    const d = fmtD(e.st);
+    if(d !== day){ day = d; seq = 0; }
+    seq += 1 + e.gap;
+    e.ev = `${String(e.st.getFullYear()).slice(2)}${pad2(e.st.getMonth()+1)}${pad2(e.st.getDate())}${pad2(e.st.getHours())}${pad2(e.st.getMinutes())}${pad2(e.st.getSeconds())}${String(seq).padStart(4,'0')}`;
+  });
+}
+function buildRawTables(){
+  assignEventIds();
+  const body = document.getElementById('tbl-body');
+  const rows = [...REC].reverse().slice(0, 18);
+  body.innerHTML = rows.map((r,i)=>{
+    const z = n => n===0 ? `<td class="muted">0</td>` : `<td>${n}</td>`;
+    const seNames = bitsToNames(r.se, SE_NAMES);
+    return `<tr>
+      <td>${rows.length-i}</td><td>${fmtD(r.t)}</td><td>${fmtHM(r.t)}</td>
+      <td class="sep">${r.temp.toFixed(1)}</td><td>${r.hum.toFixed(1)}</td><td>${r.wind.toFixed(1)}</td>
+      <td><span class="ws-badge ${wsClass(r.ws)}" style="min-width:64px;padding:3px 8px;">${WS_LABEL[r.ws]}</span></td>
+      <td>${r.speed}</td><td>${r.avgSpeed}</td><td>${r.total}</td>
+      <td class="sep"><b>${r.v}</b></td>${z(r.vs)}${z(r.vt)}${z(r.vb)}${z(r.vm)}${z(r.vc)}<td><b>${r.p}</b></td>
+      <td class="sep">${r.sx}</td><td>${r.sa}</td>
+      ${r.g.map((n,k)=> (k===0?`<td class="sep${n?'':' muted'}">`:`<td${n?'':' class="muted"'}>`)+n+'</td>').join('')}
+      <td class="sep">${D_LABEL[r.d]}</td>
+      <td><span class="lv-badge lv${r.cg}">${r.cg} ${RISK_NAME[r.cg]}</span></td><td>${r.cs}</td><td>${r.cv}</td><td>${r.cp}</td>
+      <td>${GS_LABEL[r.gs]}</td><td>${r.cc ? '정상' : '<b style="color:var(--red)">무응답</b>'}</td><td>${r.r ? '감지' : '없음'}</td>
+      <td>${seNames.length ? '<b style="color:var(--red)">'+seNames.join('·')+'</b>' : '<span class="muted">정상</span>'}</td>
+    </tr>`;
+  }).join('');
+ 
+  const eb = document.getElementById('evt-body');
+  const evs = [...EVT].reverse().slice(0, 30);
+  eb.innerHTML = evs.length ? evs.map((e,i)=>{
+    const endT = new Date(e.st.getTime() + e.du*1000);
+    return `<tr>
+      <td>${evs.length-i}</td><td style="font-family:Consolas,monospace">${e.ev}</td>
+      <td>${fmtD(e.st)} ${fmtHMS(e.st)}</td><td>${fmtHMS(endT)}</td><td>${e.du}</td>
+      <td>${CM_LABEL[e.cm]}</td><td>${ET_LABEL[e.et]}</td>
+      <td><span class="lv-badge lv${e.mk}">${e.mk} ${RISK_NAME[e.mk]}</span></td><td>${e.ms}</td>
+      <td style="white-space:normal;min-width:150px">${bitsToNames(e.cz, CZ_NAMES).join(', ')} <span class="muted">(${e.cz})</span></td>
+      <td>${VK_LABEL[e.vk]}</td><td>${e.ps}</td><td>${e.rn ? '감지' : '없음'}</td>
+      <td><span class="tx-mode ${e.mode==='now'?'tx-now':'tx-batch'}">${e.mode==='now' ? '6단계 즉시' : '10분 묶음'}</span></td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="14" class="muted">이벤트 없음</td></tr>';
+}
+ 
+/* ================= Weather Graph (기상전광판 그래프 공용) ================= */
+const wxCharts = {};
+const wxType = { temp:'line', wind:'line', hum:'line', spd:'line' };
+let spdMode = 'max';
+function wxSeries(key){
+  if(key==='temp') return { y:{min:-20,max:50}, sets:[
+    { label:'제품온도', color:'#e3262b', data:REC.map(r=>+r.temp.toFixed(1)) },
+    { label:'기상청온도', color:'#4a90d9', data:REC.map(r=>+r.kTemp.toFixed(1)), stepped:true }]};
+  if(key==='wind') return { y:{min:0,max:30}, sets:[
+    { label:'제품풍속', color:'#1a8a1a', data:REC.map(r=>+r.wind.toFixed(1)) },
+    { label:'기상청풍속', color:'#f5a300', data:REC.map(r=>+r.kWind.toFixed(1)), stepped:true }]};
+  if(key==='hum') return { y:{min:0,max:100}, sets:[
+    { label:'제품습도', color:'#1d2fd6', data:REC.map(r=>+r.hum.toFixed(1)) },
+    { label:'기상청습도', color:'#f5a300', data:REC.map(r=>+r.kHum.toFixed(1)), stepped:true }]};
+  return { y:{min:0,max:100}, sets:[ spdMode==='max'
+    ? { label:'최고속도', color:'#3f7f86', data:REC.map(r=>r.speed) }
+    : { label:'평균속도', color:'#3f7f86', data:REC.map(r=>r.avgSpeed) } ]};
+}
+function wxDraw(key){
+  const canvasId = { temp:'wxTemp', wind:'wxWind', hum:'wxHum', spd:'wxSpd' }[key];
+  const t = wxType[key];
+  const { y, sets } = wxSeries(key);
+  if(wxCharts[key]) wxCharts[key].destroy();
+  wxCharts[key] = new Chart(document.getElementById(canvasId), {
+    type: t==='bar' ? 'bar' : 'line',
+    data:{ labels: REC.map(r=>`${r.t.getDate()}일 ${fmtHM(r.t)}`),
+      datasets: sets.map(s=>({ label:s.label, data:s.data, borderColor:s.color, backgroundColor: t==='bar' ? s.color : s.color+'33',
+        fill: t==='area' ? 'origin' : false, stepped: t!=='bar' && s.stepped ? 'middle' : false,
+        borderWidth: 2, pointRadius: 0, tension: 0.25, maxBarThickness: 6 })) },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false, interaction:{mode:'index',intersect:false},
+      plugins:{ legend:{ position:'bottom', labels:{ usePointStyle:true, boxWidth:8, font:{size:10.5} } } },
+      scales:{ y:{ min:y.min, max:y.max, ticks:{font:{size:10}} },
+               x:{ ticks:{ autoSkip:true, maxTicksLimit:7, maxRotation:0, font:{size:10} } } } }
+  });
+}
+function setSpdMode(m){
+  spdMode = m;
+  document.getElementById('spdMax').classList.toggle('active', m==='max');
+  document.getElementById('spdAvg').classList.toggle('active', m==='avg');
+  wxDraw('spd');
+}
+document.querySelectorAll('.ctype').forEach(box=>{
+  box.addEventListener('click', e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    box.querySelectorAll('button').forEach(x=>x.classList.toggle('on', x===b));
+    wxType[box.dataset.key] = b.dataset.t;
+    wxDraw(box.dataset.key);
+  });
+});
+function renderWeatherGraph(){
+  if(typeof Chart === 'undefined') return;
+  ['temp','wind','hum','spd'].forEach(wxDraw);
+  document.getElementById('wxHistBody').innerHTML = [...REC].reverse().map(r=>
+    `<tr><td>${fmtD(r.t)}</td><td>${fmtHM(r.t)}</td><td><span class="ws-badge ${wsClass(r.ws)}">${WS_LABEL[r.ws]}</span></td></tr>`).join('');
+}
+ 
 /* ================= Graph 대시보드 (교통관제 시각화) ================= */
 let chartDonut=null, chartRiskBar=null;
 const CAT_LABELS = ['승용','트럭','버스','보행자','킥보드&자전거','오토바이'];
 const CAT_COLORS = ['#5161ec','#838ff7','#1053fc','#1a6b13','#ca9011','#e71818'];
-
+ 
 function renderGraphDashboard(){
   if(!activePoint) return;
   if(typeof Chart === 'undefined'){
@@ -785,19 +1054,19 @@ function renderGraphDashboard(){
     return;
   }
   const riskBase = activePoint.risk==='danger'?70:activePoint.risk==='caution'?45:22;
-
+ 
   /* 6종류 구성비 데이터 */
   const car = Math.round(60+Math.random()*60), truck = Math.round(10+Math.random()*25),
         bus = Math.round(4+Math.random()*12), walker = Math.round(8+Math.random()*25),
         cycle = Math.round(2+Math.random()*10), moto = Math.round(1+Math.random()*8);
   const catData = [car,truck,bus,walker,cycle,moto];
   const total = catData.reduce((a,b)=>a+b,0);
-
+ 
   document.getElementById('kpi-veh').innerHTML = (car+truck+bus)+'<span>대</span>';
   document.getElementById('kpi-ped').innerHTML = (walker+cycle+moto)+'<span>명/대</span>';
   document.getElementById('kpi-speed').innerHTML = (activePoint.risk==='danger'?18:activePoint.risk==='caution'?34:48)+'<span>km/h</span>';
   document.getElementById('kpi-peak').innerHTML = (17+Math.floor(Math.random()*3))+'시<span>대</span>';
-
+ 
   /* 도넛차트 + 범례 */
   const donutCtx = document.getElementById('donutChart');
   if(chartDonut) chartDonut.destroy();
@@ -810,7 +1079,7 @@ function renderGraphDashboard(){
   legend.innerHTML = CAT_LABELS.map((l,i)=>`
     <li><span class="name"><span class="sw" style="background:${CAT_COLORS[i]}"></span>${l}</span>
     <span class="pct">${((catData[i]/total)*100).toFixed(1)}%</span></li>`).join('');
-
+ 
   /* 시간별 평균 위험도 막대차트: X축 1시간 단위 24구간, Y축 1~6단계 */
   const TIME_BINS = Array.from({length:24}, (_,i)=> `${i}시`);
   const baseLevel = activePoint.risk==='danger'?4.5:activePoint.risk==='caution'?3:1.6;
@@ -826,11 +1095,11 @@ function renderGraphDashboard(){
       scales:{ y:{ beginAtZero:true, min:0, max:6, ticks:{ stepSize:1, callback:(v)=> v===0 ? '' : v+'단계' } },
                x:{ ticks:{ maxRotation:0, autoSkip:true, maxTicksLimit:12 } } } }
   });
-
+ 
   renderRiskHeatmap(TIME_BINS, baseLevel);
   renderVolMatrix(TIME_BINS);
 }
-
+ 
 /* 색상 보간: 파랑(적음) → 노랑 → 빨강(많음) */
 function heatColor(t){
   t = Math.max(0, Math.min(1, t));
@@ -843,7 +1112,7 @@ function heatColor(t){
   const bl = Math.round(a[2]+(b[2]-a[2])*localT);
   return `rgb(${r},${g},${bl})`;
 }
-
+ 
 /* 요일 × 1시간 위험도 히트맵 (위험단계 가중치 누적값) */
 function renderRiskHeatmap(timeBins, baseLevel){
   const days = ['일','월','화','수','목','금','토'];
@@ -860,7 +1129,7 @@ function renderRiskHeatmap(timeBins, baseLevel){
   html += '</tbody>';
   document.getElementById('riskHeatmap').innerHTML = html;
 }
-
+ 
 /* 시간대별 차량 · 보행자 통행량: 위험도 그래프와 같은 형태의 얇은 막대 2종류 */
 let chartVolBar=null;
 function renderVolMatrix(timeBins){
@@ -878,9 +1147,10 @@ function renderVolMatrix(timeBins){
       scales:{ y:{ beginAtZero:true }, x:{ ticks:{ maxRotation:0, autoSkip:true, maxTicksLimit:12 } } } }
   });
 }
-
+ 
 /* 초기 진입: 전체 모드 */
 renderAll();
 </script>
 </body>
 </html>
+ 
