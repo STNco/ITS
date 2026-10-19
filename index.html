@@ -2559,7 +2559,7 @@ function sendContact(){
 
 
 /* ================= 로그인 (데모: 브라우저 안에서만 확인, 실제 인증 아님) ================= */
-const DEMO_ID = 'stn', DEMO_PW = 'stn1234', KEEP_KEY = 'stnDemoKeepLogin';
+const DEMO_ACCOUNTS = { stn:'stn1234', admin:'12345' }, KEEP_KEY = 'stnDemoKeepLogin';   /* 두 계정 동일 동작 */
 function kvGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function kvSet(k, v){ try{ v===null ? localStorage.removeItem(k) : localStorage.setItem(k, v); }catch(e){} }
 function showLogin(){
@@ -2573,7 +2573,7 @@ function doLogin(){
   const err = document.getElementById('lgErr');
   if(!id){ err.textContent = '아이디를 입력하세요.'; document.getElementById('lgId').focus(); return; }
   if(!pw){ err.textContent = '비밀번호를 입력하세요.'; document.getElementById('lgPw').focus(); return; }
-  if(id !== DEMO_ID || pw !== DEMO_PW){ err.textContent = '아이디 또는 비밀번호가 일치하지 않습니다.'; document.getElementById('lgPw').select(); return; }
+  if(!Object.prototype.hasOwnProperty.call(DEMO_ACCOUNTS, id) || DEMO_ACCOUNTS[id] !== pw){ err.textContent = '아이디 또는 비밀번호가 일치하지 않습니다.'; document.getElementById('lgPw').select(); return; }
   kvSet(KEEP_KEY, document.getElementById('lgKeep').classList.contains('on') ? '1' : null);
   document.getElementById('loginScreen').classList.add('hide');
   goMain();
