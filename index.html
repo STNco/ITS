@@ -873,7 +873,7 @@
       <div class="stat-box inspect"><div class="num" id="sumInspect">2</div><div class="lbl">점검</div></div>
       <div class="stat-box unack" id="sumUnackBox" onclick="openEvents({ack:'N'})" title="미확인 위험 이벤트 목록으로 이동"><div class="num" id="sumUnack">0</div><div class="lbl">미확인<br>이벤트</div><span class="tag-mini">기능추가</span></div>
     </div>
-    <button class="fulllist-btn">
+    <button class="fulllist-btn" onclick="setMode('all')" title="데모: 전체 모드와 동일 동작 (실제: 초기 화면으로 복귀)">
       <span class="ic">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
           <path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/>
@@ -904,7 +904,6 @@
       <div class="kv"><span>주소</span><b id="tp-addr">경기 안양시 동안구 평촌대로</b></div>
       <div class="kv"><span>데이터 갱신 일시</span><b id="tp-time">2026년 08월 24일 09:12</b></div>
       <div class="kv"><span>장비 상태</span><b><span class="st-badge" id="tp-state">안전</span></b></div>
-      <div class="off-note" id="tp-off" style="display:none;"></div>
       <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
     </div>
 
@@ -2741,9 +2740,6 @@ function fillPopupDevice(p, lvl){
   const st = devState(p);
   document.getElementById('tp-time').textContent = fmtKo(last.t);
   const b = document.getElementById('tp-state'); b.className = 'st-badge st-' + st; b.textContent = st;
-  const off = document.getElementById('tp-off');
-  if(st==='점검'){ off.style.display = ''; off.textContent = `⚠ 메인 통신 ${Math.floor(p.offMin/60)}시간 ${p.offMin%60}분째 수신 없음 (전원 차단 또는 통신 두절)`; }
-  else off.style.display = 'none';
   const cs = Math.min(100, lvl*15 + ri(-5,8));
   const bar = document.getElementById('tp-riskbar'); bar.textContent += ` · ${cs}점`;
 }
