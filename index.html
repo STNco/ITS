@@ -1297,7 +1297,7 @@
   <!-- 위험 이벤트 목록 (F-03) -->
   <section class="sys-page" id="pg-events">
     <div class="sys-top"><h1 class="sys-title">위험 이벤트 목록<span class="tag-new">기능추가</span></h1>
-      <div class="sys-btns"><button class="btn-or" onclick="evPage=1;renderEvents()">🔍 검색</button><button class="btn-ol" onclick="evExcel()">⬇ Excel 다운로드</button></div></div>
+      <div class="sys-btns"><span class="sms-msg" id="evAckMsg" style="align-self:center;margin-right:8px;"></span><button class="btn-or" onclick="evPage=1;renderEvents()">🔍 검색</button><button class="btn-ol" id="evAckAll" onclick="ackAllEvents()" title="현재 검색 조건의 미확인 이벤트를 모두 확인 처리">✔ 전체 확인</button><button class="btn-ol" onclick="evExcel()">⬇ Excel 다운로드</button></div></div>
     <div class="filter-card" style="gap:14px 20px;">
       <div class="f-item"><label>기간</label><span class="seg" id="evPreset"><button data-v="12">12시간</button><button data-v="24">24시간</button><button data-v="168">1주일</button><button data-v="720">1개월</button><button data-v="2160">3개월</button></span></div>
       <div class="f-item"><label>현장</label><select class="f-in f-sm" id="evQsite"></select></div>
@@ -1715,7 +1715,7 @@ function switchRaw(which){
 /* ================= 제품 데이터 (프로토콜 V20261016 형식의 가상 데이터) ================= */
 const WS_LABEL = ['안전운행','폭염주의','폭염경보','강풍주의','강풍경보','미끄럼주의','미끄럼경보','살얼음주의','살얼음경보','눈','비'];
 const wsClass = c => c===0 ? 'ws-0' : (c>=9 ? 'ws-p' : (c%2 ? 'ws-c' : 'ws-a'));
-const D_LABEL = ['정상','주의','경고','점검'];
+const D_LABEL = ['안전','주의','경보'];   /* d = se 비정상 개수 (0 안전 / 1 주의 / 2 이상 경보), 점검은 서버가 수신 여부로 판정 */
 const GS_LABEL = ['정상출력','미출력','지연'];
 const CM_LABEL = {1:'M1',2:'M2',3:'M3',4:'S1',5:'S2'};
 const ET_LABEL = {1:'차량 접근',2:'보행자 진입',3:'충돌위험',4:'이상행동'};
@@ -2714,7 +2714,7 @@ function siteData(p){
       EVT = EVT.filter(e=> e.recIdx < REC.length);
     }
     const last = REC[REC.length-1];
-    last.se = p.se; last.d = p.se ? 1 : 0;           /* 최신 레코드 = 장비 상태 기준 */
+    last.se = p.se; last.d = Math.min(2, bitCount(p.se));           /* 최신 레코드 = 장비 상태 기준 */
     if(p.id==='TI-25-0003'){ last.gs = 0; last.cc = 1; }
     assignEventIds();
     const cut2 = Date.now() - 3600000;     /* 데모: 1시간 이전 이벤트는 확인 완료 상태 */
@@ -2813,6 +2813,24 @@ setInterval(()=>{
   if(Math.random() < 0.35) injectEvent();
   renderEvents(); updUnack();
 }, 10000);
+/* 전체 확인: 현재 검색 조건의 미확인 건을 일괄 확인 (판정은 건별로 입력) — 두 번 눌러 실행 */
+let evAckArm = null;
+function ackAllEvents(){
+  const btn = document.getElementById('evAckAll'), msg = document.getElementById('evAckMsg');
+  const targets = evFiltered().filter(e=> !e.ack);
+  if(!targets.length){ msg.className = 'sms-msg err'; msg.textContent = '확인할 미확인 이벤트가 없습니다.'; setTimeout(()=> msg.textContent = '', 2500); return; }
+  if(!evAckArm){
+    btn.textContent = `✔ ${targets.length}건 확인 (한 번 더)`;
+    evAckArm = setTimeout(()=>{ btn.textContent = '✔ 전체 확인'; evAckArm = null; }, 4000);
+    return;
+  }
+  clearTimeout(evAckArm); evAckArm = null; btn.textContent = '✔ 전체 확인';
+  const now = new Date();
+  targets.forEach(e=>{ e.ack = true; e.ackBy = 'stn'; e.ackAt = now; });
+  msg.className = 'sms-msg'; msg.textContent = `${targets.length}건 확인 처리했습니다.`;
+  setTimeout(()=> msg.textContent = '', 2500);
+  renderEvents(); updUnack();
+}
 function evExcel(){
   const rows = evFiltered();
   const head = ['이벤트 ID','발생일시','종료시각','지속(초)','현장','카메라','유형','최고등급','점수','판정 근거','차량 종류','보행자 수','강우','확인','확인자','확인시각','판정','메모'];
