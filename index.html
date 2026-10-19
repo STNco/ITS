@@ -838,6 +838,9 @@
   .grade-chip:empty{display:none;}
   .g-gen{background:#eef0f3;color:#5b6270;} .g-school{background:#fff5cc;color:#9a6b00;} .g-silver{background:#efe8ff;color:#6b46c1;}
   .g-dis{background:#e3efff;color:#1d5bbf;} .g-bike{background:#e3f7e6;color:#1a7f2e;} .g-etc{background:#f1f1f1;color:#666;}
+  /* 교통관제 팝업: 1시간 전 대비 증감 표시 없음 */
+  #tpopup .trend{display:none;}
+  #tpopup .tp-meas.tp-two{grid-template-columns:repeat(2,1fr);}
 </style>
 </head>
 <body>
@@ -956,8 +959,8 @@
         <div><div class="l">비&amp;눈</div><div class="ic" id="tp-precip-ic"></div><div class="v"><span id="tp-precip"></span></div></div>
         <div><div class="l">평균속도(레이더)</div><div class="ic"><svg width="38" height="34" viewBox="0 0 40 34" fill="none" stroke-linecap="round"><path d="M5 28a15 15 0 1 1 30 0" stroke="#7fc8f2" stroke-width="4"/><path d="M20 28l8-11" stroke="#2f8fe6" stroke-width="3"/><circle cx="20" cy="28" r="3" fill="#2f8fe6"/></svg></div><div class="v"><span id="tp-speed"></span></div></div><div><div class="l">평균속도(영상)</div><div class="ic"><svg width="38" height="34" viewBox="0 0 40 34" fill="none" stroke-linecap="round"><path d="M5 28a15 15 0 1 1 30 0" stroke="#7fc8f2" stroke-width="4"/><path d="M20 28l8-11" stroke="#2f8fe6" stroke-width="3"/><circle cx="20" cy="28" r="3" fill="#2f8fe6"/></svg></div><div class="v"><span id="tp-speed2"></span></div></div>
       </div>
-      <div class="tp-grp">교통량 · 위험도</div>
-      <div class="tp-meas"><div><div class="l">차량 수</div><div class="ic"><svg width="46" height="30" viewBox="0 0 48 30"><path d="M3 20.5v-3.6c0-1.5 1-2.8 2.5-3.2l6.3-1.8 5.4-6.2A4.5 4.5 0 0 1 20.6 4h9.3a4.5 4.5 0 0 1 3.5 1.7l5 6.2 4.9 1.3c1.6.4 2.7 1.9 2.7 3.5v3.8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#4aa8f0"/><path d="M18.6 7.3a2 2 0 0 1 1.5-.8h3.9v5.3h-9.2z" fill="#e8f4fd"/><path d="M26.5 6.5h3.3a2 2 0 0 1 1.6.8l3.6 4.5h-8.5z" fill="#e8f4fd"/><path d="M41.5 15.5h3" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/><circle cx="13" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="13" cy="22.5" r="1.6" fill="#e8f4fd"/><circle cx="36" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="36" cy="22.5" r="1.6" fill="#e8f4fd"/></svg></div><div class="v"><span id="tp-vehcnt"></span><span class="trend" id="tp-vehcnt-t">▲</span></div></div><div><div class="l">보행자 수</div><div class="ic"><svg width="30" height="40" viewBox="88 58 232 392" fill="none" stroke="#4aa8f0" stroke-linecap="round" stroke-linejoin="round"><path d="M172 214l-48 48" stroke="#2f8fe6" stroke-width="38"/><path d="M218 292l60 134" stroke="#2f8fe6" stroke-width="40"/><path d="M206 178l-8 86" stroke="#fff" stroke-width="76"/><path d="M193 280l-53 64-22 82" stroke="#fff" stroke-width="54"/><path d="M206 178l-8 86" stroke-width="62"/><path d="M193 280l-53 64-22 82" stroke-width="40"/><path d="M226 168l56 46 6 32" stroke-width="38"/><circle cx="196" cy="105" r="37" fill="#4aa8f0" stroke="none"/></svg></div><div class="v"><span id="tp-pedcnt"></span><span class="trend" id="tp-pedcnt-t">▲</span></div></div><div><div class="l">평균위험도</div><div class="ic"><svg width="36" height="34" viewBox="0 0 36 34"><rect x="3" y="18" width="8" height="13" rx="2" fill="#7fc8f2"/><rect x="14" y="10" width="8" height="21" rx="2" fill="#4aa8f0"/><rect x="25" y="3" width="8" height="28" rx="2" fill="#2f8fe6"/></svg></div><div class="v"><span id="tp-avgrisk"></span><span class="trend" id="tp-avgrisk-t">▲</span></div></div></div>
+      <div class="tp-grp">교통량</div>
+      <div class="tp-meas tp-two"><div><div class="l">차량 수</div><div class="ic"><svg width="46" height="30" viewBox="0 0 48 30"><path d="M3 20.5v-3.6c0-1.5 1-2.8 2.5-3.2l6.3-1.8 5.4-6.2A4.5 4.5 0 0 1 20.6 4h9.3a4.5 4.5 0 0 1 3.5 1.7l5 6.2 4.9 1.3c1.6.4 2.7 1.9 2.7 3.5v3.8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#4aa8f0"/><path d="M18.6 7.3a2 2 0 0 1 1.5-.8h3.9v5.3h-9.2z" fill="#e8f4fd"/><path d="M26.5 6.5h3.3a2 2 0 0 1 1.6.8l3.6 4.5h-8.5z" fill="#e8f4fd"/><path d="M41.5 15.5h3" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/><circle cx="13" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="13" cy="22.5" r="1.6" fill="#e8f4fd"/><circle cx="36" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="36" cy="22.5" r="1.6" fill="#e8f4fd"/></svg></div><div class="v"><span id="tp-vehcnt"></span><span class="trend" id="tp-vehcnt-t">▲</span></div></div><div><div class="l">보행자 수</div><div class="ic"><svg width="30" height="40" viewBox="88 58 232 392" fill="none" stroke="#4aa8f0" stroke-linecap="round" stroke-linejoin="round"><path d="M172 214l-48 48" stroke="#2f8fe6" stroke-width="38"/><path d="M218 292l60 134" stroke="#2f8fe6" stroke-width="40"/><path d="M206 178l-8 86" stroke="#fff" stroke-width="76"/><path d="M193 280l-53 64-22 82" stroke="#fff" stroke-width="54"/><path d="M206 178l-8 86" stroke-width="62"/><path d="M193 280l-53 64-22 82" stroke-width="40"/><path d="M226 168l56 46 6 32" stroke-width="38"/><circle cx="196" cy="105" r="37" fill="#4aa8f0" stroke="none"/></svg></div><div class="v"><span id="tp-pedcnt"></span><span class="trend" id="tp-pedcnt-t">▲</span></div></div></div>
       <div class="tp-grp">차종별 통행량</div>
       <div class="tp-meas"><div><div class="l">승용</div><div class="ic"><svg width="46" height="30" viewBox="0 0 48 30"><path d="M3 20.5v-3.6c0-1.5 1-2.8 2.5-3.2l6.3-1.8 5.4-6.2A4.5 4.5 0 0 1 20.6 4h9.3a4.5 4.5 0 0 1 3.5 1.7l5 6.2 4.9 1.3c1.6.4 2.7 1.9 2.7 3.5v3.8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#4aa8f0"/><path d="M18.6 7.3a2 2 0 0 1 1.5-.8h3.9v5.3h-9.2z" fill="#e8f4fd"/><path d="M26.5 6.5h3.3a2 2 0 0 1 1.6.8l3.6 4.5h-8.5z" fill="#e8f4fd"/><path d="M41.5 15.5h3" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/><circle cx="13" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="13" cy="22.5" r="1.6" fill="#e8f4fd"/><circle cx="36" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="36" cy="22.5" r="1.6" fill="#e8f4fd"/></svg></div><div class="v"><span id="tp-car"></span><span class="trend" id="tp-car-t">▲</span></div></div><div><div class="l">트럭</div><div class="ic"><svg width="44" height="30" viewBox="0 0 46 30"><rect x="2" y="4" width="26" height="18" rx="2" fill="#4aa8f0"/><path d="M28 9h8l6 7v6H28z" fill="#7fc8f2"/><path d="M31 11h4.5l3.5 4h-8z" fill="#e8f4fd"/><circle cx="10" cy="24" r="4" fill="#2f8fe6"/><circle cx="35" cy="24" r="4" fill="#2f8fe6"/></svg></div><div class="v"><span id="tp-truck"></span><span class="trend" id="tp-truck-t">▲</span></div></div><div><div class="l">버스</div><div class="ic"><svg width="46" height="30" viewBox="0 0 48 30"><rect x="3" y="3" width="42" height="19" rx="4" fill="#4aa8f0"/><rect x="6" y="6.5" width="7" height="6.5" rx="1.2" fill="#e8f4fd"/><rect x="15" y="6.5" width="7" height="6.5" rx="1.2" fill="#e8f4fd"/><rect x="24" y="6.5" width="7" height="6.5" rx="1.2" fill="#e8f4fd"/><path d="M34 6.5h6.5a1.5 1.5 0 0 1 1.5 1.5v6h-8z" fill="#e8f4fd"/><path d="M3 16.5h42" stroke="#7fc8f2" stroke-width="1.6"/><path d="M41.5 18.5h2" stroke="#fff3c4" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="22.5" r="1.6" fill="#e8f4fd"/><circle cx="36" cy="22.5" r="4.6" fill="#2f8fe6" stroke="#fff" stroke-width="1.6"/><circle cx="36" cy="22.5" r="1.6" fill="#e8f4fd"/></svg></div><div class="v"><span id="tp-bus"></span><span class="trend" id="tp-bus-t">▲</span></div></div></div>
       <div class="tp-grp">보행·이륜 통행량</div>
@@ -1357,20 +1360,15 @@
           <label>발송 기준</label><span class="seg" id="smsLv"><button data-v="6">6단계만</button><button data-v="5">5단계 이상</button><button data-v="4">4단계 이상</button></span>
           <label>발송 요일</label><div class="day-chips" id="smsDays"></div>
           <label>발송 시간대</label><div><input type="time" id="smsFrom" value="07:00"> ~ <input type="time" id="smsTo" value="22:00"></div>
-          <label>공휴일</label><label style="display:flex;align-items:center;gap:6px;font-weight:600;color:var(--ink-900);cursor:pointer;"><input type="checkbox" id="smsHol" style="width:17px;height:17px;accent-color:#f4711f;">공휴일에는 발송하지 않음 (공휴일관리 기준)</label>
           <label>문자 예시</label><div class="sms-prev" id="smsPrev"></div>
         </div>
-        <div class="sms-note">· 6단계 이벤트는 종료 즉시 수신되어 바로 발송됩니다.<br>· 4~5단계 이벤트는 10분 레코드와 묶어 수신되므로 발생 후 최대 10분 뒤 발송됩니다.<br>· 발송 시간대 밖의 이벤트는 발송하지 않고 목록에만 남습니다.</div>
+        <div class="sms-note">· 6단계 이벤트는 종료 즉시 수신되어 바로 발송됩니다.<br>· 4~5단계 이벤트는 10분 레코드와 묶어 수신되므로 발생 후 최대 10분 뒤 발송됩니다.<br>· 발송 시간대 밖의 이벤트는 발송하지 않고 목록에만 남습니다.<br>· 발송 결과(일시·수신자·성공 여부)는 DB에만 기록하며 별도 이력 화면은 두지 않습니다.</div>
       </div>
       <div class="sys-card">
         <div class="sys-card-h"><span class="t">수신자 목록</span><span class="raw-note">이벤트 발생 시 아래 번호로 발송</span></div>
         <div class="tbl-box"><table class="st compact"><thead><tr><th>번호</th><th>이름</th><th>휴대전화</th><th>소속</th><th>사용</th><th>삭제</th></tr></thead><tbody id="smsRcvBody"></tbody></table></div>
         <div class="sms-add"><input id="smsAName" placeholder="이름"><input id="smsATel" placeholder="010-0000-0000" maxlength="13"><input id="smsAOrg" placeholder="소속"><button class="btn-ol" onclick="addSmsRcv()">＋ 추가</button></div>
       </div>
-    </div>
-    <div class="sys-card" style="margin-top:18px;">
-      <div class="sys-card-h"><span class="t">발송 이력</span><span class="raw-note">현재 설정 기준 최근 발송 내역 (데모)</span></div>
-      <div class="tbl-box" style="max-height:330px;"><table class="st compact"><thead><tr><th>발송일시</th><th>현장</th><th>이벤트 ID</th><th>등급</th><th style="text-align:left">문자 내용</th><th>수신자</th><th>결과</th></tr></thead><tbody id="smsLogBody"></tbody></table></div>
     </div>
   </section>
 
@@ -1671,9 +1669,6 @@ function openPopup(p){
   /* 직전 10분 구간 누계(v·p·차종) + 1시간 전(6건 전) 레코드 대비 증감 */
   setStat('tp-vehcnt', last.v, prev.v);
   setStat('tp-pedcnt', last.p, prev.p);
-  const avgCg = a => Math.round(a.reduce((t,r)=> t + r.cg, 0) / Math.max(1, a.length));
-  const nowAvg = avgCg(R.slice(-6)), prevAvg = avgCg(R.slice(-12, -6));
-  setStat('tp-avgrisk', `${nowAvg}단계 ${RISK_NAME[nowAvg]}`, null, nowAvg - prevAvg);   /* 최근 1시간 cg 평균 */
   setStat('tp-car', last.vs, prev.vs);
   setStat('tp-truck', last.vt, prev.vt);
   setStat('tp-bus', last.vb, prev.vb);
@@ -2913,7 +2908,6 @@ function renderSms(){
   document.getElementById('smsDays').innerHTML = DAY_KO.map((d,i)=>`<button class="${SMS.days[i]?'on':''}" data-i="${i}">${d}</button>`).join('');
   document.querySelectorAll('#smsDays button').forEach(b=> b.onclick = ()=>{ SMS.days[+b.dataset.i] ^= 1; renderSms(); });
   document.getElementById('smsFrom').value = SMS.from; document.getElementById('smsTo').value = SMS.to;
-  document.getElementById('smsHol').checked = SMS.hol;
   const all = ALL_EVT();
   const sample = all.find(e=>e.mk===6) || all[0];
   document.getElementById('smsPrev').textContent = sample ? smsMsgOf(sample) : '-';
@@ -2923,19 +2917,8 @@ function renderSms(){
     : '<tr class="empty-row"><td colspan="6">등록된 수신자가 없습니다</td></tr>';
   document.querySelectorAll('#smsRcvBody [data-u]').forEach(c=> c.onchange = ()=>{ SMS.rcv[+c.dataset.u].use = c.checked; renderSms(); });
   document.querySelectorAll('#smsRcvBody [data-d]').forEach(c=> c.onclick = ()=>{ SMS.rcv.splice(+c.dataset.d,1); renderSms(); });
-  const nRcv = SMS.rcv.filter(r=>r.use).length;
-  const logs = SMS.use==='N' ? [] : all.filter(e=> e.mk >= SMS.lv).map(e=>{
-      const sent = e.mode==='now' ? new Date(e.st.getTime() + e.du*1000 + 3000) : new Date(e.site._data.REC[e.recIdx].t.getTime() + 5000);
-      return { e, sent };
-    }).filter(x=> smsInWindow(x.sent)).sort((a,b)=> b.sent - a.sent).slice(0, 20);
-  document.getElementById('smsLogBody').innerHTML = logs.length ? logs.map(({e,sent})=>
-    `<tr><td class="c">${fmtD(sent)} ${fmtHMS(sent)}</td><td class="c">${e.site.id}</td><td style="font-family:Consolas,monospace">${e.ev}</td>
-     <td class="c"><span class="lv-badge lv${e.mk}">${e.mk} ${RISK_NAME[e.mk]}</span></td><td style="white-space:normal;min-width:280px">${esc(smsMsgOf(e))}</td>
-     <td class="c">${nRcv}명</td><td class="c">${nRcv ? '<span style="color:#1a6b13;font-weight:700">성공</span>' : '<span class="muted">수신자 없음</span>'}</td></tr>`).join('')
-    : '<tr class="empty-row"><td colspan="7">발송 내역이 없습니다</td></tr>';
 }
 ['smsFrom','smsTo'].forEach(id=> document.getElementById(id).addEventListener('change', e=>{ SMS[id==='smsFrom'?'from':'to'] = e.target.value; renderSms(); }));
-document.getElementById('smsHol').addEventListener('change', e=>{ SMS.hol = e.target.checked; renderSms(); });
 document.getElementById('smsATel').addEventListener('input', e=>{
   const d = e.target.value.replace(/\D/g,'').slice(0,11);
   e.target.value = d.length < 4 ? d : d.length < 8 ? `${d.slice(0,3)}-${d.slice(3)}` : `${d.slice(0,3)}-${d.slice(3, d.length-4)}-${d.slice(-4)}`;
