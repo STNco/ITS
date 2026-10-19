@@ -896,27 +896,20 @@
   <!-- 교통 팝업 (그림2-3 대응) -->
   <div class="tpopup" id="tpopup">
     <div class="ph">
-      <div class="id" id="tp-id">TI-25-0001</div>
+      <div class="id"><span id="tp-id">TI-25-0001</span><span class="tag-new">기능추가</span></div>
       <button class="close" onclick="closePopup()">✕</button>
     </div>
     <div class="pb-top">
       <div class="kv"><span>설치일자</span><b id="tp-install">2025년 03월 12일</b></div>
       <div class="kv"><span>주소</span><b id="tp-addr">경기 안양시 동안구 평촌대로</b></div>
       <div class="kv"><span>데이터 갱신 일시</span><b id="tp-time">2026년 08월 24일 09:12</b></div>
-      <div class="kv"><span>장비 상태<span class="tag-new">기능추가</span></span><b><span class="st-badge" id="tp-state">안전</span></b></div>
+      <div class="kv"><span>장비 상태</span><b><span class="st-badge" id="tp-state">안전</span></b></div>
       <div class="off-note" id="tp-off" style="display:none;"></div>
       <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
     </div>
 
     <div class="pb-scroll" id="tp-scroll">
       <div class="stat-grid">
-        <div class="grp-label">장비 · 경고 상태 <span class="tag-new">기능추가</span></div>
-        <div class="se-chips" id="tp-se"></div>
-        <div class="stat-cell"><div class="ic">📟</div><div class="v" id="tp-gs">정상출력</div><div class="l">전광판 출력</div></div>
-        <div class="stat-cell"><div class="ic">🔌</div><div class="v" id="tp-cc">정상</div><div class="l">제어기 응답</div></div>
-        <div class="stat-cell"><div class="ic">🎯</div><div class="v" id="tp-cs">0점</div><div class="l">위험도 점수</div></div>
-        <div class="grp-label">최근 이벤트 <span class="tag-new">기능추가</span></div>
-        <div class="recent-ev" id="tp-ev"></div>
         <div class="grp-label">기상 · 교통 현황</div>
         <div class="stat-cell"><div class="ic">🌡️</div><div class="v" id="tp-temp">31.2°C</div><div class="l">온도</div></div>
         <div class="stat-cell"><div class="ic">💧</div><div class="v" id="tp-hum">54.1%</div><div class="l">습도</div></div>
@@ -1412,7 +1405,7 @@
       </div>
       <div>
         <div class="fg">
-          <div><label>관리번호<span class="req">*</span></label><input id="rId" placeholder="BI- 기상전광판/ TI- 교통관제"></div>
+          <div><label>관리번호<span class="req">*</span></label><input id="rId" placeholder="BI-YY-NNNN 기상/ TI-YY-NNNN 교통"></div>
           <div><label>IMEI<span class="req">*</span></label><input id="rImei" maxlength="15" placeholder="IMEI를 입력해 주세요"></div>
           <div><label>지역</label><select id="rLv1"></select></div>
           <div><label>세부지역</label><select id="rLv2"></select></div>
@@ -2751,21 +2744,8 @@ function fillPopupDevice(p, lvl){
   const off = document.getElementById('tp-off');
   if(st==='점검'){ off.style.display = ''; off.textContent = `⚠ 메인 통신 ${Math.floor(p.offMin/60)}시간 ${p.offMin%60}분째 수신 없음 (전원 차단 또는 통신 두절)`; }
   else off.style.display = 'none';
-  const items = [...p.cams, '레이더', '온습도', '풍속', '우적'];
-  document.getElementById('tp-se').innerHTML = '<div class="cap">센서 연결 상태 (se · 설치된 카메라·센서만)</div>' +
-    items.map(n=>{ const bit = SE_NAMES.indexOf(n); const ng = bit>=0 && (p.se & (1<<bit));
-      return `<span class="se-chip${ng?' ng':''}">${n} ${ng?'이상':'정상'}</span>`; }).join('');
-  document.getElementById('tp-gs').textContent = GS_LABEL[last.gs];
-  document.getElementById('tp-cc').innerHTML = last.cc ? '정상' : '<span style="color:var(--red)">무응답</span>';
   const cs = Math.min(100, lvl*15 + ri(-5,8));
-  document.getElementById('tp-cs').textContent = cs + '점';
   const bar = document.getElementById('tp-riskbar'); bar.textContent += ` · ${cs}점`;
-  const ev = sd.EVT[sd.EVT.length-1];
-  const box = document.getElementById('tp-ev');
-  if(ev){
-    box.innerHTML = `<span class="lv-badge lv${ev.mk}">${ev.mk} ${RISK_NAME[ev.mk]}</span><b>${ET_LABEL[ev.et]}</b><span class="when">${fmtD(ev.st).slice(5)} ${fmtHMS(ev.st)}${ev.ack?'':' · <b style="color:#d45d00">미확인</b>'}</span>`;
-    box.onclick = ()=> openEvDetail(p.id, ev.ev);
-  } else { box.innerHTML = '<span class="muted">최근 이벤트 없음</span>'; box.onclick = null; }
 }
 
 /* ================= 위험 이벤트 목록 (F-03) ================= */
