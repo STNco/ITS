@@ -503,16 +503,8 @@
   .fg .full{grid-column:1 / -1;}
   .fg label{display:block;font-size:14px;color:var(--ink-900);margin-bottom:4px;}
   .fg label .req{color:#3b5bdb;margin-left:2px;}
-  .fg input,.fg select{width:100%;height:42px;border:1px solid var(--line);border-radius:8px;padding:0 20px;font-size:14px;font-family:inherit;color:var(--ink-900);background:#fff;}
+  .fg input,.fg select{width:100%;height:46px;border:1px solid var(--line);border-radius:8px;padding:0 20px;font-size:14px;font-family:inherit;color:var(--ink-900);background:#fff;}
   .fg select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5l8 8 8-8'/%3E%3C/svg%3E") no-repeat right 16px center;}
-  .kind-sel{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  .kind-sel button{height:52px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:14.5px;font-weight:800;color:var(--ink-600);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
-  .kind-sel button.on{border-color:#f4711f;color:#d4580f;background:#fff8f3;box-shadow:0 0 0 3px #ffe9da;}
-  .tc-box{grid-column:1 / -1;border:1px dashed #f3b48a;background:#fffaf6;border-radius:10px;padding:12px 14px;display:none;}
-  .tc-box.show{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;}
-  .tc-box .cams{display:flex;gap:14px;flex-wrap:wrap;align-items:center;min-height:46px;font-size:14px;}
-  .tc-box .cams label{display:flex;align-items:center;gap:5px;margin:0;}
-  .tc-box .cams .grp{color:var(--ink-400);font-size:12px;font-weight:700;}
   .reg-err{color:var(--red);font-size:13px;font-weight:700;min-height:18px;margin-top:8px;text-align:right;}
   .modal-f{display:flex;justify-content:flex-end;gap:10px;margin-top:6px;}
   .modal-f .btn-ol,.modal-f .btn-gy{min-width:84px;padding:10px 18px;}
@@ -713,6 +705,102 @@
   .legend .lg-row:nth-child(4) .dot{background:#f5a000!important;} .legend .lg-row:nth-child(5) .dot{background:#e31b1b!important;}
   .legend .lg-row:nth-child(6) .dot{background:#3d4450!important;}
   .stat-box.safe .num{color:#21a637;} .stat-box.caution .num{color:#f5a000;} .stat-box.alert .num{color:#e31b1b;} .stat-box.inspect .num{color:#3d4450;}
+
+  /* ---------- 이벤트 상세 (F-04) ---------- */
+  #evt-body tr{cursor:pointer;}
+  #evt-body tr:hover td{background:#f6f8fb;}
+  #evt-body tr.unack td{background:#fffaf0;}
+  #evt-body tr.unack:hover td{background:#fff3dc;}
+  .ack-badge{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:4px;}
+  .ack-no{background:#fff1e0;color:#d45d00;border:1px solid #ffd3a6;}
+  .ack-ok{background:#eef1f4;color:#5b6270;}
+  .jd{font-weight:700;} .jd-0{color:#1a6b13;} .jd-1{color:#5b6270;} .jd-2{color:#d45d00;} .jd-3{color:var(--red);}
+  #evModal .modal{width:min(780px,100%);padding:24px 26px 22px;}
+  .ev-hd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#f6f8f8;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:16px;}
+  .ev-hd .lv-badge{font-size:14px;padding:6px 14px;}
+  .ev-hd .sc{font-size:13px;color:var(--ink-600);} .ev-hd .sc b{font-size:22px;color:var(--ink-900);margin-right:2px;}
+  .ev-hd .meta{margin-left:auto;text-align:right;font-size:12.5px;color:var(--ink-600);line-height:1.6;}
+  .ev-hd .meta b{color:var(--ink-900);}
+  .ev-sec{margin-bottom:14px;}
+  .ev-sec .st{font-size:13.5px;font-weight:800;margin:0 0 7px;display:flex;align-items:center;gap:8px;}
+  .ev-sec .st small{font-weight:600;color:var(--ink-400);font-size:11.5px;}
+  .ev-dl{display:grid;grid-template-columns:150px 1fr 150px 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px;}
+  .ev-dl > div{padding:9px 12px;border-bottom:1px solid var(--line);}
+  .ev-dl > div:nth-child(4n+1),.ev-dl > div:nth-child(4n+3){background:#f6f8f8;color:var(--ink-600);font-weight:700;}
+  .ev-dl > div:nth-last-child(-n+4){border-bottom:none;}
+  .ev-dl .k{font-family:Consolas,monospace;font-size:10.5px;color:var(--color-dark);font-weight:700;margin-left:4px;}
+  .ev-dl .span3{grid-column:2 / -1;}
+  .cz-chip{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid var(--line);margin:1px 4px 1px 0;color:#bbb;}
+  .cz-chip.on{border-color:#f4711f;color:#f4711f;background:#fff8f3;}
+  .ev-in{border:1px solid #ffd3a6;background:#fffdf9;border-radius:10px;padding:14px 16px;}
+  .ev-in .row{display:flex;align-items:center;gap:12px;margin-bottom:12px;font-size:13px;}
+  .ev-in .row > label{width:84px;flex:none;font-weight:700;color:var(--ink-600);}
+  .ev-in .row > label .req{color:#3b5bdb;margin-left:2px;}
+  .ev-in .ackinfo{color:var(--ink-600);}
+  .ev-in .ackinfo b{color:var(--ink-900);}
+  .jd-seg{display:flex;gap:6px;}
+  .jd-seg button{min-width:72px;height:34px;border:1px solid var(--line);background:#fff;border-radius:6px;font-family:inherit;font-size:13px;font-weight:700;color:var(--ink-600);cursor:pointer;}
+  .jd-seg button.on{border-color:#f4711f;background:#f4711f;color:#fff;}
+  .ev-in textarea{flex:1;height:64px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-family:inherit;font-size:13px;resize:vertical;}
+  .ev-err{color:var(--red);font-size:13px;font-weight:700;min-height:18px;text-align:right;margin-top:8px;}
+  @media (max-width:700px){ .ev-dl{grid-template-columns:96px 1fr;} .ev-dl .span3{grid-column:auto;} .ev-dl > div:nth-child(n){background:none;color:inherit;font-weight:400;}
+    .ev-dl > div:nth-child(odd){background:#f6f8f8;color:var(--ink-600);font-weight:700;} .ev-dl > div:nth-last-child(-n+4){border-bottom:1px solid var(--line);} .ev-dl > div:nth-last-child(-n+2){border-bottom:none;} .ev-hd .meta{margin-left:0;text-align:left;} }
+
+  /* ---------- 견적 항목 추가분 ---------- */
+  nav .nav-new{font-size:10px;font-weight:800;color:#f4711f;margin-left:4px;vertical-align:8px;}
+  .mode-switch .ms-new{align-self:center;font-size:10px;font-weight:800;color:#f4711f;background:#fff1e8;border-radius:4px;padding:2px 6px;margin-left:2px;}
+  .pin.insp{background:#3d4450;}
+  .stat-box.unack{border-top:1px dashed var(--line);margin-top:6px;cursor:pointer;}
+  .stat-box.unack .num{color:#d45d00;}
+  .stat-box.unack .lbl{font-size:11.5px;line-height:1.25;}
+  .stat-box.unack:hover{background:#fff8f0;}
+  .tag-mini{display:block;font-size:9.5px;font-weight:800;color:#f4711f;margin-top:3px;}
+  .tpopup .st-badge{display:inline-block;padding:2px 9px;border-radius:999px;color:#fff;font-size:11px;font-weight:800;}
+  .st-안전{background:var(--green);} .st-주의{background:var(--orange);} .st-경보{background:var(--red);} .st-점검{background:#3d4450;}
+  .se-chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px;background:var(--teal-050);border-radius:8px;padding:8px;}
+  .se-chips .cap{width:100%;font-size:9.5px;color:var(--ink-400);margin-bottom:1px;}
+  .se-chip{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:#e3f4e5;color:#1a6b13;}
+  .se-chip.ng{background:#fde4e4;color:var(--red);}
+  .recent-ev{grid-column:1/-1;background:var(--teal-050);border-radius:8px;padding:9px 10px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;}
+  .recent-ev:hover{background:#e3eef0;}
+  .recent-ev .when{margin-left:auto;color:var(--ink-600);font-size:11px;}
+  .tpopup .btnrow .btn-ev{background:#f4711f;color:#fff;}
+  .off-note{font-size:11px;color:var(--red);font-weight:700;margin-top:4px;}
+  /* 위험 이벤트 목록 */
+  .f-sm{width:150px!important;}
+  .ev-poll{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-600);}
+  .ev-poll .dot{width:8px;height:8px;border-radius:50%;background:#21a637;}
+  #evBody tr.unack td{background:#fffaf0;}
+  #evBody tr.new-row td{animation:newRow 3s ease-out 1;}
+  @keyframes newRow{from{background:#ffd9a8;}to{background:#fffaf0;}}
+  .new-mk{font-size:10px;font-weight:800;color:#fff;background:#f4711f;border-radius:3px;padding:1px 5px;margin-left:5px;}
+  /* 이벤트 상세 — 등급 변화 */
+  .ev-flow{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;}
+  .ev-flow .fs{flex:1;min-width:150px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:12.5px;background:#fff;}
+  .ev-flow .fs b{display:block;font-size:13.5px;margin-bottom:2px;}
+  .ev-flow .ar{align-self:center;color:var(--ink-400);font-weight:800;}
+  .ev-hint{font-size:11.5px;color:var(--ink-400);margin-top:6px;}
+  /* 장비 등록 — 교통관제 항목 */
+  .tc-box{grid-column:1/-1;border:1px dashed #f4b37f;background:#fffaf5;border-radius:10px;padding:10px 14px;display:none;}
+  .tc-box.show{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
+  .tc-box .cams{display:flex;gap:12px;flex-wrap:wrap;align-items:center;min-height:46px;font-size:14px;}
+  .tc-box .cams label{display:flex;align-items:center;gap:4px;margin:0;cursor:pointer;}
+  .tc-box .cams input{width:17px;height:17px;accent-color:#f4711f;}
+  .tc-box .ttl{grid-column:1/-1;font-size:13px;font-weight:800;color:#d4580f;}
+  /* SMS 알림설정 */
+  .sms-form{display:grid;grid-template-columns:110px 1fr;gap:14px 12px;align-items:center;padding:6px 6px 4px;font-size:13.5px;}
+  .sms-form > label{font-weight:700;color:var(--ink-600);}
+  .day-chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .day-chips button{width:38px;height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;font-family:inherit;font-weight:700;cursor:pointer;color:var(--ink-600);}
+  .day-chips button.on{background:#f4711f;border-color:#f4711f;color:#fff;}
+  .sms-form input[type=time]{height:38px;border:1px solid var(--line);border-radius:6px;padding:0 10px;font-family:inherit;font-size:14px;}
+  .sms-note{font-size:12px;color:var(--ink-600);line-height:1.7;background:#f6f8f8;border-radius:8px;padding:10px 12px;margin:10px 6px 0;}
+  .sms-prev{font-size:12.5px;background:#fff8f0;border:1px solid #ffd3a6;border-radius:8px;padding:10px 12px;line-height:1.6;}
+  .sms-add{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+  .sms-add input{flex:1;min-width:110px;height:38px;border:1px solid var(--line);border-radius:6px;padding:0 10px;font-family:inherit;font-size:13px;}
+  .sms-msg{font-size:13px;font-weight:700;color:#1a6b13;min-height:18px;}
+  .sms-msg.err{color:var(--red);}
+  .x-del{border:none;background:none;color:var(--red);font-weight:800;cursor:pointer;font-size:14px;}
 </style>
 </head>
 <body>
@@ -747,13 +835,15 @@
     <div class="nav-dd" id="ddSys">
       <button id="navSys">시스템관리<span class="chev"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5l8 8 8-8"/></svg></span></button>
       <div class="dd-menu">
-        <div class="dd-item" data-page="auth">권한관리<span class="new">기능추가</span></div>
+        <div class="dd-item" data-page="auth">권한관리</div>
         <div class="dd-item" data-page="user">사용자관리</div>
         <div class="dd-item" data-page="alliance">소속관리<span class="new">기능추가</span></div>
         <div class="dd-item" data-page="code">코드관리</div>
+        <div class="dd-item" data-page="sms">SMS 알림설정<span class="new">기능추가</span></div>
       </div>
     </div>
     <button id="navProduct">제품현황</button>
+    <button id="navEvents">위험 이벤트<span class="nav-new">기능추가</span></button>
     <button id="navContact">문의접수</button>
     <button id="navHoliday">공휴일관리</button>
   </nav>
@@ -781,6 +871,7 @@
       <div class="stat-box caution"><div class="num" id="sumCaution">0</div><div class="lbl">주의</div></div>
       <div class="stat-box alert"><div class="num" id="sumDanger">0</div><div class="lbl">경보</div></div>
       <div class="stat-box inspect"><div class="num" id="sumInspect">2</div><div class="lbl">점검</div></div>
+      <div class="stat-box unack" id="sumUnackBox" onclick="openEvents({ack:'N'})" title="미확인 위험 이벤트 목록으로 이동"><div class="num" id="sumUnack">0</div><div class="lbl">미확인<br>이벤트</div><span class="tag-mini">기능추가</span></div>
     </div>
     <button class="fulllist-btn">
       <span class="ic">
@@ -799,6 +890,7 @@
     <button class="active" data-mode="all" id="btnAll"><span class="ic">🗺️</span>전체</button>
     <button data-mode="weather" id="btnWeather"><span class="ic">🌦️</span>기상전광판</button>
     <button data-mode="traffic" id="btnTraffic"><span class="ic">🚦</span>교통관제</button>
+    <span class="ms-new">기능추가</span>
   </div>
 
   <!-- 교통 팝업 (그림2-3 대응) -->
@@ -811,11 +903,20 @@
       <div class="kv"><span>설치일자</span><b id="tp-install">2025년 03월 12일</b></div>
       <div class="kv"><span>주소</span><b id="tp-addr">경기 안양시 동안구 평촌대로</b></div>
       <div class="kv"><span>데이터 갱신 일시</span><b id="tp-time">2026년 08월 24일 09:12</b></div>
+      <div class="kv"><span>장비 상태<span class="tag-new">기능추가</span></span><b><span class="st-badge" id="tp-state">안전</span></b></div>
+      <div class="off-note" id="tp-off" style="display:none;"></div>
       <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
     </div>
 
     <div class="pb-scroll" id="tp-scroll">
       <div class="stat-grid">
+        <div class="grp-label">장비 · 경고 상태 <span class="tag-new">기능추가</span></div>
+        <div class="se-chips" id="tp-se"></div>
+        <div class="stat-cell"><div class="ic">📟</div><div class="v" id="tp-gs">정상출력</div><div class="l">전광판 출력</div></div>
+        <div class="stat-cell"><div class="ic">🔌</div><div class="v" id="tp-cc">정상</div><div class="l">제어기 응답</div></div>
+        <div class="stat-cell"><div class="ic">🎯</div><div class="v" id="tp-cs">0점</div><div class="l">위험도 점수</div></div>
+        <div class="grp-label">최근 이벤트 <span class="tag-new">기능추가</span></div>
+        <div class="recent-ev" id="tp-ev"></div>
         <div class="grp-label">기상 · 교통 현황</div>
         <div class="stat-cell"><div class="ic">🌡️</div><div class="v" id="tp-temp">31.2°C</div><div class="l">온도</div></div>
         <div class="stat-cell"><div class="ic">💧</div><div class="v" id="tp-hum">54.1%</div><div class="l">습도</div></div>
@@ -844,6 +945,7 @@
     <div class="pb-foot">
       <div class="btnrow">
         <button class="btn-primary" onclick="openTable()">센서현황</button>
+        <button class="btn-ev" onclick="openEvents({site:activePoint.id})" title="기능추가">이벤트 조회</button>
         <button class="btn-ghost" onclick="closePopup()">뒤로가기</button>
       </div>
     </div>
@@ -968,7 +1070,7 @@
           <tr>
             <th>번호</th><th>이벤트 ID<small>ev</small></th><th>발생일시<small>ev 앞 12자리</small></th><th>종료시각<small>발생 + du</small></th><th>지속(초)<small>du</small></th>
             <th>카메라<small>cm</small></th><th>유형<small>et</small></th><th>최고등급<small>mk</small></th><th>점수<small>ms</small></th>
-            <th>판정 근거<small>cz</small></th><th>차량 종류<small>vk</small></th><th>보행자 수<small>ps</small></th><th>강우<small>rn</small></th><th>수신 방식</th>
+            <th>판정 근거<small>cz</small></th><th>차량 종류<small>vk</small></th><th>보행자 수<small>ps</small></th><th>강우<small>rn</small></th><th>수신 방식</th><th class="sep">확인</th><th>판정</th>
           </tr>
         </thead>
         <tbody id="evt-body"></tbody>
@@ -1199,6 +1301,60 @@
     </div>
   </section>
 
+
+  <!-- 위험 이벤트 목록 (F-03) -->
+  <section class="sys-page" id="pg-events">
+    <div class="sys-top"><h1 class="sys-title">위험 이벤트 목록<span class="tag-new">기능추가</span></h1>
+      <div class="sys-btns"><button class="btn-or" onclick="evPage=1;renderEvents()">🔍 검색</button><button class="btn-ol" onclick="evExcel()">⬇ Excel 다운로드</button></div></div>
+    <div class="filter-card" style="gap:14px 20px;">
+      <div class="f-item"><label>기간</label><span class="seg" id="evPreset"><button data-v="12">12시간</button><button data-v="24">24시간</button><button data-v="168">1주일</button><button data-v="720">1개월</button><button data-v="2160">3개월</button></span></div>
+      <div class="f-item"><label>현장</label><select class="f-in f-sm" id="evQsite"></select></div>
+      <div class="f-item"><label>카메라</label><select class="f-in f-sm" id="evQcam"><option value="">전체</option><option value="1">M1</option><option value="2">M2</option><option value="3">M3</option><option value="4">S1</option><option value="5">S2</option></select></div>
+      <div class="f-item"><label>위험등급</label><select class="f-in f-sm" id="evQmk"><option value="">전체</option><option value="6">6 극한위험</option><option value="5">5 심각</option><option value="4">4 위험</option></select></div>
+      <div class="f-item"><label>이벤트 유형</label><select class="f-in f-sm" id="evQet"><option value="">전체</option><option value="1">차량 접근</option><option value="2">보행자 진입</option><option value="3">충돌위험</option><option value="4">이상행동</option></select></div>
+      <div class="f-item"><label>차량 종류</label><select class="f-in f-sm" id="evQvk"><option value="">전체</option><option value="0">없음</option><option value="1">승용</option><option value="2">화물</option><option value="3">버스</option><option value="4">이륜차</option><option value="5">자전거·킥보드</option></select></div>
+      <div class="f-item"><label>확인 여부</label><select class="f-in f-sm" id="evQack"><option value="">전체</option><option value="N">미확인</option><option value="Y">확인</option></select></div>
+      <div class="f-item"><label>판정 결과</label><select class="f-in f-sm" id="evQjd"><option value="">전체</option><option value="-">미판정</option><option value="0">정상</option><option value="1">오경보</option><option value="2">준사고</option><option value="3">사고</option></select></div>
+    </div>
+    <div class="sys-card">
+      <div class="sys-card-h"><span class="t">이벤트 목록 <span id="evCnt" style="font-weight:600;color:var(--ink-600);font-size:13px;"></span></span>
+        <span class="ev-poll"><span class="dot"></span>10초마다 자동 갱신 · 최근 갱신 <b id="evLast">-</b></span></div>
+      <div class="tbl-box"><table class="st compact"><thead><tr>
+        <th>번호</th><th>이벤트 ID</th><th>발생일시</th><th>종료</th><th>지속(초)</th><th>현장</th><th>카메라</th><th>유형</th><th>최고등급</th><th>점수</th><th>판정 근거</th><th>차량 종류</th><th>보행자</th><th>확인</th><th>판정</th>
+      </tr></thead><tbody id="evBody"></tbody></table></div>
+      <div class="pager" id="evPager"></div>
+    </div>
+  </section>
+
+  <!-- SMS 알림설정 (F-10) -->
+  <section class="sys-page" id="pg-sms">
+    <div class="sys-top"><h1 class="sys-title">SMS 알림설정<span class="tag-new">기능추가</span></h1>
+      <div class="sys-btns"><span class="sms-msg" id="smsMsg" style="align-self:center;margin-right:8px;"></span><button class="btn-or" onclick="saveSms()">저장</button></div></div>
+    <div class="sys-grid" style="grid-template-columns:1fr 1.15fr;">
+      <div class="sys-card">
+        <div class="sys-card-h"><span class="t">발송 설정</span></div>
+        <div class="sms-form">
+          <label>사용 여부</label><span class="seg" id="smsUse"><button data-v="Y">사용</button><button data-v="N">미사용</button></span>
+          <label>발송 기준</label><span class="seg" id="smsLv"><button data-v="6">6단계만</button><button data-v="5">5단계 이상</button><button data-v="4">4단계 이상</button></span>
+          <label>발송 요일</label><div class="day-chips" id="smsDays"></div>
+          <label>발송 시간대</label><div><input type="time" id="smsFrom" value="07:00"> ~ <input type="time" id="smsTo" value="22:00"></div>
+          <label>공휴일</label><label style="display:flex;align-items:center;gap:6px;font-weight:600;color:var(--ink-900);cursor:pointer;"><input type="checkbox" id="smsHol" style="width:17px;height:17px;accent-color:#f4711f;">공휴일에는 발송하지 않음 (공휴일관리 기준)</label>
+          <label>문자 예시</label><div class="sms-prev" id="smsPrev"></div>
+        </div>
+        <div class="sms-note">· 6단계 이벤트는 종료 즉시 수신되어 바로 발송됩니다.<br>· 4~5단계 이벤트는 10분 레코드와 묶어 수신되므로 발생 후 최대 10분 뒤 발송됩니다.<br>· 발송 시간대 밖의 이벤트는 발송하지 않고 목록에만 남습니다.</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-card-h"><span class="t">수신자 목록</span><span class="raw-note">이벤트 발생 시 아래 번호로 발송</span></div>
+        <div class="tbl-box"><table class="st compact"><thead><tr><th>번호</th><th>이름</th><th>휴대전화</th><th>소속</th><th>사용</th><th>삭제</th></tr></thead><tbody id="smsRcvBody"></tbody></table></div>
+        <div class="sms-add"><input id="smsAName" placeholder="이름"><input id="smsATel" placeholder="010-0000-0000" maxlength="13"><input id="smsAOrg" placeholder="소속"><button class="btn-ol" onclick="addSmsRcv()">＋ 추가</button></div>
+      </div>
+    </div>
+    <div class="sys-card" style="margin-top:18px;">
+      <div class="sys-card-h"><span class="t">발송 이력</span><span class="raw-note">현재 설정 기준 최근 발송 내역 (데모)</span></div>
+      <div class="tbl-box" style="max-height:330px;"><table class="st compact"><thead><tr><th>발송일시</th><th>현장</th><th>이벤트 ID</th><th>등급</th><th style="text-align:left">문자 내용</th><th>수신자</th><th>결과</th></tr></thead><tbody id="smsLogBody"></tbody></table></div>
+    </div>
+  </section>
+
   <!-- 제품현황 목록 -->
   <section class="sys-page" id="pg-plist">
     <div class="sys-top"><h1 class="sys-title">제품현황</h1>
@@ -1221,6 +1377,26 @@
 </div>
 
 <!-- 제품 등록 팝업 -->
+
+<!-- 이벤트 상세 (F-04) — 이벤트 목록에서 행 클릭 -->
+<div class="modal-ov" id="evModal">
+  <div class="modal">
+    <div class="modal-h"><div class="t">이벤트 상세<span class="tag-new">기능추가</span> <span id="evmId" style="font-family:Consolas,monospace;font-weight:700;color:var(--ink-600);font-size:13.5px;margin-left:6px;"></span></div><button class="x" onclick="closeEvDetail()">×</button></div>
+    <div id="evmBody"></div>
+    <div class="ev-sec">
+      <div class="st">운영자 확인 · 판정 <small>서버 기록값 · 후속 KPI 산출 입력</small></div>
+      <div class="ev-in">
+        <div class="row"><label>확인 처리</label><span class="ackinfo" id="evmAck"></span><button class="btn-ol" id="evmAckBtn" onclick="ackEvent()" style="margin-left:auto;">확인</button></div>
+        <div class="row"><label>판정 결과<span class="req">*</span></label>
+          <div class="jd-seg" id="evmJudge"><button data-v="0">정상</button><button data-v="1">오경보</button><button data-v="2">준사고</button><button data-v="3">사고</button></div></div>
+        <div class="row" style="align-items:flex-start;margin-bottom:0;"><label style="padding-top:8px;">운영자 메모</label><textarea id="evmMemo" placeholder="메모를 입력해 주세요"></textarea></div>
+      </div>
+      <div class="ev-err" id="evmErr"></div>
+    </div>
+    <div class="modal-f"><button class="btn-gy" onclick="closeEvDetail()">닫기</button><button class="btn-or" style="min-width:84px;padding:10px 18px;" onclick="saveEvDetail()">저장</button></div>
+  </div>
+</div>
+
 <div class="modal-ov" id="regModal">
   <div class="modal">
     <div class="modal-h"><span class="t">제품관리</span><button class="x" onclick="closeReg()">✕</button></div>
@@ -1236,9 +1412,7 @@
       </div>
       <div>
         <div class="fg">
-          <div class="full"><label>장비 구분<span class="req">*</span><span class="tag-new">기능추가</span></label>
-            <div class="kind-sel" id="regKind"><button data-v="기상전광판" class="on">🌦️ 기상전광판</button><button data-v="교통관제">🚦 교통관제시스템</button></div></div>
-          <div><label>관리번호<span class="req">*</span></label><input id="rId" placeholder="BI-YY-NNNN"></div>
+          <div><label>관리번호<span class="req">*</span></label><input id="rId" placeholder="BI- 기상전광판/ TI- 교통관제"></div>
           <div><label>IMEI<span class="req">*</span></label><input id="rImei" maxlength="15" placeholder="IMEI를 입력해 주세요"></div>
           <div><label>지역</label><select id="rLv1"></select></div>
           <div><label>세부지역</label><select id="rLv2"></select></div>
@@ -1248,15 +1422,15 @@
           <div><label>부서</label><input id="rDept"></div>
           <div><label>비고</label><input id="rNote"></div>
           <div class="full"><label>설치일</label><input id="rInst" type="datetime-local" step="1"></div>
-          <div class="tc-box" id="rTcBox">
-            <div class="full" style="grid-column:1/-1"><label>카메라 구성<span class="req">*</span></label>
-              <div class="cams"><span class="grp">메인</span><label><input type="checkbox" value="M1" checked>M1</label><label><input type="checkbox" value="M2">M2</label><label><input type="checkbox" value="M3">M3</label>
-                <span class="grp" style="margin-left:10px">서브</span><label><input type="checkbox" value="S1" checked>S1</label><label><input type="checkbox" value="S2">S2</label></div></div>
-            <div><label>현장 중요도</label><select id="rGrade"><option>일반</option><option>스쿨존</option><option>실버존</option></select></div>
-            <div><label>장비명(현장명)</label><input id="rSite" placeholder="예: 평촌역 사거리"></div>
-          </div>
           <div><label>자동염수분사</label><select id="rSalt"><option value="N">미사용</option><option value="Y">사용</option></select></div>
           <div><label>염수분사 장치ID</label><input id="rSaltId" disabled></div>
+          <div class="tc-box" id="rTcBox">
+            <div class="ttl">교통관제 장비 항목<span class="tag-new">기능추가</span> <span style="font-weight:600;color:var(--ink-600);font-size:12px;">관리번호가 TI-로 시작하면 표시</span></div>
+            <div><label>메인 카메라<span class="req">*</span> <span style="font-size:12px;color:var(--ink-600)">1~3대</span></label><div class="cams" id="rCamM"><label><input type="checkbox" value="M1">M1</label><label><input type="checkbox" value="M2">M2</label><label><input type="checkbox" value="M3">M3</label></div></div>
+            <div><label>서브 카메라<span class="req">*</span> <span style="font-size:12px;color:var(--ink-600)">1~2대</span></label><div class="cams" id="rCamS"><label><input type="checkbox" value="S1">S1</label><label><input type="checkbox" value="S2">S2</label></div></div>
+            <div><label>현장 중요도</label><select id="rGrade"><option>일반</option><option>스쿨존</option><option>실버존</option></select></div>
+            <div style="font-size:12px;color:var(--ink-600);align-self:end;padding-bottom:6px;">카메라 구성은 팝업의 센서 연결 상태(se)에서<br>설치된 카메라만 표시하는 기준입니다.</div>
+          </div>
         </div>
         <div class="reg-err" id="regErr"></div>
         <div class="modal-f"><button class="btn-ol" onclick="saveReg()">등록</button><button class="btn-gy" onclick="closeReg()">닫기</button></div>
@@ -1287,10 +1461,10 @@ function clearLayer(){ if(currentLayer){ map.removeLayer(currentLayer); currentL
 function renderAll(){
   clearLayer();
   currentLayer = L.layerGroup().addTo(map);
-  L.marker([37.55,127.05], {icon:clusterIcon(75,72)}).addTo(currentLayer).bindTooltip('수도권 75개소');
+  L.marker([37.55,127.05], {icon:clusterIcon(79,72)}).addTo(currentLayer).bindTooltip('수도권 79개소 (교통관제 4 포함)');
   L.marker([35.55,128.55], {icon:clusterIcon(21,50)}).addTo(currentLayer).bindTooltip('영남권 21개소');
   map.setView([36.3,127.8], 7);
-  setSummary(97,95,0,0,2);
+  setSummary(101,96,1,1,3);
 }
 
 /* ---- 모드 2: 기상전광판 (현행 화면과 동일) ---- */
@@ -1364,21 +1538,35 @@ function openWeatherDetail(){
 }
 
 /* ---- 모드 3: 교통관제 (그림 2-2 사양 → 안양시 3개소만) ---- */
+/* risk = 데모 위험등급 생성 기준 / cams = 설치 카메라 / se = 센서 통신 이상 비트(프로토콜 se) / offMin = 마지막 수신 후 경과(분) */
 const trafficPts = [
-  {id:'TI-25-0001', addr:'경기 안양시 동안구 평촌대로 (평촌역 사거리)', lat:37.3928, lng:126.9645, risk:'safe'},
-  {id:'TI-25-0002', addr:'경기 안양시 동안구 관평로 (인덕원사거리)',   lat:37.3897, lng:126.9770, risk:'caution'},
-  {id:'TI-25-0003', addr:'경기 안양시 만안구 안양로 (안양시청 앞)',     lat:37.3943, lng:126.9568, risk:'danger'}
+  {id:'TI-25-0001', addr:'경기 안양시 동안구 평촌대로 (평촌역 사거리)', lat:37.3928, lng:126.9645, risk:'safe',    cams:['M1','M2','S1'],           se:0,                 offMin:0,   inst:'2025-03-12', grade:'스쿨존'},
+  {id:'TI-25-0002', addr:'경기 안양시 동안구 관평로 (인덕원사거리)',   lat:37.3897, lng:126.9770, risk:'caution', cams:['M1','M2','M3','S1','S2'], se:(1<<3),            offMin:0,   inst:'2025-03-12', grade:'일반'},
+  {id:'TI-25-0003', addr:'경기 안양시 만안구 안양로 (안양시청 앞)',     lat:37.3943, lng:126.9568, risk:'danger',  cams:['M1','S1'],                se:(1<<0)|(1<<8),     offMin:0,   inst:'2025-04-08', grade:'실버존'},
+  {id:'TI-25-0004', addr:'경기 안양시 만안구 만안로 (안양역 앞)',       lat:37.4016, lng:126.9228, risk:'safe',    cams:['M1','M2','S1'],           se:0,                 offMin:160, inst:'2025-05-20', grade:'일반'}
 ];
+/* 지도합계 = 장비 상태: 통신 이상 없음 안전 / 센서 1개 통신 이상 주의 / 2개 이상 경보 / 전원 차단·메인 통신 2시간 이상 두절 점검 */
+const OFFLINE_MIN = 120;
+const bitCount = v => { let n=0; while(v){ n += v&1; v >>= 1; } return n; };
+function devState(p){
+  if(p.offMin >= OFFLINE_MIN) return '점검';
+  const n = bitCount(p.se);
+  return n===0 ? '안전' : n===1 ? '주의' : '경보';
+}
+const STATE_PIN = { '안전':'green', '주의':'orange', '경보':'red', '점검':'insp' };
 const riskColor = { safe:'green', caution:'orange', danger:'red' };
 function renderTraffic(){
   clearLayer();
   currentLayer = L.layerGroup().addTo(map);
+  const c = { '안전':0, '주의':0, '경보':0, '점검':0 };
   trafficPts.forEach(p=>{
-    const m = L.marker([p.lat,p.lng], {icon:pinIcon(riskColor[p.risk])}).addTo(currentLayer);
+    const st = devState(p); c[st]++;
+    const m = L.marker([p.lat,p.lng], {icon:pinIcon(STATE_PIN[st])}).addTo(currentLayer);
+    m.bindTooltip(`${p.id} · ${st}`, {direction:'top', offset:[0,-14]});
     m.on('click', ()=>openPopup(p));
   });
-  map.setView([37.392,126.968], 14);
-  setSummary(3,1,1,1,0);
+  map.fitBounds(L.latLngBounds(trafficPts.map(p=>[p.lat,p.lng])).pad(0.35));
+  setSummary(trafficPts.length, c['안전'], c['주의'], c['경보'], c['점검']);
 }
 
 function setSummary(t,safe,caution,alert,inspect){
@@ -1397,6 +1585,8 @@ function setMode(mode){
   if(mode==='all') renderAll();
   if(mode==='weather') renderWeather();
   if(mode==='traffic') renderTraffic();
+  document.getElementById('sumUnackBox').style.display = mode==='weather' ? 'none' : '';
+  updUnack();
 }
 btnAll.onclick = ()=>setMode('all');
 btnWeather.onclick = ()=>setMode('weather');
@@ -1455,6 +1645,7 @@ function openPopup(p){
   setStat('tp-cycle', Math.round(1 + Math.random()*10));
   setStat('tp-moto', Math.round(0 + Math.random()*8));
 
+  fillPopupDevice(p, lvl);
   document.getElementById('tp-scroll').scrollTop = 0;
   document.getElementById('tpopup').classList.add('show');
 }
@@ -1486,7 +1677,8 @@ function openTable(from){
   switchRaw('rec');
   document.getElementById('tbl-id').textContent = activePoint.id;
   document.getElementById('tbl-addr').textContent = activePoint.addr;
-  genProductData(activePoint.risk);
+  if(detailKind==='traffic'){ const sd = siteData(activePoint); REC = sd.REC; EVT = sd.EVT; }
+  else genProductData(activePoint.risk);
   buildRawTables();
   { const d = new Date(); const h = d.getHours();
     document.getElementById('baseDate').textContent = `${fmtD(d)} ${h<12?'오전':'오후'} ${pad2(h%12||12)}:${pad2(d.getMinutes())}`; }
@@ -1498,6 +1690,7 @@ function openTable(from){
 }
 function closeTable(){                            /* 제품현황 '뒤로가기': 들어온 곳(목록/지도)으로 복귀 */
   if(productFrom==='list'){ openPList(); return; }
+  if(productFrom==='events'){ openSys('events', 'navEvents'); return; }
   hideAllScreens();
   document.getElementById('screenMap').style.display = '';
   setNav('navMain');
@@ -1592,7 +1785,7 @@ function genProductData(baseRisk){
       const st = new Date(t.getTime() - ri(60,560)*1000);
       let cz = 0; for(let b=0;b<5;b++) if(Math.random()<0.35) cz |= (1<<b); if(!cz) cz = 16;
       if(rain) cz |= 8; if(!day) cz |= 4;
-      EVT.push({ st, gap:c.seqGap, du:c.du, cm:[1,1,2,3,4,5][ri(0,5)], et:ri(1,4), mk:c.mk, ms:c.ms, cz, vk:ri(0,5), ps:ri(0,day?6:2), rn:rain, mode:c.mode });
+      EVT.push({ recIdx: c.mode==='now' ? Math.max(0, i-1) : i, st, gap:c.seqGap, du:c.du, cm:[1,1,2,3,4,5][ri(0,5)], et:ri(1,4), mk:c.mk, ms:c.ms, cz, vk:ri(0,5), ps:ri(0,day?6:2), rn:rain, mode:c.mode });
     });
   }
 }
@@ -1630,11 +1823,22 @@ function buildRawTables(){
     </tr>`;
   }).join('');
 
+  /* 데모: 2시간 이전 이벤트는 확인·판정 완료 상태로 표시 */
+  const cut = Date.now() - 2*3600000;
+  EVT.forEach(e=>{ if(e.ack===undefined){
+    e.ack = e.st.getTime() < cut; e.memo = '';
+    if(e.ack){ e.ackBy = 'stn'; e.ackAt = new Date(e.st.getTime() + ri(3,40)*60000); e.judge = Math.random()<0.55 ? 0 : Math.random()<0.6 ? 1 : 2; }
+    else e.judge = null;
+  }});
+  renderEvtList();
+}
+const JUDGE_LABEL = ['정상','오경보','준사고','사고'];
+function renderEvtList(){
   const eb = document.getElementById('evt-body');
   const evs = [...EVT].reverse().slice(0, 30);
   eb.innerHTML = evs.length ? evs.map((e,i)=>{
     const endT = new Date(e.st.getTime() + e.du*1000);
-    return `<tr>
+    return `<tr class="${e.ack ? '' : 'unack'}" onclick="openEvDetail('${e.site ? e.site.id : ''}','${e.ev}')">
       <td>${evs.length-i}</td><td style="font-family:Consolas,monospace">${e.ev}</td>
       <td>${fmtD(e.st)} ${fmtHMS(e.st)}</td><td>${fmtHMS(endT)}</td><td>${e.du}</td>
       <td>${CM_LABEL[e.cm]}</td><td>${ET_LABEL[e.et]}</td>
@@ -1642,8 +1846,10 @@ function buildRawTables(){
       <td style="white-space:normal;min-width:150px">${bitsToNames(e.cz, CZ_NAMES).join(', ')} <span class="muted">(${e.cz})</span></td>
       <td>${VK_LABEL[e.vk]}</td><td>${e.ps}</td><td>${e.rn ? '감지' : '없음'}</td>
       <td><span class="tx-mode ${e.mode==='now'?'tx-now':'tx-batch'}">${e.mode==='now' ? '6단계 즉시' : '10분 묶음'}</span></td>
+      <td class="sep">${e.ack ? '<span class="ack-badge ack-ok">확인</span>' : '<span class="ack-badge ack-no">미확인</span>'}</td>
+      <td>${e.judge===null ? '<span class="muted">-</span>' : `<span class="jd jd-${e.judge}">${JUDGE_LABEL[e.judge]}</span>`}</td>
     </tr>`;
-  }).join('') : '<tr><td colspan="14" class="muted">이벤트 없음</td></tr>';
+  }).join('') : '<tr><td colspan="16" class="muted">이벤트 없음</td></tr>';
 }
 
 /* ================= Weather Graph (기상전광판 그래프 공용) ================= */
@@ -1830,7 +2036,7 @@ function renderVolMatrix(timeBins){
 /* ================= 화면 전환 (메인 / 제품현황 / 시스템관리) ================= */
 const SYS_TITLES = { auth:'권한관리', user:'사용자관리', alliance:'소속관리', code:'코드관리' };
 function setNav(which){
-  ['navMain','navSys','navProduct','navHoliday','navContact'].forEach(id=> document.getElementById(id).classList.toggle('active', id===which));
+  ['navMain','navSys','navProduct','navHoliday','navContact','navEvents'].forEach(id=> document.getElementById(id).classList.toggle('active', id===which));
 }
 function hideAllScreens(){
   document.getElementById('screenMap').style.display = 'none';
@@ -1852,7 +2058,7 @@ function openSys(page, nav){
   document.querySelectorAll('.sys-page').forEach(p=> p.classList.toggle('show', p.id==='pg-'+page));
   document.querySelectorAll('.dd-item').forEach(d=> d.classList.toggle('cur', d.dataset.page===page));
   setNav(nav || 'navSys');
-  ({ auth:renderAuth, user:renderUsers, alliance:renderAlliance, code:renderCodes, plist:renderPList, holiday:renderHoliday, contact:renderContact })[page]();
+  ({ auth:renderAuth, user:renderUsers, alliance:renderAlliance, code:renderCodes, plist:renderPList, holiday:renderHoliday, contact:renderContact, events:renderEvents, sms:renderSms })[page]();
   document.getElementById('screenSys').classList.toggle('white', page==='holiday' || page==='contact');
 }
 function closeDD(){ document.getElementById('ddSys').classList.remove('open'); }
@@ -1917,16 +2123,18 @@ const AUTH_MENUS = [
   { lv:2, name:'사용자관리', url:'/system/user' },
   { lv:2, name:'소속관리', url:'/system/alliance' },
   { lv:2, name:'코드관리', url:'/system/code' },
+  { lv:2, name:'SMS 알림설정', url:'/system/sms', isNew:true },
   { lv:1, name:'제품현황', url:'/sensor' },
   { lv:1, name:'위험 이벤트 목록', url:'/event', isNew:true },
+  { lv:2, name:'이벤트 상세 (확인·판정)', url:'/event/detail', isNew:true },
   { lv:1, name:'문의접수', url:'/contact' },
   { lv:1, name:'공휴일관리', url:'/holiday' },
 ];
 /* [조회,등록,수정] — ROLE_ADMIN은 캡처 화면 값 그대로, 신규 화면은 관리자 전체 허용 */
 const AUTH_MATRIX = {
-  ROLE_ADMIN:  [[1,1,1],[0,0,0],[0,0,0],[1,1,1],[0,0,0],[0,0,0],[1,0,0],[1,1,1],[1,1,1],[0,0,0]],
-  ROLE_MASTER: [[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1]],
-  ROLE_NOMAL:  [[1,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,1],[1,1,0],[0,0,0]],
+  ROLE_ADMIN:  [[1,1,1],[0,0,0],[0,0,0],[1,1,1],[0,0,0],[0,0,0],[0,0,0],[1,0,0],[1,1,1],[1,1,1],[1,1,1],[0,0,0]],
+  ROLE_MASTER: [[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1]],
+  ROLE_NOMAL:  [[1,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[1,0,0],[1,0,0],[1,0,0],[1,1,0],[0,0,0]],
 };
 let authSel = 'ROLE_ADMIN';
 function renderAuth(){
@@ -2045,11 +2253,25 @@ const CODE_TREE = [
   { code:'SENSOR', name:'센서', note:'', children:[
       {code:'TEMP',name:'온도',note:''},{code:'HUMID',name:'습도',note:''},{code:'WIND',name:'풍속',note:''},
       {code:'SPEED',name:'속도',note:''},{code:'RAIN',name:'우적',note:''}] },
+  { code:'TRAFFIC', name:'교통관제', note:'', isNew:true, children:[
+      { code:'RISK_GRADE', name:'위험등급', note:'cg · mk', isNew:true, children:
+        ['안전','주의','경계','위험','심각','극한위험'].map((n,i)=>({code:String(i+1), name:n, note:''})) },
+      { code:'EVENT_TYPE', name:'이벤트 유형', note:'et · 논의 필요', isNew:true, children:
+        ['차량 접근','보행자 진입','충돌위험','이상행동'].map((n,i)=>({code:String(i+1), name:n, note:''})) },
+      { code:'EVENT_BASIS', name:'판정 근거', note:'cz · 비트 합 · 논의 필요', isNew:true, children:
+        ['속도 상승','보행자 밀집','야간','우천','ROI 진입'].map((n,i)=>({code:String(1<<i), name:n, note:''})) },
+      { code:'VEHICLE', name:'차량 종류', note:'vk', isNew:true, children:
+        ['없음','승용','화물','버스','이륜차','자전거·킥보드'].map((n,i)=>({code:String(i), name:n, note:''})) },
+      { code:'CAMERA', name:'카메라', note:'cm', isNew:true, children:
+        ['M1','M2','M3','S1','S2'].map((n,i)=>({code:String(i+1), name:n, note: i<3 ? '메인' : '서브'})) },
+      { code:'JUDGE', name:'판정 결과', note:'운영자 입력', isNew:true, children:
+        ['정상','오경보','준사고','사고'].map((n,i)=>({code:String(i), name:n, note:''})) },
+  ] },
 ];
 let code1Sel = 'REGION', code2Sel = '2';
 function codeRows(list, selCode, emptyMsg){
   return list.length ? list.map(c=>
-    `<tr class="${c.code===selCode?'sel':''}" data-c="${esc(c.code)}"><td class="c">${esc(c.code)}</td><td>${esc(c.name)}</td><td style="font-size:12px;color:var(--ink-600)">${esc(c.note)}</td><td class="c">사용</td></tr>`).join('')
+    `<tr class="${c.code===selCode?'sel':''}" data-c="${esc(c.code)}"><td class="c">${esc(c.code)}</td><td>${esc(c.name)}${c.isNew?'<span class="tag-new">기능추가</span>':''}</td><td style="font-size:12px;color:var(--ink-600)">${esc(c.note)}</td><td class="c">사용</td></tr>`).join('')
     : `<tr class="empty-row"><td colspan="4">${emptyMsg}</td></tr>`;
 }
 function renderCodes(){
@@ -2093,8 +2315,8 @@ const DEVICES = (()=>{
   d.find(x=>x.id==='BI-24-0021').recv = '교통관제';                                   /* 등록 제품군과 수신 판별 불일치 예시 (5.7) */
   d.push({ pg:'기상전광판', imei:'860186056601200', id:'BI-22-0002', name:'(철거) 강북 수유', addr:'서울특별시 강북구 도봉로 89', alliance:'강북구청', inst:'2022-11-03', cam:'-', grade:'-', last:'2025-12-31 23:50', recv:'-', state:'점검', use:'N' });
   trafficPts.slice().reverse().forEach((p,i0)=>{ const i = trafficPts.length-1-i0; d.unshift({ pg:'교통관제', imei:'8604430592' + String(10321 + i*211).padStart(5,'0'), id:p.id, name:p.addr.replace(/^경기 안양시 /,''), addr:p.addr, alliance:'안양시청',
-    inst:['2025-03-12','2025-03-12','2025-04-08'][i], cam:['M1·M2 / S1','M1·M2·M3 / S1·S2','M1 / S1'][i], grade:['스쿨존','일반','실버존'][i],
-    last:'2026-10-16 16:30', recv:'교통관제', state:{safe:'안전',caution:'주의',danger:'경보'}[p.risk], use:'Y' }); });
+    inst:p.inst, cam:p.cams.filter(c=>c[0]==='M').join('·') + ' / ' + p.cams.filter(c=>c[0]==='S').join('·'), grade:p.grade,
+    last:'2026-10-16 16:30', recv:'교통관제', state:devState(p), use:'Y' }); });
   return d;
 })();
 
@@ -2142,21 +2364,15 @@ document.querySelectorAll('#pg-plist .sort-h').forEach(th=> th.addEventListener(
 function openDeviceDetail(imei){
   const x = DEVICES.find(d=>d.imei===imei);
   const risk = { '안전':'safe', '주의':'caution', '경보':'danger', '점검':'safe' }[x.state] || 'safe';
-  activePoint = { id:x.id, addr:x.addr, risk, kind: x.pg==='교통관제' ? 'traffic' : 'weather' };
+  activePoint = (x.pg==='교통관제' && trafficPts.find(p=>p.id===x.id)) || { id:x.id, addr:x.addr, risk, kind: x.pg==='교통관제' ? 'traffic' : 'weather' };
   openTable('list');
 }
 
 /* ================= 제품 등록 팝업 ================= */
-let regMap = null, regMarker = null, regKind = '기상전광판';
+let regMap = null, regMarker = null;
 function fillLv2(){
   const r = regionByName(document.getElementById('rLv1').value);
   document.getElementById('rLv2').innerHTML = r.subs.map(s=>`<option>${s}</option>`).join('');
-}
-function setRegKind(v){
-  regKind = v;
-  document.querySelectorAll('#regKind button').forEach(b=> b.classList.toggle('on', b.dataset.v===v));
-  document.getElementById('rTcBox').classList.toggle('show', v==='교통관제');
-  document.getElementById('rId').placeholder = v==='교통관제' ? 'TI-YY-NNNN' : 'BI-YY-NNNN';
 }
 function setRegPoint(lat, lng, fromMap){
   document.getElementById('rLat').value = lat.toFixed(6);
@@ -2177,7 +2393,9 @@ function openReg(){
   fillLv2();
   const now = new Date(); document.getElementById('rInst').value = `${fmtD(now)}T${fmtHMS(now)}`;
   document.getElementById('rSalt').value = 'N'; document.getElementById('rSaltId').disabled = true;
-  setRegKind('기상전광판');
+  document.querySelectorAll('#rTcBox input[type=checkbox]').forEach(c=> c.checked = false);
+  document.getElementById('rGrade').value = '일반';
+  document.getElementById('rTcBox').classList.remove('show');
   try{
     if(!regMap){
       regMap = L.map('regMap').setView([37.4663, 126.7322], 15);
@@ -2199,7 +2417,6 @@ function searchAddr(){
   msg.className = 'map-msg';
   msg.textContent = 'ⓘ 데모에서는 주소 검색(도로명·지번) API가 연결되어 있지 않습니다. 지도에서 위치를 클릭해 주세요.';
 }
-document.querySelectorAll('#regKind button').forEach(b=> b.addEventListener('click', ()=> setRegKind(b.dataset.v)));
 document.getElementById('rLv1').addEventListener('change', fillLv2);
 document.getElementById('rSalt').addEventListener('change', e=>{ const id = document.getElementById('rSaltId'); id.disabled = e.target.value!=='Y'; if(id.disabled) id.value=''; });
 ['rLat','rLng'].forEach(id=> document.getElementById(id).addEventListener('change', ()=>{
@@ -2210,25 +2427,23 @@ function saveReg(){
   const v = id => document.getElementById(id).value.trim();
   const err = document.getElementById('regErr');
   const id = v('rId').toUpperCase(), imei = v('rImei');
-  const prefix = regKind==='교통관제' ? 'TI-' : 'BI-';
   if(!id){ err.textContent = '관리번호를 입력해 주세요.'; return; }
-  if(!id.startsWith(prefix)){ err.textContent = `${regKind} 관리번호는 ${prefix}로 시작해야 합니다.`; return; }
+  /* 관리번호 앞자리로 제품군 구분 (협의안): BI- 기상전광판 / TI- 교통관제 */
+  const kind = id.startsWith('BI-') ? '기상전광판' : id.startsWith('TI-') ? '교통관제' : null;
+  if(!kind){ err.textContent = '관리번호는 BI-(기상전광판) 또는 TI-(교통관제)로 시작해야 합니다.'; return; }
   if(!/^\d{15}$/.test(imei)){ err.textContent = 'IMEI는 숫자 15자리여야 합니다.'; return; }
+  const camM = [...document.querySelectorAll('#rCamM input:checked')].map(c=>c.value);
+  const camS = [...document.querySelectorAll('#rCamS input:checked')].map(c=>c.value);
+  if(kind==='교통관제' && (!camM.length || !camS.length)){ err.textContent = '교통관제 장비는 메인·서브 카메라를 각각 1대 이상 선택해 주세요.'; return; }
   if(DEVICES.some(d=>d.imei===imei)){ err.textContent = '이미 등록된 IMEI입니다.'; return; }
   if(DEVICES.some(d=>d.id===id)){ err.textContent = '이미 사용 중인 관리번호입니다.'; return; }
   if(!v('rLat') || !v('rLng')){ err.textContent = '지도에서 위치를 선택하거나 위도·경도를 입력해 주세요.'; return; }
-  let cam = '-', grade = '-';
-  if(regKind==='교통관제'){
-    const sel = [...document.querySelectorAll('#rTcBox input[type=checkbox]:checked')].map(c=>c.value);
-    const m = sel.filter(c=>c[0]==='M'), s = sel.filter(c=>c[0]==='S');
-    if(!m.length || !s.length){ err.textContent = '교통관제는 메인·서브 카메라를 각 1대 이상 선택해 주세요.'; return; }
-    cam = `${m.join('·')} / ${s.join('·')}`; grade = v('rGrade');
-  }
   const lv1 = v('rLv1'), lv2 = v('rLv2');
   const addr = v('rAddr') || `${lv1} ${lv2}`;
   const inst = v('rInst');
-  DEVICES.unshift({ pg:regKind, imei, id, name: v('rSite') || addr, addr, alliance: v('rDept') || '-', lv1, lv2,
-    inst: inst.slice(0,10), instDT: inst.replace('T',' ').slice(0,19), cam, grade, last:'-', recv:'-', state:'점검', use:'Y',
+  DEVICES.unshift({ pg:kind, imei, id, name: addr, addr, alliance: v('rDept') || '-', lv1, lv2,
+    inst: inst.slice(0,10), instDT: inst.replace('T',' ').slice(0,19),
+    cam: kind==='교통관제' ? `${camM.join('·')} / ${camS.join('·')}` : '-', grade: kind==='교통관제' ? v('rGrade') : '-', last:'-', recv:'-', state:'점검', use:'Y',
     lat: parseFloat(v('rLat')), lng: parseFloat(v('rLng')), note: v('rNote'), salt: v('rSalt'), saltId: v('rSaltId') });
   closeReg(); plPage = 1; plSort = { k:'', dir:1 }; renderPList();
 }
@@ -2406,6 +2621,296 @@ function renderWRaw(){
   document.querySelector('#wrawView .wraw-box').scrollTop = 0;
   pager('wrawPager', wrawPage, rows.length, per, p=>{ wrawPage = p; renderWRaw(); });
 }
+
+
+/* ================= 이벤트 상세 (F-04, 정의서 표 5-6) ================= */
+let evCur = null, evJudge = null;
+const fmtDT = d => `${fmtD(d)} ${fmtHMS(d)}`;
+function openEvDetail(siteId, id){
+  const e = ALL_EVT().find(x=> x.site.id===siteId && x.ev===id); if(!e) return;
+  evCur = e; evJudge = e.judge;
+  const r = e.site._data.REC[e.recIdx], endT = new Date(e.st.getTime() + e.du*1000);
+  const czOn = bitsToNames(e.cz, CZ_NAMES);
+  const k = t => `<span class="k">${t}</span>`;
+  document.getElementById('evmId').textContent = e.ev;
+  document.getElementById('evmBody').innerHTML = `
+    <div class="ev-hd">
+      <span class="lv-badge lv${e.mk}">${e.mk}단계 ${RISK_NAME[e.mk]}</span>
+      <span class="sc"><b>${e.ms}</b>점</span>
+      <span style="font-size:14px;font-weight:800;">${ET_LABEL[e.et]}</span>
+      <div class="meta"><b>${e.site.id}</b> · 카메라 <b>${CM_LABEL[e.cm]}</b><br>${fmtDT(e.st)} ~ ${fmtHMS(endT)} (${e.du}초)</div>
+    </div>
+    <div class="ev-sec"><div class="st">위험등급 변화 <small>이벤트 정의(6.6) 기준 · Edge 전송값</small></div>
+      <div class="ev-flow">
+        <div class="fs"><b>발생 · 4단계 이상 진입</b>${fmtHMS(e.st)} <span class="muted">ev 앞 12자리</span></div><span class="ar">→</span>
+        <div class="fs"><b>최고 <span class="lv-badge lv${e.mk}">${e.mk} ${RISK_NAME[e.mk]}</span></b>최고 점수 ${e.ms}점 <span class="muted">mk · ms</span></div><span class="ar">→</span>
+        <div class="fs"><b>종료 · 3단계 이하 복귀</b>${fmtHMS(endT)} <span class="muted">발생 + du ${e.du}초</span></div>
+      </div>
+      <div class="ev-hint">※ 최고 등급에 도달한 시각과 단계별 경과는 현재 전송 항목에 없습니다. 초 단위 변화 그래프가 필요하면 이벤트 레코드에 필드를 추가해야 합니다.</div></div>
+    <div class="ev-sec"><div class="st">위험 · AI 판단</div>
+      <div class="ev-dl">
+        <div>최고 위험등급${k('mk')}</div><div>${e.mk} ${RISK_NAME[e.mk]}</div>
+        <div>최고 위험도 점수${k('ms')}</div><div>${e.ms}</div>
+        <div>이벤트 유형${k('et')}</div><div>${ET_LABEL[e.et]} <span class="muted">(${e.et})</span></div>
+        <div>수신 방식</div><div>${e.mode==='now' ? '6단계 종료 즉시 단독' : '10분 레코드와 묶음'}</div>
+        <div>판정 근거${k('cz')}</div><div class="span3">${CZ_NAMES.map(n=>`<span class="cz-chip${czOn.includes(n)?' on':''}">${n}</span>`).join('')} <span class="muted" style="font-size:12px;">비트 합 ${e.cz}</span></div>
+      </div></div>
+    <div class="ev-sec"><div class="st">상황</div>
+      <div class="ev-dl">
+        <div>지속 시간${k('du')}</div><div>${e.du}초</div>
+        <div>카메라${k('cm')}</div><div>${CM_LABEL[e.cm]}</div>
+        <div>차량 종류${k('vk')}</div><div>${VK_LABEL[e.vk]}</div>
+        <div>보행자 수${k('ps')}</div><div>${e.ps}명</div>
+      </div></div>
+    <div class="ev-sec"><div class="st">당시 센서값 <small>${e.mode==='now' ? '직전 10분 레코드' : '같은 송신의 10분 레코드'} · 수신 ${fmtD(r.t)} ${fmtHM(r.t)}</small></div>
+      <div class="ev-dl">
+        <div>강우${k('rn')}</div><div>${e.rn ? '감지' : '없음'}</div>
+        <div>노면 상태${k('WEATHER_STATUS')}</div><div><span class="ws-badge ${wsClass(r.ws)}" style="min-width:64px;padding:3px 8px;">${WS_LABEL[r.ws]}</span></div>
+        <div>온도${k('TEMP_VAL')}</div><div>${r.temp.toFixed(1)} ℃</div>
+        <div>습도${k('HUMID_VAL')}</div><div>${r.hum.toFixed(1)} %</div>
+        <div>풍속${k('WIND_VAL')}</div><div>${r.wind.toFixed(1)} m/s</div>
+        <div></div><div></div>
+      </div></div>
+    <div class="ev-sec"><div class="st">전광판 출력결과 <small>${e.mode==='now' ? '직전 10분 레코드' : '같은 송신의 10분 레코드'}</small></div>
+      <div class="ev-dl">
+        <div>출력 상태${k('gs')}</div><div>${r.gs===0 ? '정상출력' : `<b style="color:var(--red)">${GS_LABEL[r.gs]}</b>`}</div>
+        <div>제어기 응답${k('cc')}</div><div>${r.cc ? '정상' : '<b style="color:var(--red)">무응답</b>'}</div>
+      </div></div>`;
+  document.getElementById('evmMemo').value = e.memo || '';
+  document.getElementById('evmErr').textContent = '';
+  renderEvInput();
+  document.getElementById('evModal').classList.add('show');
+}
+function renderEvInput(){
+  const e = evCur;
+  document.getElementById('evmAck').innerHTML = e.ack
+    ? `확인자 <b>${e.ackBy}</b> · 확인시각 <b>${fmtDT(e.ackAt)}</b>`
+    : '<span class="ack-badge ack-no">미확인</span>';
+  document.getElementById('evmAckBtn').style.display = e.ack ? 'none' : '';
+  document.querySelectorAll('#evmJudge button').forEach(b=> b.classList.toggle('on', +b.dataset.v===evJudge));
+}
+document.querySelectorAll('#evmJudge button').forEach(b=> b.onclick = ()=>{
+  evJudge = +b.dataset.v; document.getElementById('evmErr').textContent = ''; renderEvInput();
+});
+function ackEvent(){                      /* 확인자·확인시각 자동 기록 */
+  evCur.ack = true; evCur.ackBy = 'stn'; evCur.ackAt = new Date();
+  renderEvInput(); evRefreshViews();
+}
+function evRefreshViews(){
+  try{ renderEvtList(); }catch(e){}
+  if(document.getElementById('pg-events').classList.contains('show')) renderEvents();
+  updUnack();
+}
+function saveEvDetail(){
+  if(evJudge===null){ document.getElementById('evmErr').textContent = '판정 결과를 선택해 주세요.'; return; }
+  if(!evCur.ack) ackEvent();               /* 판정 저장 시 미확인이면 확인 처리도 함께 */
+  evCur.judge = evJudge; evCur.memo = document.getElementById('evmMemo').value.trim();
+  evRefreshViews(); closeEvDetail();
+}
+function closeEvDetail(){ document.getElementById('evModal').classList.remove('show'); }
+document.getElementById('evModal').addEventListener('click', e=>{ if(e.target.id==='evModal') closeEvDetail(); });
+
+
+/* ================= 교통관제 현장 데이터 (현장별 1회 생성 후 공용) ================= */
+function siteData(p){
+  if(!p._data){
+    const sR = REC, sE = EVT;
+    genProductData(p.risk);
+    if(p.offMin){                                   /* 점검 장비: 마지막 수신 이후 데이터 없음 */
+      const cut = Date.now() - p.offMin*60000;
+      REC = REC.filter(r=> r.t.getTime() < cut);
+      EVT = EVT.filter(e=> e.recIdx < REC.length);
+    }
+    const last = REC[REC.length-1];
+    last.se = p.se; last.d = p.se ? 1 : 0;           /* 최신 레코드 = 장비 상태 기준 */
+    if(p.id==='TI-25-0003'){ last.gs = 0; last.cc = 1; }
+    assignEventIds();
+    const cut2 = Date.now() - 3600000;     /* 데모: 1시간 이전 이벤트는 확인 완료 상태 */
+    EVT.forEach(e=>{
+      e.site = p; e.memo = '';
+      e.ack = e.st.getTime() < cut2;
+      if(e.ack){ e.ackBy = 'stn'; e.ackAt = new Date(e.st.getTime() + ri(3,40)*60000); e.judge = Math.random()<0.55 ? 0 : Math.random()<0.6 ? 1 : 2; }
+      else e.judge = null;
+    });
+    p._data = { REC, EVT };
+    REC = sR; EVT = sE;
+  }
+  return p._data;
+}
+const ALL_EVT = () => trafficPts.flatMap(p=> siteData(p).EVT);
+function updUnack(){ document.getElementById('sumUnack').textContent = ALL_EVT().filter(e=>!e.ack).length; }
+const fmtKo = d => `${d.getFullYear()}년 ${pad2(d.getMonth()+1)}월 ${pad2(d.getDate())}일 ${fmtHM(d)}`;
+
+/* ================= 교통관제 팝업: 장비·경고 상태, 최근 이벤트 (F-02) ================= */
+function fillPopupDevice(p, lvl){
+  const sd = siteData(p), last = sd.REC[sd.REC.length-1];
+  if(p.inst){ const [y,m,d] = p.inst.split('-'); document.getElementById('tp-install').textContent = `${y}년 ${m}월 ${d}일`; }
+  const st = devState(p);
+  document.getElementById('tp-time').textContent = fmtKo(last.t);
+  const b = document.getElementById('tp-state'); b.className = 'st-badge st-' + st; b.textContent = st;
+  const off = document.getElementById('tp-off');
+  if(st==='점검'){ off.style.display = ''; off.textContent = `⚠ 메인 통신 ${Math.floor(p.offMin/60)}시간 ${p.offMin%60}분째 수신 없음 (전원 차단 또는 통신 두절)`; }
+  else off.style.display = 'none';
+  const items = [...p.cams, '레이더', '온습도', '풍속', '우적'];
+  document.getElementById('tp-se').innerHTML = '<div class="cap">센서 연결 상태 (se · 설치된 카메라·센서만)</div>' +
+    items.map(n=>{ const bit = SE_NAMES.indexOf(n); const ng = bit>=0 && (p.se & (1<<bit));
+      return `<span class="se-chip${ng?' ng':''}">${n} ${ng?'이상':'정상'}</span>`; }).join('');
+  document.getElementById('tp-gs').textContent = GS_LABEL[last.gs];
+  document.getElementById('tp-cc').innerHTML = last.cc ? '정상' : '<span style="color:var(--red)">무응답</span>';
+  const cs = Math.min(100, lvl*15 + ri(-5,8));
+  document.getElementById('tp-cs').textContent = cs + '점';
+  const bar = document.getElementById('tp-riskbar'); bar.textContent += ` · ${cs}점`;
+  const ev = sd.EVT[sd.EVT.length-1];
+  const box = document.getElementById('tp-ev');
+  if(ev){
+    box.innerHTML = `<span class="lv-badge lv${ev.mk}">${ev.mk} ${RISK_NAME[ev.mk]}</span><b>${ET_LABEL[ev.et]}</b><span class="when">${fmtD(ev.st).slice(5)} ${fmtHMS(ev.st)}${ev.ack?'':' · <b style="color:#d45d00">미확인</b>'}</span>`;
+    box.onclick = ()=> openEvDetail(p.id, ev.ev);
+  } else { box.innerHTML = '<span class="muted">최근 이벤트 없음</span>'; box.onclick = null; }
+}
+
+/* ================= 위험 이벤트 목록 (F-03) ================= */
+let evPage = 1, evHours = 12, evLastAt = new Date();
+function openEvents(f){
+  f = f || {};
+  closePopup();
+  ['evQcam','evQmk','evQet','evQvk','evQjd'].forEach(id=> document.getElementById(id).value = '');
+  fillEvSites();
+  document.getElementById('evQsite').value = f.site || '';
+  document.getElementById('evQack').value = f.ack || '';
+  evPage = 1;
+  openSys('events', 'navEvents');
+}
+function fillEvSites(){
+  const sel = document.getElementById('evQsite'), cur = sel.value;
+  sel.innerHTML = '<option value="">전체</option>' + trafficPts.map(p=>`<option value="${p.id}">${p.id}</option>`).join('');
+  sel.value = cur;
+}
+document.querySelectorAll('#evPreset button').forEach(b=> b.onclick = ()=>{ evHours = +b.dataset.v; evPage = 1; renderEvents(); });
+['evQsite','evQcam','evQmk','evQet','evQvk','evQack','evQjd'].forEach(id=> document.getElementById(id).addEventListener('change', ()=>{ evPage = 1; renderEvents(); }));
+document.getElementById('navEvents').addEventListener('click', ()=> openEvents());
+function evFiltered(){
+  const g = id => document.getElementById(id).value;
+  const from = Date.now() - evHours*3600000;
+  return ALL_EVT().filter(e=> e.st.getTime() >= from
+    && (!g('evQsite') || e.site.id===g('evQsite')) && (!g('evQcam') || e.cm==g('evQcam'))
+    && (!g('evQmk') || e.mk==g('evQmk')) && (!g('evQet') || e.et==g('evQet')) && (!g('evQvk') || e.vk==g('evQvk'))
+    && (!g('evQack') || (g('evQack')==='Y')===e.ack)
+    && (!g('evQjd') || (g('evQjd')==='-' ? e.judge===null : e.judge===+g('evQjd'))))
+    .sort((a,b)=> b.st - a.st);
+}
+function renderEvents(){
+  if(!document.getElementById('evQsite').options.length) fillEvSites();
+  document.querySelectorAll('#evPreset button').forEach(b=> b.classList.toggle('on', +b.dataset.v===evHours));
+  const list = evFiltered(), per = 15, start = (evPage-1)*per;
+  document.getElementById('evCnt').textContent = `${list.length}건 · 미확인 ${list.filter(e=>!e.ack).length}건`;
+  document.getElementById('evLast').textContent = fmtHMS(evLastAt);
+  document.getElementById('evBody').innerHTML = list.length ? list.slice(start, start+per).map((e,i)=>{
+    const endT = new Date(e.st.getTime() + e.du*1000);
+    return `<tr class="${e.ack?'':'unack'}${e.isNew?' new-row':''}" onclick="openEvDetail('${e.site.id}','${e.ev}')">
+      <td class="c">${list.length - start - i}</td><td style="font-family:Consolas,monospace">${e.ev}${e.isNew?'<span class="new-mk">NEW</span>':''}</td>
+      <td class="c">${fmtD(e.st)} ${fmtHMS(e.st)}</td><td class="c">${fmtHMS(endT)}</td><td class="c">${e.du}</td>
+      <td class="c">${e.site.id}</td><td class="c">${CM_LABEL[e.cm]}</td><td class="c">${ET_LABEL[e.et]}</td>
+      <td class="c"><span class="lv-badge lv${e.mk}">${e.mk} ${RISK_NAME[e.mk]}</span></td><td class="c">${e.ms}</td>
+      <td>${bitsToNames(e.cz, CZ_NAMES).join(', ')}</td><td class="c">${VK_LABEL[e.vk]}</td><td class="c">${e.ps}</td>
+      <td class="c">${e.ack ? '<span class="ack-badge ack-ok">확인</span>' : '<span class="ack-badge ack-no">미확인</span>'}</td>
+      <td class="c">${e.judge===null ? '<span class="muted">-</span>' : `<span class="jd jd-${e.judge}">${JUDGE_LABEL[e.judge]}</span>`}</td></tr>`;
+  }).join('') : '<tr class="empty-row"><td colspan="15">검색 결과가 없습니다</td></tr>';
+  list.forEach(e=> e.isNew = false);
+  pager('evPager', evPage, list.length, per, p=>{ evPage = p; renderEvents(); });
+}
+/* 주기 폴링 (데모: 10초마다 갱신, 가끔 신규 이벤트 수신) */
+function injectEvent(){
+  const live = trafficPts.filter(p=> devState(p)!=='점검');
+  const p = live[ri(0, live.length-1)], sd = siteData(p);
+  const mk = Math.random()<0.25 ? 6 : (Math.random()<0.5 ? 5 : 4);
+  const du = ri(5,40), st = new Date(Date.now() - du*1000 - ri(5,60)*1000);
+  const lastSeq = sd.EVT.length && fmtD(sd.EVT[sd.EVT.length-1].st)===fmtD(st) ? +sd.EVT[sd.EVT.length-1].ev.slice(-4) : 0;
+  const ev = `${String(st.getFullYear()).slice(2)}${pad2(st.getMonth()+1)}${pad2(st.getDate())}${pad2(st.getHours())}${pad2(st.getMinutes())}${pad2(st.getSeconds())}${String(lastSeq + 1 + ri(0,1)).padStart(4,'0')}`;
+  sd.EVT.push({ recIdx: sd.REC.length-1, st, gap:0, du, cm: p.cams.map(c=>({M1:1,M2:2,M3:3,S1:4,S2:5})[c])[ri(0,p.cams.length-1)], et:ri(1,4), mk,
+    ms: mk===6 ? ri(90,99) : mk===5 ? ri(75,89) : ri(60,74), cz: 16 | (Math.random()<0.5 ? 2 : 1), vk:ri(0,5), ps:ri(0,6), rn:0,
+    mode: mk===6 ? 'now' : 'batch', ev, site:p, ack:false, judge:null, memo:'', isNew:true });
+}
+setInterval(()=>{
+  const onPage = document.getElementById('screenSys').classList.contains('show') && document.getElementById('pg-events').classList.contains('show');
+  if(!onPage) return;
+  evLastAt = new Date();
+  if(Math.random() < 0.35) injectEvent();
+  renderEvents(); updUnack();
+}, 10000);
+function evExcel(){
+  const rows = evFiltered();
+  const head = ['이벤트 ID','발생일시','종료시각','지속(초)','현장','카메라','유형','최고등급','점수','판정 근거','차량 종류','보행자 수','강우','확인','확인자','확인시각','판정','메모'];
+  const body = rows.map(e=>[e.ev, `${fmtD(e.st)} ${fmtHMS(e.st)}`, fmtHMS(new Date(e.st.getTime()+e.du*1000)), e.du, e.site.id, CM_LABEL[e.cm], ET_LABEL[e.et],
+    `${e.mk} ${RISK_NAME[e.mk]}`, e.ms, bitsToNames(e.cz, CZ_NAMES).join(' / '), VK_LABEL[e.vk], e.ps, e.rn?'감지':'없음',
+    e.ack?'확인':'미확인', e.ackBy||'', e.ackAt ? `${fmtD(e.ackAt)} ${fmtHMS(e.ackAt)}` : '', e.judge===null ? '' : JUDGE_LABEL[e.judge], e.memo||'']);
+  const csv = [head, ...body].map(r=> r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8'}));
+  a.download = `위험이벤트_${fmtD(new Date()).replace(/-/g,'')}.csv`;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* ================= SMS 알림설정 (F-10) ================= */
+const SMS = { use:'Y', lv:6, days:[1,1,1,1,1,1,1], from:'07:00', to:'22:00', hol:false,
+  rcv:[ {name:'안양시 교통상황실', tel:'010-****-2231', org:'안양시청', use:true}, {name:'STN 관제담당', tel:'010-****-7710', org:'STN', use:true}, {name:'교통정책과 주무관', tel:'010-****-4182', org:'안양시청', use:false} ] };
+const DAY_KO = ['월','화','수','목','금','토','일'];
+function smsMsgOf(e){ return `[STN 교통관제] ${e.site.id} ${e.mk}단계 ${RISK_NAME[e.mk]} · ${ET_LABEL[e.et]} · ${fmtHMS(e.st)} 발생 (${e.site.addr.replace(/^경기 /,'')})`; }
+function smsInWindow(d){
+  const wd = (d.getDay()+6)%7; if(!SMS.days[wd]) return false;
+  if(SMS.hol && typeof HOLIDAYS==='object' && HOLIDAYS[fmtD(d)]) return false;
+  const hm = fmtHM(d); return SMS.from <= SMS.to ? (hm >= SMS.from && hm <= SMS.to) : (hm >= SMS.from || hm <= SMS.to);
+}
+function renderSms(){
+  document.querySelectorAll('#smsUse button').forEach(b=>{ b.classList.toggle('on', b.dataset.v===SMS.use); b.onclick = ()=>{ SMS.use = b.dataset.v; renderSms(); }; });
+  document.querySelectorAll('#smsLv button').forEach(b=>{ b.classList.toggle('on', +b.dataset.v===SMS.lv); b.onclick = ()=>{ SMS.lv = +b.dataset.v; renderSms(); }; });
+  document.getElementById('smsDays').innerHTML = DAY_KO.map((d,i)=>`<button class="${SMS.days[i]?'on':''}" data-i="${i}">${d}</button>`).join('');
+  document.querySelectorAll('#smsDays button').forEach(b=> b.onclick = ()=>{ SMS.days[+b.dataset.i] ^= 1; renderSms(); });
+  document.getElementById('smsFrom').value = SMS.from; document.getElementById('smsTo').value = SMS.to;
+  document.getElementById('smsHol').checked = SMS.hol;
+  const all = ALL_EVT();
+  const sample = all.find(e=>e.mk===6) || all[0];
+  document.getElementById('smsPrev').textContent = sample ? smsMsgOf(sample) : '-';
+  document.getElementById('smsRcvBody').innerHTML = SMS.rcv.length ? SMS.rcv.map((r,i)=>
+    `<tr><td class="c">${i+1}</td><td>${esc(r.name)}</td><td class="c">${esc(r.tel)}</td><td>${esc(r.org)}</td>
+     <td class="c"><input type="checkbox" data-u="${i}" ${r.use?'checked':''} style="width:16px;height:16px;accent-color:#f4711f;"></td><td class="c"><button class="x-del" data-d="${i}">✕</button></td></tr>`).join('')
+    : '<tr class="empty-row"><td colspan="6">등록된 수신자가 없습니다</td></tr>';
+  document.querySelectorAll('#smsRcvBody [data-u]').forEach(c=> c.onchange = ()=>{ SMS.rcv[+c.dataset.u].use = c.checked; renderSms(); });
+  document.querySelectorAll('#smsRcvBody [data-d]').forEach(c=> c.onclick = ()=>{ SMS.rcv.splice(+c.dataset.d,1); renderSms(); });
+  const nRcv = SMS.rcv.filter(r=>r.use).length;
+  const logs = SMS.use==='N' ? [] : all.filter(e=> e.mk >= SMS.lv).map(e=>{
+      const sent = e.mode==='now' ? new Date(e.st.getTime() + e.du*1000 + 3000) : new Date(e.site._data.REC[e.recIdx].t.getTime() + 5000);
+      return { e, sent };
+    }).filter(x=> smsInWindow(x.sent)).sort((a,b)=> b.sent - a.sent).slice(0, 20);
+  document.getElementById('smsLogBody').innerHTML = logs.length ? logs.map(({e,sent})=>
+    `<tr><td class="c">${fmtD(sent)} ${fmtHMS(sent)}</td><td class="c">${e.site.id}</td><td style="font-family:Consolas,monospace">${e.ev}</td>
+     <td class="c"><span class="lv-badge lv${e.mk}">${e.mk} ${RISK_NAME[e.mk]}</span></td><td style="white-space:normal;min-width:280px">${esc(smsMsgOf(e))}</td>
+     <td class="c">${nRcv}명</td><td class="c">${nRcv ? '<span style="color:#1a6b13;font-weight:700">성공</span>' : '<span class="muted">수신자 없음</span>'}</td></tr>`).join('')
+    : '<tr class="empty-row"><td colspan="7">발송 내역이 없습니다</td></tr>';
+}
+['smsFrom','smsTo'].forEach(id=> document.getElementById(id).addEventListener('change', e=>{ SMS[id==='smsFrom'?'from':'to'] = e.target.value; renderSms(); }));
+document.getElementById('smsHol').addEventListener('change', e=>{ SMS.hol = e.target.checked; renderSms(); });
+document.getElementById('smsATel').addEventListener('input', e=>{
+  const d = e.target.value.replace(/\D/g,'').slice(0,11);
+  e.target.value = d.length < 4 ? d : d.length < 8 ? `${d.slice(0,3)}-${d.slice(3)}` : `${d.slice(0,3)}-${d.slice(3, d.length-4)}-${d.slice(-4)}`;
+});
+function addSmsRcv(){
+  const n = document.getElementById('smsAName').value.trim(), t = document.getElementById('smsATel').value.trim(), o = document.getElementById('smsAOrg').value.trim();
+  const m = document.getElementById('smsMsg');
+  if(!n || !/^01\d-\d{3,4}-\d{4}$/.test(t)){ m.className = 'sms-msg err'; m.textContent = '이름과 휴대전화 번호를 확인해 주세요.'; return; }
+  SMS.rcv.push({ name:n, tel:t, org:o || '-', use:true });
+  ['smsAName','smsATel','smsAOrg'].forEach(id=> document.getElementById(id).value = '');
+  m.textContent = ''; renderSms();
+}
+function saveSms(){
+  const m = document.getElementById('smsMsg');
+  if(SMS.use==='Y' && !SMS.days.some(Boolean)){ m.className = 'sms-msg err'; m.textContent = '발송 요일을 1개 이상 선택해 주세요.'; return; }
+  m.className = 'sms-msg'; m.textContent = '저장되었습니다. (데모)';
+  setTimeout(()=> m.textContent = '', 2500);
+}
+
+/* ================= 장비 등록: TI- 입력 시 교통관제 항목 표시 ================= */
+document.getElementById('rId').addEventListener('input', e=>
+  document.getElementById('rTcBox').classList.toggle('show', e.target.value.trim().toUpperCase().startsWith('TI-')));
 
 renderAll();
 </script>
