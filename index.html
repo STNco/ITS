@@ -5,17 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STNCOMPANY | 교통관제 모니터링 시스템 (데모)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
 <style>
   /* 실제 STN 사전예방관제시스템 common.css 토큰 값을 그대로 반영 */
-  @font-face {
-    font-family: 'JalnanGothic';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
   :root{
+    --hdr-h:68px;
     --color-background:#ffffff;
     --color-main:#838ff7;
     --color-dark:#5161ec;
@@ -26,7 +20,7 @@
     --color-caution:#ca9011;
     --color-safety:#1a6b13;
     --color-inspection:#1053fc;
- 
+
     /* 데모 화면용 별칭 매핑 (기존 스타일 재사용) */
     --teal-900:#31306b;
     --teal-700:var(--color-dark);
@@ -50,82 +44,81 @@
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;height:100%;}
   body{
-    font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    font-family:"Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
     background:var(--bg);
     color:var(--ink-900);
     overflow:hidden;
   }
-  .prod-title{ font-family:'JalnanGothic','Noto Sans KR',sans-serif; }
+  button,input,select,textarea{font-family:inherit;}
   /* ---------- Header (실제 캡처 기준: 흰 배경 + 오렌지 로고 + 오렌지 활성 언더라인) ---------- */
   header{
-    height:56px;
+    height:var(--hdr-h);
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    padding:0 20px;
+    padding:0 38px 0 16px;
     background:#fff;
-    border-bottom:1px solid var(--line);
+    border-bottom:1px solid #e5e5e5;
     position:relative;
     z-index:1200;
   }
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand-logo{height:40px;width:auto;aspect-ratio:120/50;display:block;}
-  nav{display:flex;gap:4px;height:100%;}
+  .brand{display:flex;align-items:center;flex:none;gap:10px;}
+  .brand-ic img{height:46px;width:auto;display:block;}
+  .brand-tx{display:flex;flex-direction:column;align-items:center;line-height:1;color:#333;}
+  .brand-tx .t1{font-size:10.5px;font-weight:300;color:#888;letter-spacing:-.2px;padding:0 6px 4px;border-bottom:1px solid #c9c9c9;}
+  .brand-tx .t2{font-size:15.5px;font-weight:300;letter-spacing:-.3px;margin-top:5px;}
+  nav{display:flex;gap:40px;height:100%;margin-left:30px;}
   nav button{
-    border:none;background:none;font-size:14px;height:100%;
-    padding:0 16px;color:#3b3b3b;
-    cursor:pointer;font-weight:700;position:relative;
+    border:none;background:none;font-size:18px;height:100%;
+    padding:0;color:#222;letter-spacing:-.2px;
+    cursor:pointer;font-weight:700;position:relative;display:flex;align-items:center;
   }
-  nav button.active{color:#f4711f;}
+  nav button.active{color:#ef7d00;}
   nav button.active::after{
-    content:'';position:absolute;left:14px;right:14px;bottom:0;height:3px;
-    background:#f4711f;border-radius:3px 3px 0 0;
+    content:'';position:absolute;left:0;right:0;bottom:-1px;height:3px;
+    background:#ef7d00;
   }
-  .userbox{display:flex;align-items:center;gap:14px;font-size:13px;color:#3b3b3b;font-weight:600;}
-  .userbox .logout{color:#3b3b3b;cursor:pointer;font-weight:700;}
- 
+  nav button .chev{display:inline-flex;margin-left:10px;}
+  .userbox{display:flex;align-items:center;gap:22px;margin-left:auto;font-size:15px;color:#222;font-weight:500;}
+  .userbox > span{display:flex;align-items:center;gap:4px;cursor:pointer;}
+  .userbox svg{flex:none;}
+
   /* ---------- Layout ---------- */
-  .stage{position:relative;height:calc(100vh - 56px);}
-  #map{position:absolute;inset:0;background:#dce6e6;}
- 
-  /* left summary column (실제: 흰 카드 하나 + 구분선, 전체보기는 별도 연보라 카드) */
+  .stage{position:relative;height:calc(100vh - var(--hdr-h));}
+  .stage{--side-w:97px;}
+  #map{position:absolute;top:0;right:0;bottom:0;left:var(--side-w);background:#dce6e6;}
+
+  /* 좌측 사이드바 (현행 화면: 전체 높이 흰 배경 + 회색 상태 박스 + 하단 전체보기) */
   .summary-col{
-    position:absolute;top:16px;left:16px;z-index:900;
-    display:flex;flex-direction:column;gap:10px;width:88px;
+    position:absolute;top:0;left:0;bottom:0;width:var(--side-w);z-index:900;
+    background:#fff;border-right:1px solid var(--line);
+    display:flex;flex-direction:column;align-items:stretch;padding:14px 6px 12px;
   }
   .summary-col .maplabel{
-    text-align:center;font-size:13px;font-weight:800;color:var(--ink-900);
-    display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 12px;
+    text-align:center;font-size:14px;font-weight:800;color:var(--ink-900);
+    display:flex;align-items:center;justify-content:center;gap:5px;padding:2px 0 14px;
   }
   .summary-col .maplabel svg{color:var(--color-inspection);flex:none;}
-  .stat-list{
-    background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);
-  }
-  .stat-box{
-    padding:10px 4px;text-align:center;
-  }
-  .stat-box.total{
-    margin:5px;border-radius:8px;border:1.5px solid var(--color-main);
-    padding:8px 4px;border-bottom:1.5px solid var(--color-main);
-  }
+  .stat-list{background:#f4f5f7;border-radius:10px;padding:6px 6px 8px;display:flex;flex-direction:column;gap:2px;}
+  .stat-box{padding:13px 2px;text-align:center;}
+  .stat-box.total{background:#fff;border:1.5px solid var(--color-main);border-radius:8px;padding:12px 2px;margin-bottom:6px;box-shadow:0 1px 3px rgba(81,97,236,.15);}
   .stat-box .num{font-size:20px;font-weight:800;line-height:1;}
-  .stat-box .lbl{font-size:11px;color:var(--ink-600);margin-top:5px;font-weight:600;}
+  .stat-box .lbl{font-size:12.5px;color:var(--ink-900);margin-top:6px;font-weight:600;}
   .stat-box.total .num{color:var(--color-inspection);}
   .stat-box.safe .num{color:var(--green);}
   .stat-box.caution .num{color:var(--orange);}
   .stat-box.alert .num{color:var(--red);}
   .stat-box.inspect .num{color:#3b3b3b;}
   .fulllist-btn{
-    position:absolute;bottom:16px;left:16px;z-index:900;width:88px;
-    background:var(--teal-050);box-shadow:none;border-radius:10px;
-    border:none;padding:14px 0;color:var(--color-dark);font-size:11.5px;font-weight:700;
-    cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;
+    margin-top:auto;width:100%;
+    background:var(--teal-050);border:1px solid #dfe2fb;border-radius:10px;
+    padding:16px 0 14px;color:var(--color-dark);font-size:12.5px;font-weight:700;
+    cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;
   }
   .fulllist-btn .ic{color:var(--color-dark);display:flex;}
- 
+
   /* mode switch pill, 지도 좌측 상단 (좌측 통계 컬럼 옆) */
   .mode-switch{
-    position:absolute;top:16px;left:116px;z-index:900;
+    position:absolute;top:16px;left:calc(var(--side-w) + 16px);z-index:900;
     display:flex;background:var(--card);border-radius:999px;box-shadow:var(--shadow);
     padding:4px;gap:2px;
   }
@@ -136,7 +129,7 @@
   }
   .mode-switch button .ic{font-size:14px;}
   .mode-switch button.active{background:var(--color-dark);color:#fff;transform:scale(1.05);transition:all .3s;}
- 
+
   /* 우측 하단: 제품현황 카드 + OSM 저작권 표기를 한 컬럼으로 */
   .bottom-right-col{
     position:absolute;bottom:16px;right:16px;z-index:900;
@@ -151,7 +144,7 @@
   .legend .lg-row .lbl{display:flex;align-items:center;gap:9px;color:var(--ink-900);font-weight:600;}
   .legend .lg-row .lbl .dot{width:12px;height:12px;border-radius:50%;flex:none;}
   .legend .lg-row .val{font-weight:800;color:var(--ink-900);}
- 
+
   .attrib-note{
     font-size:10.5px;color:rgba(70,70,70,.75);background:rgba(255,255,255,.55);
     padding:1px 5px;border-radius:3px;
@@ -161,8 +154,8 @@
     width:30px;height:30px;background:#fff;border:2px solid rgba(0,0,0,.2);border-radius:4px;
     display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:#333;
   }
-  .leaflet-top.leaflet-right{ top:56px!important; }
- 
+  .leaflet-top.leaflet-right{ top:56px!important; }  /* 지도 내부 기준 (헤더와 무관) */
+
   /* custom markers */
   .pin{
     width:18px;height:18px;border-radius:50% 50% 50% 0;
@@ -183,10 +176,10 @@
     box-shadow:0 1px 4px rgba(0,0,0,.35);
     left:50%;top:50%;transform:translate(-50%,-50%);
   }
- 
+
   /* ---------- Traffic popup card (그림2-3 형태를 교통용으로 변경) ---------- */
   .tpopup{
-    position:absolute;top:16px;left:116px;z-index:950;
+    position:absolute;top:16px;left:calc(var(--side-w) + 16px);z-index:950;
     width:360px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
     overflow:hidden;display:none;
   }
@@ -240,10 +233,10 @@
   .btnrow button{flex:1;padding:10px 0;border-radius:8px;border:none;font-weight:800;font-size:12.5px;cursor:pointer;}
   .btn-primary{background:var(--color-dark);color:#fff;}
   .btn-ghost{background:#534e4e;color:#fff;}
- 
+
   /* ========== 제품현황 페이지 (모달 아님, 실제 시스템처럼 화면 전환) ========== */
   #screenProduct{
-    display:none;height:calc(100vh - 56px);overflow:auto;background:#f7f8f9;
+    display:none;height:calc(100vh - var(--hdr-h));overflow:auto;background:#f7f8f9;
     padding:24px 28px 60px;
   }
   #screenProduct.show{display:block;}
@@ -259,7 +252,7 @@
   .prod-actions button{border:1px solid var(--line);background:#fff;padding:9px 16px;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--ink-600);}
   .prod-actions .search{background:#f4711f;border-color:#f4711f;color:#fff;}
   .prod-actions .xls{background:#108b4b;border-color:#108b4b;color:#fff;}
- 
+
   .prod-toolbar{
     background:#fff;border:1px solid var(--line);border-radius:10px;
     padding:10px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:16px;
@@ -272,7 +265,7 @@
   .period-btns{display:flex;gap:6px;margin-left:auto;}
   .period-btns button{border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;color:var(--ink-600);cursor:pointer;}
   .period-btns button.active{background:#fff5ef;border-color:#f4711f;color:#f4711f;}
- 
+
   .prod-card{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
   .prod-card .card-title{padding:14px 18px;font-weight:800;font-size:14px;color:var(--ink-900);border-bottom:1px solid var(--line);}
   .tbl-scroll{overflow:auto;padding:0 18px 8px;}
@@ -290,7 +283,7 @@
   .tbl-foot{padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:4px;border-top:1px solid var(--line);}
   .tbl-foot button{border:1px solid var(--line);background:#fff;width:28px;height:28px;border-radius:6px;font-size:11.5px;cursor:pointer;color:var(--ink-600);}
   .tbl-foot button.active{background:#111113;border-color:#111113;color:#fff;font-weight:800;}
- 
+
   /* ---------- Weather Graph (기상전광판 그래프 공용) ---------- */
   #weatherView{display:none;}
   #weatherView.show{display:grid;}
@@ -311,7 +304,7 @@
   .ws-badge{display:inline-block;min-width:76px;padding:6px 10px;border-radius:3px;color:#fff;font-weight:800;font-size:11.5px;}
   .ws-0{background:#1a8a1a;} .ws-c{background:var(--orange);} .ws-a{background:var(--red);} .ws-p{background:var(--blue);}
   @media (max-width:1200px){ .wx-wrap{grid-template-columns:1fr;} .wx-hist{grid-column:auto;grid-row:auto;} }
- 
+
   /* ---------- Raw Data (통신 프로토콜 V20261016 기준) ---------- */
   .raw-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
   .raw-head .card-title{padding:0;border:none;}
@@ -323,7 +316,7 @@
   .lv1{background:var(--green);} .lv2{background:#eab308;color:#3b2f00;} .lv3,.lv4,.lv5,.lv6{background:var(--red);}
   .tx-mode{font-size:11px;font-weight:800;padding:3px 8px;border-radius:4px;}
   .tx-now{background:#fde8e8;color:var(--red);} .tx-batch{background:#eef0ff;color:var(--color-dark);}
- 
+
   /* ---------- 그래프 대시보드 (교통관제 전용 시각화) ---------- */
   #graphView{display:none;}
   #graphView.show{display:block;}
@@ -347,7 +340,7 @@
   .split-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
   .split-row:last-of-type{margin-bottom:0;}
   .chart-panel .card-sub{font-size:11px;color:var(--ink-400);margin:-8px 0 12px;font-weight:600;}
- 
+
   /* 시간대 매트릭스 (히트맵 / 통행량 바) 공통 - 24시간 기준 좁은 셀 */
   .matrix-scroll{overflow-x:auto;}
   .matrix-table{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed;}
@@ -360,7 +353,7 @@
   }
   .heatmap-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink-600);margin-top:10px;font-weight:600;}
   .heatmap-legend .bar{flex:1;height:8px;border-radius:4px;background:linear-gradient(90deg,#4f7fe8,#eab308,#e71818);}
- 
+
   .matrix-table td.vol-cell{width:26px;height:30px;padding:2px 2px;vertical-align:middle;}
   .barcell-wrap{position:relative;height:18px;background:#f1f3f4;border-radius:3px;overflow:hidden;}
   .barcell-wrap .fill{position:absolute;left:0;top:0;bottom:0;border-radius:3px;}
@@ -372,23 +365,31 @@
   .vol-legend .sw.veh{background:#5161ec;}
   .vol-legend .sw.ped{background:#ca9011;}
   .chart-canvas-wrap canvas{width:100%!important;height:100%!important;}
- 
+
   /* leaflet popup strip (기상 마커용 - 기존 화면 재사용 톤) */
   .leaflet-popup-content-wrapper{border-radius:8px;}
   .weather-mini{font-size:12px;}
   .weather-mini b{display:block;font-size:12.5px;margin-bottom:3px;}
- 
+
   @media (max-width:720px){
-    nav{gap:2px;}
-    nav button{padding:0 8px;font-size:12px;}
-    .mode-switch{left:16px;top:78px;}
-    .summary-col{width:70px;}
-    .tpopup{left:16px;right:16px;width:auto;top:132px;}
+    header{padding:0 10px;}
+    .brand-tx{display:none;}
+    .brand-ic img{height:38px;}
+    nav{gap:18px;margin-left:14px;}
+    nav button{font-size:14px;}
+    nav{overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;}
+    nav::-webkit-scrollbar{display:none;}
+    nav button,.nav-dd > button{white-space:nowrap;flex:none;}
+    .userbox{display:none;}
+    .stage{--side-w:84px;}
+    .mode-switch{left:calc(var(--side-w) + 8px);right:46px;top:8px;overflow-x:auto;}
+    .locate-btn{top:12px;right:8px;}
+    .tpopup{left:calc(var(--side-w) + 8px);right:8px;width:auto;top:60px;}
   }
- 
+
   /* ---------- 헤더 드롭다운 (시스템관리) ---------- */
   .nav-dd{position:relative;height:100%;display:flex;}
-  .nav-dd > button .chev{display:inline-block;margin-left:6px;font-size:10px;transition:transform .2s;}
+  .nav-dd > button .chev{transition:transform .2s;}
   .nav-dd.open > button .chev{transform:rotate(180deg);}
   .dd-menu{
     position:absolute;top:calc(100% + 6px);left:4px;min-width:200px;background:#fff;border-radius:12px;
@@ -398,9 +399,9 @@
   .dd-item{padding:11px 14px;border-radius:8px;font-size:14px;color:#3b3b3b;cursor:pointer;font-weight:500;white-space:nowrap;}
   .dd-item:hover,.dd-item.cur{background:#fff1e8;}
   .dd-item .new{font-size:10px;font-weight:800;color:#f4711f;margin-left:6px;}
- 
+
   /* ---------- 시스템관리 공통 ---------- */
-  #screenSys{display:none;height:calc(100vh - 56px);overflow:auto;background:#f7f8f9;padding:20px 26px 40px;}
+  #screenSys{display:none;height:calc(100vh - var(--hdr-h));overflow:auto;background:#f7f8f9;padding:20px 26px 40px;}
   #screenSys.show{display:block;}
   .sys-page{display:none;}
   .sys-page.show{display:block;}
@@ -415,7 +416,7 @@
   .f-item{display:flex;align-items:center;}
   .f-in{width:250px;height:46px;border:1px solid var(--line);border-radius:6px;padding:0 20px;font-size:14px;font-family:inherit;color:var(--ink-900);}
   .f-in::placeholder{color:#9a9ca3;}
-  select.f-in{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 18px center;padding-right:44px;}
+  select.f-in{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5l8 8 8-8'/%3E%3C/svg%3E") no-repeat right 18px center;padding-right:44px;}
   .sys-grid{display:grid;gap:18px;}
   .sys-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 10px 12px;display:flex;flex-direction:column;min-width:0;}
   .sys-card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 2px 12px;min-height:38px;}
@@ -449,7 +450,7 @@
   table.st.compact thead th{padding:13px 7px;}
   table.st.compact td{padding:11px 7px;}
   .empty-row td{color:#a5a8ae;text-align:center;padding:40px 10px;cursor:default;}
- 
+
   /* 소속관리 지역 권한 pill */
   .region-col{background:#f6f7f8;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;min-width:0;}
   .region-col .rh{text-align:center;font-weight:800;font-size:14.5px;padding:6px 0 14px;}
@@ -458,7 +459,7 @@
   .pill.on{border-color:#f4711f;color:#f4711f;background:#fff8f3;}
   .pill.focus{box-shadow:0 0 0 3px #ffe1cc;}
   .region-tip{font-size:11.5px;color:var(--ink-400);text-align:center;padding-top:8px;}
- 
+
   /* 장비관리 */
   .dev-sum{display:flex;gap:8px;}
   .dev-sum button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:700;color:var(--ink-600);cursor:pointer;}
@@ -475,7 +476,7 @@
   .cam-chk label{font-size:13px;display:flex;align-items:center;gap:4px;}
   .dev-note{font-size:11.5px;color:var(--ink-400);margin-top:10px;line-height:1.6;}
   @media (max-width:1200px){ .sys-grid{grid-template-columns:1fr!important;} }
- 
+
   /* ---------- 제품현황 목록 + 제품 등록 팝업 ---------- */
   .sort-h{cursor:pointer;user-select:none;}
   .sort-h .si{display:inline-block;margin-left:6px;font-size:10px;color:#555;}
@@ -504,7 +505,7 @@
   .fg label{display:block;font-size:14px;color:var(--ink-900);margin-bottom:4px;}
   .fg label .req{color:#3b5bdb;margin-left:2px;}
   .fg input,.fg select{width:100%;height:42px;border:1px solid var(--line);border-radius:8px;padding:0 20px;font-size:14px;font-family:inherit;color:var(--ink-900);background:#fff;}
-  .fg select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center;}
+  .fg select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5l8 8 8-8'/%3E%3C/svg%3E") no-repeat right 16px center;}
   .kind-sel{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .kind-sel button{height:52px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:14.5px;font-weight:800;color:var(--ink-600);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
   .kind-sel button.on{border-color:#f4711f;color:#d4580f;background:#fff8f3;box-shadow:0 0 0 3px #ffe9da;}
@@ -517,19 +518,20 @@
   .modal-f{display:flex;justify-content:flex-end;gap:10px;margin-top:6px;}
   .modal-f .btn-ol,.modal-f .btn-gy{min-width:84px;padding:10px 18px;}
   @media (max-width:900px){ .modal-b{grid-template-columns:1fr;} #regMap{height:300px;} }
- 
+
   /* ---------- 공휴일관리 ---------- */
   #screenSys.white{background:#fff;}
-  .hol-title{text-align:center;font-size:40px;font-weight:800;margin:6px 0 18px;font-family:'JalnanGothic','Noto Sans KR',sans-serif;letter-spacing:-.5px;}
+  .hol-title{text-align:center;font-size:40px;font-weight:800;color:#222;margin:30px 0 24px;letter-spacing:-.5px;line-height:1.2;}
   .hol-card{max-width:900px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px 60px 36px;}
-  .hol-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+  .hol-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px;}
+  .hol-sel .f-in{font-size:15px;}
   .hol-sel .f-in{width:100%;}
-  .hol-nav{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
-  .hol-today{width:34px;height:30px;border:1px solid #cfd1d6;border-top:5px solid #cfd1d6;border-radius:4px;background:#fff;font-size:10.5px;color:#777;cursor:pointer;padding:0;}
-  .hol-arrow{border:none;background:none;font-size:20px;cursor:pointer;color:#333;padding:0 4px;line-height:1;}
-  .hol-month{font-size:17px;font-weight:800;min-width:76px;text-align:center;}
+  .hol-nav{display:flex;align-items:center;gap:22px;margin-bottom:16px;}
+  .hol-today{border:none;background:none;cursor:pointer;padding:0;display:flex;}
+  .hol-arrow{border:none;background:none;cursor:pointer;color:#222;padding:0;display:flex;}
+  .hol-month{font-size:17px;font-weight:700;min-width:70px;text-align:center;color:#222;}
   .hol-hint{margin-left:auto;font-size:11.5px;color:var(--ink-400);}
-  .cal{width:100%;border-collapse:collapse;table-layout:fixed;border:1px solid #e6e7ea;border-radius:8px;overflow:hidden;}
+  .cal{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed;border:1px solid #e6e7ea;border-radius:8px;overflow:hidden;}
   .cal th{font-size:10.5px;font-weight:600;color:#444;padding:5px 0;border-bottom:1px solid #e6e7ea;border-right:1px solid #e6e7ea;}
   .cal td{height:86px;vertical-align:top;border-right:1px solid #e6e7ea;border-bottom:1px solid #e6e7ea;padding:7px 9px;cursor:pointer;position:relative;}
   .cal td:hover{background:#fafafa;}
@@ -548,27 +550,27 @@
   .hol-pop .scope{font-size:11.5px;color:var(--ink-400);margin:6px 0 10px;}
   .hol-pop .b{display:flex;gap:6px;}
   .hol-pop .b button{flex:1;padding:7px 0;}
- 
+
   /* ---------- 문의접수 ---------- */
-  .ct-title{text-align:center;font-size:40px;font-weight:800;margin:30px 0 14px;font-family:'JalnanGothic','Noto Sans KR',sans-serif;}
-  .ct-sub{text-align:center;font-size:18px;color:#333;margin:0 0 22px;}
+  .ct-title{text-align:center;font-size:40px;font-weight:800;color:#222;margin:46px 0 22px;letter-spacing:-.5px;line-height:1.2;}
+  .ct-sub{text-align:center;font-size:19px;color:#222;margin:0 0 24px;}
   .ct-card{max-width:700px;margin:0 auto 40px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:50px 60px 60px;}
   .ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;}
   .ct-grid .full{grid-column:1 / -1;}
-  .ct-grid label{display:block;font-size:14px;color:#333;margin-bottom:8px;}
+  .ct-grid label{display:block;font-size:15px;color:#333;margin-bottom:8px;}
   .ct-grid label .req{color:#3b5bdb;margin-left:3px;}
-  .ct-grid input,.ct-grid select,.ct-grid textarea{width:100%;border:1px solid var(--line);border-radius:6px;font-size:14px;font-family:inherit;color:var(--ink-900);background:#fff;}
+  .ct-grid input,.ct-grid select,.ct-grid textarea{width:100%;border:1px solid var(--line);border-radius:6px;font-size:15px;font-family:inherit;color:var(--ink-900);background:#fff;}
   .ct-grid input,.ct-grid select{height:46px;padding:0 22px;}
-  .ct-grid select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;}
-  .ct-grid textarea{height:150px;padding:16px 22px;resize:vertical;}
+  .ct-grid select{appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5l8 8 8-8'/%3E%3C/svg%3E") no-repeat right 16px center;}
+  .ct-grid textarea{height:150px;padding:16px 22px;resize:none;}
   .ct-grid ::placeholder{color:#8a8c92;}
   .ct-grid .bad{border-color:var(--red);}
   .ct-agree{margin-top:26px;}
-  .ct-agree .row{display:flex;align-items:center;gap:10px;font-size:14px;color:#333;cursor:pointer;user-select:none;}
+  .ct-agree .row{display:flex;align-items:center;gap:10px;font-size:15px;color:#333;cursor:pointer;user-select:none;}
   .ct-agree .ck{width:20px;height:20px;border:1.5px solid #b9bcc3;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#b9bcc3;flex:none;}
   .ct-agree.on .ck{background:#f08200;border-color:#f08200;color:#fff;}
   .ct-agree .must{color:var(--red);}
-  .ct-agree .tog{margin-left:auto;border:none;background:none;font-size:16px;cursor:pointer;color:#555;transition:transform .2s;}
+  .ct-agree .tog{margin-left:auto;border:none;background:none;cursor:pointer;color:#444;transition:transform .2s;display:flex;padding:0;}
   .ct-agree.open .tog{transform:rotate(180deg);}
   .ct-terms{display:none;margin-top:12px;background:#f7f8f9;border-radius:8px;padding:14px 16px;font-size:12.5px;line-height:1.8;color:#555;}
   .ct-agree.open .ct-terms{display:block;}
@@ -576,13 +578,16 @@
   .ct-send:hover{background:#e07600;}
   .ct-msg{text-align:center;font-size:13.5px;font-weight:700;min-height:20px;margin-top:14px;}
   .ct-msg.err{color:var(--red);} .ct-msg.ok{color:#1a6b13;}
- 
+
   /* ---------- 로그인 (초기 화면) ---------- */
   #loginScreen{position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;
     background:radial-gradient(ellipse at 55% 8%, #f1f1fb 0%, rgba(241,241,251,0) 45%), linear-gradient(160deg,#dfe9f7 0%,#c9e2f5 45%,#bfe0f4 70%,#c6dcf3 100%);}
   #loginScreen.hide{display:none;}
   .lg-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
-  .lg-logo{height:62px;width:auto;mix-blend-mode:multiply;}   /* 로고의 흰 배경을 그라데이션에 섞음 */
+  .lg-brand{gap:14px;margin-bottom:4px;}
+  .lg-brand .brand-ic img{height:58px;}
+  .lg-brand .brand-tx .t1{font-size:15px;padding:0 8px 6px;}
+  .lg-brand .brand-tx .t2{font-size:23px;margin-top:7px;}
   .lg-box{width:386px;background:#f4f4f4;border:1px solid #e3e3e3;border-radius:8px;padding:10px 10px 30px;box-shadow:0 2px 10px rgba(0,0,0,.04);}
   .lg-card{background:#fff;border:1px solid #e3e3e3;border-radius:8px;padding:20px 15px 20px;}
   .lg-card h2{text-align:center;font-size:18px;font-weight:700;margin:0 0 33px;color:#222;}
@@ -601,12 +606,12 @@
 </style>
 </head>
 <body>
- 
- 
+
+
 <!-- 로그인 (초기 화면) -->
 <div id="loginScreen">
   <div class="lg-wrap">
-    <img class="lg-logo" id="lgLogo" alt="STNCOMPANY">
+    <div class="brand lg-brand"><span class="brand-ic"><img src="data:image/png;base64,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" alt=""></span><span class="brand-tx"><span class="t1">Second to none</span><span class="t2">STNCOMPANY</span></span></div>
     <div class="lg-box">
       <div class="lg-card">
         <h2>Login</h2>
@@ -622,15 +627,15 @@
     </div>
   </div>
 </div>
- 
+
 <header>
   <div class="brand">
-    <img class="brand-logo" src="data:image/png;base64,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" alt="STNCOMPANY">
+    <img class="brand-logo" src="data:image/png;base64,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" alt="STNCOMPANY" hidden><span class="brand-ic"><img src="data:image/png;base64,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" alt=""></span><span class="brand-tx"><span class="t1">Second to none</span><span class="t2">STNCOMPANY</span></span>
   </div>
   <nav>
     <button class="active" id="navMain">메인</button>
     <div class="nav-dd" id="ddSys">
-      <button id="navSys">시스템관리<span class="chev">▾</span></button>
+      <button id="navSys">시스템관리<span class="chev"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5l8 8 8-8"/></svg></span></button>
       <div class="dd-menu">
         <div class="dd-item" data-page="auth">권한관리</div>
         <div class="dd-item" data-page="user">사용자관리</div>
@@ -643,51 +648,49 @@
     <button id="navHoliday">공휴일관리</button>
   </nav>
   <div class="userbox">
-    <span>👤 내정보</span>
-    <span class="logout">⇥ 로그아웃</span>
+    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>내정보</span>
+    <span class="logout"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H5v16h4"/><path d="M10 12h10"/><path d="M16 8l4 4-4 4"/></svg>로그아웃</span>
   </div>
 </header>
- 
+
 <div class="stage" id="screenMap">
   <div id="map"></div>
- 
-  <!-- 좌측 요약 컬럼 (실제 화면: 흰 카드 하나 + 구분선) -->
+
+  <!-- 좌측 사이드바 (현행 화면과 동일: 흰 배경 전체 높이) -->
   <div class="summary-col" id="summaryCard">
-    <div class="stat-list">
-      <div class="maplabel">
+    <div class="maplabel">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z"/>
           <circle cx="12" cy="10" r="2.5"/>
         </svg>
         Map
       </div>
+    <div class="stat-list">
       <div class="stat-box total"><div class="num" id="sumTotal">97</div><div class="lbl">지도합계</div></div>
       <div class="stat-box safe"><div class="num" id="sumNormal">95</div><div class="lbl">안전</div></div>
       <div class="stat-box caution"><div class="num" id="sumCaution">0</div><div class="lbl">주의</div></div>
       <div class="stat-box alert"><div class="num" id="sumDanger">0</div><div class="lbl">경보</div></div>
       <div class="stat-box inspect"><div class="num" id="sumInspect">2</div><div class="lbl">점검</div></div>
     </div>
+    <button class="fulllist-btn">
+      <span class="ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/>
+          <line x1="9" y1="4" x2="9" y2="18"/>
+          <line x1="15" y1="6" x2="15" y2="20"/>
+        </svg>
+      </span>
+      전체보기
+    </button>
   </div>
- 
-  <!-- 전체보기 버튼: 좌측 하단 고정 -->
-  <button class="fulllist-btn">
-    <span class="ic">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2z"/>
-        <line x1="9" y1="4" x2="9" y2="18"/>
-        <line x1="15" y1="6" x2="15" y2="20"/>
-      </svg>
-    </span>
-    전체보기
-  </button>
- 
+
   <!-- 모드 전환 버튼 (좌측 상단, 지도 위) -->
   <div class="mode-switch">
     <button class="active" data-mode="all" id="btnAll"><span class="ic">🗺️</span>전체</button>
     <button data-mode="weather" id="btnWeather"><span class="ic">🌦️</span>기상전광판</button>
     <button data-mode="traffic" id="btnTraffic"><span class="ic">🚦</span>교통관제</button>
   </div>
- 
+
   <!-- 교통 팝업 (그림2-3 대응) -->
   <div class="tpopup" id="tpopup">
     <div class="ph">
@@ -700,7 +703,7 @@
       <div class="kv"><span>데이터 갱신 일시</span><b id="tp-time">2026년 08월 24일 09:12</b></div>
       <div class="risk-bar lv1" id="tp-riskbar">1단계 · 안전</div>
     </div>
- 
+
     <div class="pb-scroll" id="tp-scroll">
       <div class="stat-grid">
         <div class="grp-label">기상 · 교통 현황</div>
@@ -710,24 +713,24 @@
         <div class="stat-cell"><div class="ic" id="tp-precip-ic">－</div><div class="v" id="tp-precip">없음</div><div class="l">비&amp;눈</div></div>
         <div class="stat-cell"><div class="ic">🚙</div><div class="v" id="tp-speed">42km/h</div><div class="l">평균속도</div></div>
         <div class="stat-cell"><div class="ic">⚠️</div><div class="v" id="tp-risk">낮음</div><div class="l">현재위험도</div></div>
- 
+
         <div class="grp-label">교통량 · 위험도</div>
         <div class="stat-cell"><div class="ic">🚗</div><div class="v"><span id="tp-vehcnt">128</span><span class="trend" id="tp-vehcnt-t">▲</span></div><div class="l">차량 수</div></div>
         <div class="stat-cell"><div class="ic">🚶</div><div class="v"><span id="tp-pedcnt">14</span><span class="trend" id="tp-pedcnt-t">▼</span></div><div class="l">보행자 수</div></div>
         <div class="stat-cell"><div class="ic">📊</div><div class="v"><span id="tp-avgrisk">보통</span><span class="trend" id="tp-avgrisk-t">▲</span></div><div class="l">평균위험도</div></div>
- 
+
         <div class="grp-label">차종별 통행량</div>
         <div class="stat-cell"><div class="ic">🚘</div><div class="v"><span id="tp-car">96</span><span class="trend" id="tp-car-t">▲</span></div><div class="l">승용</div></div>
         <div class="stat-cell"><div class="ic">🚚</div><div class="v"><span id="tp-truck">21</span><span class="trend" id="tp-truck-t">▼</span></div><div class="l">트럭</div></div>
         <div class="stat-cell"><div class="ic">🚌</div><div class="v"><span id="tp-bus">11</span><span class="trend" id="tp-bus-t">▲</span></div><div class="l">버스</div></div>
- 
+
         <div class="grp-label">보행·이륜 통행량</div>
         <div class="stat-cell"><div class="ic">🚶</div><div class="v"><span id="tp-walker">14</span><span class="trend" id="tp-walker-t">▼</span></div><div class="l">보행자</div></div>
         <div class="stat-cell"><div class="ic">🛴</div><div class="v"><span id="tp-cycle">5</span><span class="trend" id="tp-cycle-t">▲</span></div><div class="l">킥보드&amp;자전거</div></div>
         <div class="stat-cell"><div class="ic">🏍️</div><div class="v"><span id="tp-moto">3</span><span class="trend" id="tp-moto-t">▼</span></div><div class="l">오토바이</div></div>
       </div>
     </div>
- 
+
     <div class="pb-foot">
       <div class="btnrow">
         <button class="btn-primary" onclick="openTable()">센서현황</button>
@@ -735,7 +738,7 @@
       </div>
     </div>
   </div>
- 
+
   <div class="bottom-right-col">
     <div class="legend">
       <div class="lg-title">제품현황</div>
@@ -747,7 +750,7 @@
     </div>
     <div class="attrib-note">© OpenStreetMap contributors</div>
   </div>
- 
+
   <div class="locate-btn" title="내 위치">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round">
       <circle cx="12" cy="12" r="3"></circle>
@@ -758,7 +761,7 @@
     </svg>
   </div>
 </div>
- 
+
 <!-- 제품현황 페이지 (그림1 실제 화면 기준: 팝업이 아니라 화면 전환) -->
 <div id="screenProduct">
   <h1 class="prod-title">제품현황</h1>
@@ -773,7 +776,7 @@
       <button class="xls">⬇ Excel 다운로드</button>
     </div>
   </div>
- 
+
   <div class="prod-toolbar">
     <div class="tabs">
       <button class="active" id="tabTraffic" onclick="switchTab('traffic')">Traffic Graph</button>
@@ -790,7 +793,7 @@
       <button>3개월</button>
     </div>
   </div>
- 
+
   <!-- Raw Data 뷰 (통신 프로토콜 LTE-m V20261016 기준) -->
   <div class="prod-card" id="rawView" style="display:none;">
     <div class="raw-head">
@@ -841,7 +844,7 @@
       <button>‹‹</button><button class="active">1</button><button>2</button><button>3</button><button>4</button><button>›</button><button>››</button>
     </div>
   </div>
- 
+
   <!-- Weather Graph 뷰 (기상전광판 제품현황 그래프 공용) -->
   <div id="weatherView" class="wx-wrap">
     <div class="wx-card">
@@ -872,7 +875,7 @@
       <div class="wx-canvas"><canvas id="wxSpd"></canvas></div>
     </div>
   </div>
- 
+
   <!-- Graph 뷰 (교통관제 시각화 대시보드) -->
   <div id="graphView" class="show">
     <div class="kpi-row">
@@ -915,11 +918,11 @@
     </div>
   </div>
 </div>
- 
- 
+
+
 <!-- ================= 시스템관리 ================= -->
 <div id="screenSys">
- 
+
   <!-- 권한관리 -->
   <section class="sys-page" id="pg-auth">
     <div class="sys-top"><h1 class="sys-title">권한관리</h1>
@@ -936,7 +939,7 @@
       </div>
     </div>
   </section>
- 
+
   <!-- 사용자관리 -->
   <section class="sys-page" id="pg-user">
     <div class="sys-top"><h1 class="sys-title">사용자관리</h1>
@@ -952,7 +955,7 @@
       <div class="pager" id="userPager"></div>
     </div>
   </section>
- 
+
   <!-- 소속관리 -->
   <section class="sys-page" id="pg-alliance">
     <div class="sys-top"><h1 class="sys-title">소속관리</h1>
@@ -972,7 +975,7 @@
       <div class="region-col" style="height:690px;"><div class="rh">지역 권한 LV2</div><div class="region-list" id="lv2List"></div><div class="region-tip">눌러서 권한 부여/해제</div></div>
     </div>
   </section>
- 
+
   <!-- 코드관리 -->
   <section class="sys-page" id="pg-code">
     <div class="sys-top"><h1 class="sys-title">코드관리</h1>
@@ -990,9 +993,9 @@
         <div class="tbl-box"><table class="st"><thead><tr><th>코드</th><th>코드명</th><th>비고</th><th>사용여부</th></tr></thead><tbody id="code3Body"></tbody></table></div></div>
     </div>
   </section>
- 
- 
- 
+
+
+
   <!-- 공휴일관리 -->
   <section class="sys-page" id="pg-holiday">
     <h1 class="hol-title">공휴일관리</h1>
@@ -1003,11 +1006,10 @@
         <select class="f-in" id="hLv2"></select>
       </div>
       <div class="hol-nav">
-        <button class="hol-today" title="오늘" onclick="holGo(0, true)">오늘</button>
-        <button class="hol-arrow" onclick="holGo(-1)">‹</button>
+        <button class="hol-today" title="오늘" onclick="holGo(0, true)"><svg width="34" height="30" viewBox="0 0 34 30"><rect x="1" y="4" width="32" height="25" rx="2" fill="#fff" stroke="#c8c9cd"/><rect x="1" y="4" width="32" height="6" rx="2" fill="#dcdde0"/><rect x="8" y="1" width="2.4" height="6" rx="1" fill="#b5b7bc"/><rect x="23.6" y="1" width="2.4" height="6" rx="1" fill="#b5b7bc"/><text x="17" y="23.5" text-anchor="middle" font-size="9.5" fill="#8a8c92" font-family="Pretendard,sans-serif">오늘</text></svg></button>
+        <button class="hol-arrow" onclick="holGo(-1)" aria-label="이전 달"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
         <span class="hol-month" id="hMonth"></span>
-        <button class="hol-arrow" onclick="holGo(1)">›</button>
-        <span class="hol-hint">날짜를 누르면 공휴일을 등록·삭제할 수 있습니다 (데모)</span>
+        <button class="hol-arrow" onclick="holGo(1)" aria-label="다음 달"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
       <table class="cal"><thead><tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr></thead><tbody id="hBody"></tbody></table>
       <div class="hol-pop" id="hPop">
@@ -1018,8 +1020,8 @@
       </div>
     </div>
   </section>
- 
- 
+
+
   <!-- 문의접수 -->
   <section class="sys-page" id="pg-contact">
     <h1 class="ct-title">문의접수</h1>
@@ -1033,7 +1035,7 @@
         <div class="full"><label>요청사항<span class="req">*</span></label><textarea id="ctBody" placeholder="요청사항을 입력해 주세요"></textarea></div>
       </div>
       <div class="ct-agree" id="ctAgree">
-        <div class="row"><span class="ck">✓</span><span id="ctAgreeTxt">개인정보 수집 및 이용 동의 <span class="must">(필수)</span></span><button class="tog" id="ctTog" aria-label="내용 보기">⌄</button></div>
+        <div class="row"><span class="ck">✓</span><span id="ctAgreeTxt">개인정보 수집 및 이용 동의 <span class="must">(필수)</span></span><button class="tog" id="ctTog" aria-label="내용 보기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5l8 8 8-8"/></svg></button></div>
         <div class="ct-terms">
           1. 수집 항목: 이름, 휴대전화, 이메일<br>
           2. 수집·이용 목적: 문의 접수 및 처리 결과 안내<br>
@@ -1045,7 +1047,7 @@
       <div class="ct-msg" id="ctMsg"></div>
     </div>
   </section>
- 
+
   <!-- 제품현황 목록 -->
   <section class="sys-page" id="pg-plist">
     <div class="sys-top"><h1 class="sys-title">제품현황</h1>
@@ -1064,9 +1066,9 @@
       <div class="pager" id="plPager"></div>
     </div>
   </section>
- 
+
 </div>
- 
+
 <!-- 제품 등록 팝업 -->
 <div class="modal-ov" id="regModal">
   <div class="modal">
@@ -1111,7 +1113,7 @@
     </div>
   </div>
 </div>
- 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
@@ -1119,17 +1121,17 @@
 const map = L.map('map', { zoomControl:false, attributionControl:false }).setView([36.3, 127.8], 7);
 L.control.zoom({ position:'topright' }).addTo(map);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
- 
+
 function pinIcon(color){
   return L.divIcon({className:'', html:`<div class="pin ${color}"></div>`, iconSize:[18,18], iconAnchor:[9,16]});
 }
 function clusterIcon(n,size){
   return L.divIcon({className:'', html:`<div class="cluster-badge" style="width:${size}px;height:${size}px;font-size:${size>60?15:13}px;">${n}</div>`, iconSize:[size,size], iconAnchor:[size/2,size/2]});
 }
- 
+
 let currentLayer = null;
 function clearLayer(){ if(currentLayer){ map.removeLayer(currentLayer); currentLayer=null; } closePopup(); }
- 
+
 /* ---- 모드 1: 전체 (그림 2-1) 전국 클러스터 ---- */
 function renderAll(){
   clearLayer();
@@ -1139,7 +1141,7 @@ function renderAll(){
   map.setView([36.3,127.8], 7);
   setSummary(97,95,0,0,2);
 }
- 
+
 /* ---- 모드 2: 기상전광판 (그림 2-2) 개별 마커 ---- */
 const weatherPts = [
   [37.512,127.045,'green'],[37.520,127.010,'green'],[37.505,126.980,'orange'],
@@ -1158,7 +1160,7 @@ function renderWeather(){
   map.setView([37.51,127.03], 12);
   setSummary(45,34,7,2,2);
 }
- 
+
 /* ---- 모드 3: 교통관제 (그림 2-2 사양 → 안양시 3개소만) ---- */
 const trafficPts = [
   {id:'TI-25-0001', addr:'경기 안양시 동안구 평촌대로 (평촌역 사거리)', lat:37.3928, lng:126.9645, risk:'safe'},
@@ -1176,14 +1178,14 @@ function renderTraffic(){
   map.setView([37.392,126.968], 14);
   setSummary(3,1,1,1,0);
 }
- 
+
 function setSummary(t,safe,caution,alert,inspect){
   sumTotal.textContent=t; sumNormal.textContent=safe; sumCaution.textContent=caution;
   sumDanger.textContent=alert; sumInspect.textContent=inspect;
   lgTotal.textContent=t; lgSafe.textContent=safe; lgCaution.textContent=caution;
   lgAlert.textContent=alert; lgInspect.textContent=inspect;
 }
- 
+
 /* ================= 모드 전환 버튼 ================= */
 const btns = { all: btnAll, weather: btnWeather, traffic: btnTraffic };
 function setMode(mode){
@@ -1197,7 +1199,7 @@ function setMode(mode){
 btnAll.onclick = ()=>setMode('all');
 btnWeather.onclick = ()=>setMode('weather');
 btnTraffic.onclick = ()=>setMode('traffic');
- 
+
 /* ================= 교통 팝업 ================= */
 /* 6단계 위험도 체계: 1안전(녹색) 2주의(노랑) 3경계/4위험(빨강) 5심각/6극한위험(빨강 점멸) */
 const RISK_LEVELS = {
@@ -1218,7 +1220,7 @@ function openPopup(p){
   document.getElementById('tp-temp').textContent = (28+Math.random()*6).toFixed(1)+'°C';
   document.getElementById('tp-hum').textContent = (40+Math.random()*20).toFixed(1)+'%';
   document.getElementById('tp-wind').textContent = (1+Math.random()*4).toFixed(1)+'m/s';
- 
+
   /* 비&눈: 강수 없으면 － 아이콘, 비면 빗방울, 눈이면 눈송이 아이콘 */
   const precipRoll = Math.random();
   let precipIcon, precipText;
@@ -1228,16 +1230,16 @@ function openPopup(p){
   } else { precipIcon='－'; precipText='없음'; }
   document.getElementById('tp-precip-ic').textContent = precipIcon;
   document.getElementById('tp-precip').textContent = precipText;
- 
+
   document.getElementById('tp-speed').textContent = (p.risk==='danger'?18:p.risk==='caution'?34:48)+'km/h';
- 
+
   const lvl = pickRiskLevel(p.risk);
   const rl = RISK_LEVELS[lvl];
   document.getElementById('tp-risk').textContent = rl.label;
   const bar = document.getElementById('tp-riskbar');
   bar.className = 'risk-bar ' + rl.cls;
   bar.textContent = `${lvl}단계 · ${rl.label}`;
- 
+
   /* 신규 3x9 항목: 값 + 1시간 전 대비 증감(▲빨강=증가 / ▼파랑=감소) */
   const riskLabels = ['낮음','보통','높음'];
   setStat('tp-vehcnt', Math.round(80 + Math.random()*100));
@@ -1249,7 +1251,7 @@ function openPopup(p){
   setStat('tp-walker', Math.round(4 + Math.random()*30));
   setStat('tp-cycle', Math.round(1 + Math.random()*10));
   setStat('tp-moto', Math.round(0 + Math.random()*8));
- 
+
   document.getElementById('tp-scroll').scrollTop = 0;
   document.getElementById('tpopup').classList.add('show');
 }
@@ -1262,7 +1264,7 @@ function setStat(id, value, isLabel){
   t.className = 'trend ' + (up ? 'up' : 'down');
 }
 function closePopup(){ document.getElementById('tpopup').classList.remove('show'); }
- 
+
 /* ================= 제품현황 페이지 (화면 전환) ================= */
 let productFrom = 'map', detailKind = 'traffic';
 function openTable(from){
@@ -1310,7 +1312,7 @@ function switchRaw(which){
     ? (detailKind==='traffic' ? '현행 8키(기상) + 교통관제 축약 키 · 10분 주기 · 시각은 서버 수신일시' : '기상전광판 · 현행 8키 · 10분 주기 · 시각은 서버 수신일시')
     : '4단계 이상만 수신 · 6단계는 종료 즉시, 4~5단계는 10분마다 상위 3건';
 }
- 
+
 /* ================= 제품 데이터 (프로토콜 V20261016 형식의 가상 데이터) ================= */
 const WS_LABEL = ['안전운행','폭염주의','폭염경보','강풍주의','강풍경보','미끄럼주의','미끄럼경보','살얼음주의','살얼음경보','눈','비'];
 const wsClass = c => c===0 ? 'ws-0' : (c>=9 ? 'ws-p' : (c%2 ? 'ws-c' : 'ws-a'));
@@ -1329,7 +1331,7 @@ const fmtHMS = d => `${fmtHM(d)}:${pad2(d.getSeconds())}`;
 const rnd = (a,b) => a + Math.random()*(b-a);
 const ri = (a,b) => Math.floor(rnd(a,b+1));
 const bitsToNames = (v,names) => names.filter((_,i)=> v & (1<<i));
- 
+
 let REC = [], EVT = [];
 function genProductData(baseRisk){
   const N = 72;                                   /* 12시간 × 10분 */
@@ -1380,7 +1382,7 @@ function genProductData(baseRisk){
     });
   }
 }
- 
+
 function assignEventIds(){
   /* ev = 발생 시각(YYMMDDhhmmss) + 당일 일련번호(4자리). 발생 순서대로 번호 부여, 선별 탈락분은 번호만 소비 */
   EVT.sort((a,b)=> a.st - b.st);
@@ -1413,7 +1415,7 @@ function buildRawTables(){
       <td>${seNames.length ? '<b style="color:var(--red)">'+seNames.join('·')+'</b>' : '<span class="muted">정상</span>'}</td>
     </tr>`;
   }).join('');
- 
+
   const eb = document.getElementById('evt-body');
   const evs = [...EVT].reverse().slice(0, 30);
   eb.innerHTML = evs.length ? evs.map((e,i)=>{
@@ -1429,7 +1431,7 @@ function buildRawTables(){
     </tr>`;
   }).join('') : '<tr><td colspan="14" class="muted">이벤트 없음</td></tr>';
 }
- 
+
 /* ================= Weather Graph (기상전광판 그래프 공용) ================= */
 const wxCharts = {};
 const wxType = { temp:'line', wind:'line', hum:'line', spd:'line' };
@@ -1485,12 +1487,12 @@ function renderWeatherGraph(){
   document.getElementById('wxHistBody').innerHTML = [...REC].reverse().map(r=>
     `<tr><td>${fmtD(r.t)}</td><td>${fmtHM(r.t)}</td><td><span class="ws-badge ${wsClass(r.ws)}">${WS_LABEL[r.ws]}</span></td></tr>`).join('');
 }
- 
+
 /* ================= Graph 대시보드 (교통관제 시각화) ================= */
 let chartDonut=null, chartRiskBar=null;
 const CAT_LABELS = ['승용','트럭','버스','보행자','킥보드&자전거','오토바이'];
 const CAT_COLORS = ['#5161ec','#838ff7','#1053fc','#1a6b13','#ca9011','#e71818'];
- 
+
 function renderGraphDashboard(){
   if(!activePoint) return;
   if(typeof Chart === 'undefined'){
@@ -1499,19 +1501,19 @@ function renderGraphDashboard(){
     return;
   }
   const riskBase = activePoint.risk==='danger'?70:activePoint.risk==='caution'?45:22;
- 
+
   /* 6종류 구성비 데이터 */
   const car = Math.round(60+Math.random()*60), truck = Math.round(10+Math.random()*25),
         bus = Math.round(4+Math.random()*12), walker = Math.round(8+Math.random()*25),
         cycle = Math.round(2+Math.random()*10), moto = Math.round(1+Math.random()*8);
   const catData = [car,truck,bus,walker,cycle,moto];
   const total = catData.reduce((a,b)=>a+b,0);
- 
+
   document.getElementById('kpi-veh').innerHTML = (car+truck+bus)+'<span>대</span>';
   document.getElementById('kpi-ped').innerHTML = (walker+cycle+moto)+'<span>명/대</span>';
   document.getElementById('kpi-speed').innerHTML = (activePoint.risk==='danger'?18:activePoint.risk==='caution'?34:48)+'<span>km/h</span>';
   document.getElementById('kpi-peak').innerHTML = (17+Math.floor(Math.random()*3))+'시<span>대</span>';
- 
+
   /* 도넛차트 + 범례 */
   const donutCtx = document.getElementById('donutChart');
   if(chartDonut) chartDonut.destroy();
@@ -1524,7 +1526,7 @@ function renderGraphDashboard(){
   legend.innerHTML = CAT_LABELS.map((l,i)=>`
     <li><span class="name"><span class="sw" style="background:${CAT_COLORS[i]}"></span>${l}</span>
     <span class="pct">${((catData[i]/total)*100).toFixed(1)}%</span></li>`).join('');
- 
+
   /* 시간별 평균 위험도 막대차트: X축 1시간 단위 24구간, Y축 1~6단계 */
   const TIME_BINS = Array.from({length:24}, (_,i)=> `${i}시`);
   const baseLevel = activePoint.risk==='danger'?4.5:activePoint.risk==='caution'?3:1.6;
@@ -1540,11 +1542,11 @@ function renderGraphDashboard(){
       scales:{ y:{ beginAtZero:true, min:0, max:6, ticks:{ stepSize:1, callback:(v)=> v===0 ? '' : v+'단계' } },
                x:{ ticks:{ maxRotation:0, autoSkip:true, maxTicksLimit:12 } } } }
   });
- 
+
   renderRiskHeatmap(TIME_BINS, baseLevel);
   renderVolMatrix(TIME_BINS);
 }
- 
+
 /* 색상 보간: 파랑(적음) → 노랑 → 빨강(많음) */
 function heatColor(t){
   t = Math.max(0, Math.min(1, t));
@@ -1557,7 +1559,7 @@ function heatColor(t){
   const bl = Math.round(a[2]+(b[2]-a[2])*localT);
   return `rgb(${r},${g},${bl})`;
 }
- 
+
 /* 요일 × 1시간 위험도 히트맵 (위험단계 가중치 누적값) */
 function renderRiskHeatmap(timeBins, baseLevel){
   const days = ['일','월','화','수','목','금','토'];
@@ -1574,7 +1576,7 @@ function renderRiskHeatmap(timeBins, baseLevel){
   html += '</tbody>';
   document.getElementById('riskHeatmap').innerHTML = html;
 }
- 
+
 /* 시간대별 차량 · 보행자 통행량: 위험도 그래프와 같은 형태의 얇은 막대 2종류 */
 let chartVolBar=null;
 function renderVolMatrix(timeBins){
@@ -1592,9 +1594,9 @@ function renderVolMatrix(timeBins){
       scales:{ y:{ beginAtZero:true }, x:{ ticks:{ maxRotation:0, autoSkip:true, maxTicksLimit:12 } } } }
   });
 }
- 
+
 /* 초기 진입: 전체 모드 */
- 
+
 /* ================= 화면 전환 (메인 / 제품현황 / 시스템관리) ================= */
 const SYS_TITLES = { auth:'권한관리', user:'사용자관리', alliance:'소속관리', code:'코드관리' };
 function setNav(which){
@@ -1629,7 +1631,7 @@ document.querySelectorAll('.dd-item').forEach(d=> d.addEventListener('click', e=
 document.addEventListener('click', closeDD);
 document.getElementById('navMain').addEventListener('click', goMain);
 document.getElementById('navProduct').addEventListener('click', goProduct);
- 
+
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pgBadge = v => v==='기상전광판' ? '<span class="pg-badge pg-weather">기상전광판</span>'
                    : v==='교통관제' ? '<span class="pg-badge pg-traffic">교통관제</span>'
@@ -1644,7 +1646,7 @@ function pager(elId, page, total, per, onGo){
   el.innerHTML = h;
   el.querySelectorAll('span').forEach(s=> s.onclick = ()=>{ if(!s.classList.contains('dis')) onGo(+s.dataset.p); });
 }
- 
+
 /* ================= 지역 데이터 (코드관리 REGION · 소속관리 LV1/LV2 공용) ================= */
 const REGIONS = [
   ['2','울산광역시','중구,남구,동구,북구,울주군'],
@@ -1671,7 +1673,7 @@ const REGIONS = [
 })();
 const LV1_ORDER = ['울산광역시','부산광역시','대구광역시','대전광역시','인천광역시','광주광역시','서울특별시','경기도','충청북도','충청남도','전라북도','전라남도','경상북도','경상남도','강원도','세종특별자치시','제주특별자치도'];
 const regionByName = n => REGIONS.find(r=>r.name===n);
- 
+
 /* ================= 권한관리 ================= */
 const AUTH_ROLES = [
   { id:'ROLE_ADMIN', name:'관리자', note:'관리자' },
@@ -1713,7 +1715,7 @@ function renderAuth(){
     const i=+c.dataset.i, k=+c.dataset.k; m[i][k] = m[i][k] ? 0 : 1; c.classList.toggle('off', !m[i][k]);
   });
 }
- 
+
 /* ================= 사용자관리 ================= */
 const USERS = (()=>{
   const base = [
@@ -1749,7 +1751,7 @@ function renderUsers(){
     : '<tr class="empty-row"><td colspan="10">검색 결과가 없습니다</td></tr>';
   pager('userPager', userPage, list.length, per, p=>{ userPage=p; renderUsers(); });
 }
- 
+
 /* ================= 소속관리 ================= */
 const ALLIANCES = (()=>{
   const a = [
@@ -1806,7 +1808,7 @@ function renderRegions(sel){
     renderRegions(sel);
   });
 }
- 
+
 /* ================= 코드관리 ================= */
 const CODE_TREE = [
   { code:'REGION', name:'지역', note:'', children: REGIONS.map(r=>({ code:r.code, name:r.name, note:'', children:r.subs.map((sub,k)=>({ code:r.subCodes[k], name:sub, note:'' })) })) },
@@ -1835,7 +1837,7 @@ function renderCodes(){
   document.querySelectorAll('#code1Body tr[data-c]').forEach(tr=> tr.onclick = ()=>{ code1Sel = tr.dataset.c; code2Sel = null; renderCodes(); });
   document.querySelectorAll('#code2Body tr[data-c]').forEach(tr=> tr.onclick = ()=>{ code2Sel = tr.dataset.c; renderCodes(); });
 }
- 
+
 /* ================= 장비 데이터 (제품현황 목록 · 등록 공용, IMEI 기준) ================= */
 const DEVICES = (()=>{
   const d = [];
@@ -1865,7 +1867,7 @@ const DEVICES = (()=>{
     last:'2026-10-16 16:30', recv:'교통관제', state:{safe:'안전',caution:'주의',danger:'경보'}[p.risk], use:'Y' }); });
   return d;
 })();
- 
+
 /* ================= 제품현황 목록 (DEVICES 사용) ================= */
 const SHORT_LV1 = { '서울':'서울특별시','부산':'부산광역시','대구':'대구광역시','인천':'인천광역시','광주':'광주광역시','대전':'대전광역시','울산':'울산광역시','세종':'세종특별자치시',
   '경기':'경기도','강원':'강원도','충북':'충청북도','충남':'충청남도','전북':'전라북도','전남':'전라남도','경북':'경상북도','경남':'경상남도','제주':'제주특별자치도' };
@@ -1913,7 +1915,7 @@ function openDeviceDetail(imei){
   activePoint = { id:x.id, addr:x.addr, risk, kind: x.pg==='교통관제' ? 'traffic' : 'weather' };
   openTable('list');
 }
- 
+
 /* ================= 제품 등록 팝업 ================= */
 let regMap = null, regMarker = null, regKind = '기상전광판';
 function fillLv2(){
@@ -2000,8 +2002,8 @@ function saveReg(){
     lat: parseFloat(v('rLat')), lng: parseFloat(v('rLng')), note: v('rNote'), salt: v('rSalt'), saltId: v('rSaltId') });
   closeReg(); plPage = 1; plSort = { k:'', dir:1 }; renderPList();
 }
- 
- 
+
+
 /* ================= 공휴일관리 ================= */
 /* key: 'YYYY-MM-DD' → [{ name, scope }]  scope = '전국' | '시도명' | '시도명 시군구' */
 const HOLIDAYS = {};
@@ -2037,7 +2039,7 @@ function renderHoliday(){
 }
 function renderHolidayCal(){
   const { y, m } = holYM;
-  document.getElementById('hMonth').textContent = `${y}. ${pad2(m+1)}.`;
+  document.getElementById('hMonth').textContent = `${y}.${pad2(m+1)}.`;
   const first = new Date(y, m, 1), start = new Date(y, m, 1 - first.getDay());
   const todayKey = fmtD(new Date());
   let html = '';
@@ -2085,8 +2087,8 @@ function holDel(){
   holClosePop(); renderHolidayCal();
 }
 document.getElementById('navHoliday').addEventListener('click', ()=> openSys('holiday', 'navHoliday'));
- 
- 
+
+
 /* ================= 문의접수 ================= */
 function renderContact(){ document.getElementById('ctMsg').textContent = ''; }
 document.getElementById('navContact').addEventListener('click', ()=> openSys('contact', 'navContact'));
@@ -2117,8 +2119,8 @@ function sendContact(){
   ['ctName','ctTel','ctMail','ctBody'].forEach(id=> document.getElementById(id).value = '');
   document.getElementById('ctAgree').classList.remove('on');
 }
- 
- 
+
+
 /* ================= 로그인 (데모: 브라우저 안에서만 확인, 실제 인증 아님) ================= */
 const DEMO_ID = 'stn', DEMO_PW = 'stn1234', KEEP_KEY = 'stnDemoKeepLogin';
 function kvGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
@@ -2145,7 +2147,6 @@ function doLogout(){
   showLogin();
 }
 (function initLogin(){
-  document.getElementById('lgLogo').src = document.querySelector('.brand-logo').src;
   const keep = document.getElementById('lgKeep');
   keep.onclick = ()=> keep.classList.toggle('on');
   document.getElementById('lgBtn').onclick = doLogin;
@@ -2157,9 +2158,8 @@ function doLogout(){
   if(kvGet(KEEP_KEY)==='1') document.getElementById('loginScreen').classList.add('hide');   /* 로그인 상태 유지 */
   else showLogin();
 })();
- 
+
 renderAll();
 </script>
 </body>
 </html>
- 
